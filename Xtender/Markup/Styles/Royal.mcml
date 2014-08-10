@@ -1,0 +1,214 @@
+<!-- CORE VERSION (DO NOT EDIT): 6 -->
+<!-- STYLE VERSION: 3 -->
+<!-- IMPORTANT: The above lines MUST exist in order as the first 2 lines of any theme file
+                The CORE VERSION must match the Xenon styles core version and must implement
+                    all items from that version (reference: The Original.mcml)
+                The STYLE VERSION allows for modifications to be made to a given style; if
+                    greater than that bundled with Xenon, it will not be overwritten -->
+
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:cor="assembly://MSCorLib/System">
+
+  <!--EHS CONTENT-->
+  <Font Name="UnselectedEHSTitleFont" Font="BebasNeue,40" />
+  <Color Name="UnselectedEHSTitleColor" Color="200,200,200"/>
+  <Font Name="SelectedEHSTitleFont" Font="BebasNeue,65" />
+  <Color Name="SelectedTitleColor" Color="RoyalBlue"/>
+  <!--EHS BACKGROUND BAR COLORS-->
+  <Color Name="RootHorizontalBGColor" Color="255,255,255" />
+  <Color Name="RootHorizontalBGglowColor" Color="RoyalBlue" />
+  <Color Name="RootHorizontalBGoverlayColor" Color="Black" />
+  <Color Name="RootDownArrowColor" Color="RoyalBlue" />
+  <!--CLOCK-->
+  <Font Name="ClockFont" Font="SegeoWP, 18" />
+  <Color Name="ClockColor" Color="255,255,255" />
+
+  <!--RAL ITEMS-->
+  <!--RAL Items List Font-->
+  <Font Name="RALUnselectedFont" Font="SegeoWP, 20" />
+  <Font Name="RALSelectedFont" Font="SegeoWP-Black,20" />
+  <!--RAL & NEXTUP PANEL FONTS AND COLORS -->
+  <Font Name="XF_RALPopupItem" Font="BebasNeue,24"/>
+  <Color Name="XC_RALPopupItem" Color="RoyalBlue"/>
+  <Font Name="XF_NoRALPopupItem" Font="SegeoWP-Black,16"/>
+  <Color Name="XC_NoRALPopupItem" Color="RoyalBlue"/>
+  <Font Name="XF_RALItemTitle" Font="Impact,16"/>
+  <Color Name="XC_RALItemTitle" Color="RoyalBlue"/>
+  <Color Name="XC_RALPanelFilterColor" Color="RoyalBlue"/>
+  <cor:Single Name="RALPanelAlpha" Single="0.7"/>
+  <!--RAL SELECTOR FONTS & COLORS-->
+  <Font Name="XF_RALOption" Font="SegeoWP-Black, 14"/>
+  <Color Name="XC_RALOption" Color="200,200,200"/>
+  <Font Name="XF_Option" Font="SegeoWP-Black, 14"/>
+  <Color Name="XC_RALOption" Color="200,200,200"/>
+  <Color Name="RALOptionButtonHighLight" Color="255,255,255"/>
+  <Color Name="RALOptionButtonHighLightBG" Color="230,230,230" />
+
+  <!--Items Details Font-->
+  <Font Name="DetailsTitle" Font="SegeoWP,22" />
+  <Font Name="TagLineFont" Font="SegeoWP-Black,18" />
+  <Font Name="DetailsInfoLabelFont" Font="SegeoWP,18" />
+  <Font Name="DetailsInfoValueFont" Font="SegeoWP,18" />
+
+  <!-- FULL DETAILS AND MEDIA PAGE-->
+  <Font Name="OverviewFont" Font="SegeoWP, 18"/>
+  <Color Name="OverviewColor" Color="255,255,255"/>
+  <!--Options Scroller List Fonts-->
+  <Font Name="DetailOptionFont" Font="BebasNeue, 24"/>
+  <Font Name="DetailSelOptionFont" Font="BebasNeue, 24"/>
+  <Color Name="DetailOptionColor" Color="RoyalBlue"/>
+  <Color Name="DetailSelOptionColor" Color="240,240,240"/>
+  <!--Actors Fonts-->
+  <Font Name="ActorNameFont" FontName="SegeoWP-Black" FontSize="20" />
+  <Color Name="ActorNameColor" Color="230,230,230" />
+  <Font Name="ActorRoleFont" FontName="SegeoWP-Black" FontSize="16" />
+  <Color Name="ActorRoleColor" Color="230,230,230" />
+  <!--Chapters Fonts-->
+  <Font Name="ChapterNameFont" FontName="SegeoWP-Black" FontSize="20" />
+  <Color Name="ChapterNameColor" Color="230,230,230" />
+  <Font Name="ChapterTimeFont" FontName="SegeoWP" FontSize="16" />
+  <Color Name="ChapterTimeColor" Color="230,230,230" />
+  <Color Name="ChapterItemColor" Color="230,230,230" />
+  <Color Name="NoChaptersTextColor" Color="230,230,230" />
+  <Font Name="NoChaptersFont" Font="SegeoWP-Black,36" />
+  <!--Final Page Items Details Fonts-->
+  <Font Name="FinalDetailsTitle" Font="SegeoWP-Black,22" />
+  <Color Name="FinalDetailsTitleColor" Color="255,255,255" />
+  <Font Name="FinalTagLineFont" Font="SegeoWP,18" />
+  <Color Name="FinalTaglineColor" Color="255,255,190" />
+  <Font Name="FinalDetailsInfoLabelFont" Font="SegeoWP-Black,16" />
+  <Color Name="FinalDetailsInfoLabelColor" Color="240,240,240" />
+  <Font Name="FinalDetailsInfoValueFont" Font="SegeoWP,16" />
+  <Color Name="FinalDetailsInfoValueColor" Color="255,255,190" />
+
+
+  <!--POSTER VIEW-->
+  <!--FONTS-->
+  <Font Name="PosterTitleFont" Font="SegeoWP-Black,28" />
+  <Font Name="PosterOverviewFont" Font="SegeoWP,16" />
+  <Font Name="PosterTagLineFont" Font="Impact,26, Bold" />
+  <Font Name="PosterShadowTagLineFont" Font="Impact,26, Bold" />
+  <Font Name="PosterDetailsInfoLabelFont" Font="SegeoWP-Black,18" />
+  <Font Name="PosterDetailsInfoValueFont" Font="SegeoWP,18" />
+  <Font Name="PosterSmallFont" Font="SegeoWP-Black,20" />
+  <!--COLORS-->
+  <Color Name="PosterTitleColor" Color="255,255,255" />
+  <Color Name="PosterOverviewTextColor" Color="230,230,230" />
+  <Color Name="PosterOverviewCloudBGColor" Color="0,0,0" />
+  <Color Name="PosterTaglineColor" Color="255,255,190" />
+  <Color Name="PosterShadowTaglineColor" Color="25,25,25" />
+  <Color Name="PosterDetailsInfoLabelColor" Color="255,255,190" />
+  <Color Name="PosterDetailsInfoValueColor" Color="240,240,240" />
+  <Color Name="StarsColor" Color="255,255,30" />
+
+  <!--COVERFLOW VIEW-->
+  <Font Name="CV_PosterTopLabelFont" Font="SegeoWP-Black,20" />
+
+  <!--THUMBSTRIP VIEW-->
+  <!--FONTS-->
+  <Font Name="ThumbStripTitleFont" Font="SegeoWP-Black,20" />
+  <Font Name="ThumbStripOverviewFont" Font="SegeoWP, 20" />
+  <Font Name="ThumbStripShadowOverviewFont" Font="SegeoWP, 16" />
+  <Font Name="ThumbStripYearFont" Font="SegeoWP-Black, 16" />
+  <Font Name="ThumbStripTagLineFont" Font="Impact,28, Bold" />
+  <Font Name="ThumbStripShadowTagLineFont" Font="Impact,28, Bold" />
+  <!--COLORS-->
+  <Color Name="ThumbStripOverviewColor" Color="255,255,255" />
+  <Color Name="ThumbStripShadowOverviewColor" Color="25,25,25" />
+  <Color Name="ThumbStripYearColor" Color="255,255,30" />
+  <Color Name="ThumbStripTitleColor" Color="255,255,255" />
+  <Color Name="ThumbDividerColor" Color="255,255,240" />
+  <Color Name="ThumbStripTaglineColor" Color="255,255,190" />
+  <Color Name="ThumbStripShadowTaglineColor" Color="25,25,25" />
+
+  <!--FULL DETAILS VIEW-->
+  <Font Name="ListScrollerFont" Font="Neutra Text,18"/>
+  <Font Name="DetailsParentFolderHeadingFont" Font="SegeoWP-Black,22" />
+  <Font Name="DetailsOverviewFont" Font="SegeoWP,22" />
+
+  <!--DETAILS QUICKLIST VIEW-->
+  <Font Name="XF_DQLFolderTitle" Font="BebasNeue,24" />
+  <Color Name="XC_DQLFolderTitleColor" Color="111,184,227"/>
+  <Font Name="XF_DQLUnselected" Font="BebasNeue,24" />
+  <Font Name="XF_DQLSelected" Font="BebasNeue,32" />
+  <Color Name="XC_DQLUnselected" Color="150,150,150"/>
+  <Color Name="XC_DQLHighlighted" Color="255,255,255"/>
+  <Color Name="XC_DQLHighlightedBG" Color="230,230,230"/>
+  <Color Name="QLDividerColor" Color="RoyalBlue" />
+
+  <!--THUMB VIEW-->
+  <Font Name="ThumbTitleFont" Font="SegeoWP-Black,20" />
+  <Color Name="ThumbTitleColor" Color="255,255,255" />
+  <Font Name="WaveSelected" FontName="SegeoWP-Black" FontSize="32" />
+  <Font Name="WaveNotSelected" FontName="SegeoWP" FontSize="24" />
+
+  <!--BOTTOM BAR FONTS-->
+  <!--FONTS-->
+  <Font Name="BottomBarTitleFont" Font="BebasNeue,36, Bold" />
+  <Font Name="BottomBarYearFont" Font="BebasNeue,22, Bold" />
+  <Font Name="BottomBarRuntimeFont" Font="BebasNeue,22,Bold" />
+  <Font Name="BottomBarStatusFont" Font="BebasNeue,22,Bold" />
+  <Font Name="BottomBarLabelFont" Font="BebasNeue,22,Bold" />
+  <!--COLORS-->
+  <Color Name="BottomBarTitleColor" Color="240,240,240"/>
+  <Color Name="BottomBarYearColor" Color="240,240,240" />
+  <Color Name="BottomBarRuntimeColor" Color="240,240,240" />
+  <Color Name="BottomBarStatusColor" Color="240,240,240" />
+  <Color Name="BottomBarLabelColor" Color="240,240,240" />
+  <Color Name="BottomBarColorOverlay" Color="RoyalBlue" />
+
+  <!--ACTOR PAGE -->
+  <Font Name="ActorPopupNameFont" Font="BebasNeue,36,Bold"/>
+  <Color Name="ActorPopupNameColor" Color="AntiqueWhite"/>
+  <Font Name="ActorInfoLabelFont" Font="InterBold, 20"/>
+  <Color Name="ActorInfoLabelColor" Color="RoyalBlue"/>
+  <Font Name="ActorInfoValueFont" Font="InterBold, 22"/>
+  <Color Name="ActorInfoValueColor" Color="AntiqueWhite"/>
+  <Font Name="ActorBioFont" Font="InterOne, 16"/>
+  <Color Name="ActorBioColor" Color="AntiqueWhite"/>
+  <!-- ACTOR CREDITS SCROLLER -->
+  <Font Name="ActorCreditTitleFont" Font="BebasNeue,36,Bold"/>
+  <Color Name="ActorCreditTitleColor" Color="AntiqueWhite"/>
+  <Font Name="ActorCreditUnselectedTitleFont" Font="InterBold, 20"/>
+  <Color Name="ActorCreditUnselectedTitleColor" Color="RoyalBlue"/>
+
+  <!--COUNTERS-->
+  <!--FONTS-->
+  <Font Name="UnwatchedCountFont" Font="SegeoWP, 12" />
+  <Font Name="counterFont" Font="SegeoWP-Black, 14" />
+  <Font Name="totalCounterFont" Font="SegeoWP-Black, 14" />
+  <!--COLORS-->
+  <Color Name="counterColor" Color="210,210,210" />
+  <Color Name="totalCounterColor" Color="210,210,210" />
+  <Color Name="XC_WatchedBG" Color="82,181,75" />
+
+  <!--CONFIG UI POPUP PANELS-->
+  <!-- Color and opacity of the "glow" fade used at the edges of the UI panels -->
+  <Color Name="XC_PanelGlow" Color="75,255,255,255" />
+  <!-- Color and opacity of primary UI panels -->
+  <Color Name="XC_PanelPrimaryBG" Color="225,0,0,0" />
+  <!-- Color and opacity of secondary UI panels -->
+  <Color Name="XC_PanelSecondaryBG" Color="150,0,0,0" />
+  <!-- Color and opacity of the background used under popup menus -->
+  <Color Name="XC_PopupMenuBG" Color="150,128,128,128" />
+  <!-- Color and opacity of the text used for the popup menu list items -->
+  <Color Name="XC_PopupMenuItem" Color="128,255,255,255" />
+  <!-- Color and opacity of the text used for the selected popup menu list item -->
+  <Color Name="XC_PopupMenuItemSel" Color="255,255,255,255" />
+  <!-- Color and opacity of the panel used for the popup menu list of items/actions -->
+  <Color Name="XC_PopupMenuItemBG" Color="225,0,0,0" />
+  <!-- Color of the text used for the popup menu title -->
+  <Color Name="XC_PopupMenuTitle" Color="200,200,220" />
+  <!-- Color and opacity of the panel used for the popup menu title -->
+  <Color Name="XC_PopupMenuTitleBG" Color="150,0,0,0" />
+  <!-- Font for the text used for the popup menu title -->
+  <Font Name="XF_PopupMenuTitle" Font="SegeoWP-Black, 18" />
+  <!-- Font for the text used for the popup menu list items -->
+  <Font Name="XF_PopupMenuItem" Font="SegeoWP, 18" />
+  <!-- Color and opacity of the focus frame, if enabled -->
+  <Color Name="XC_FocusFrame" Color="255,255,255,255" />
+  <!-- Size that the focus frame extends from outside of the bounds of the poster -->
+  <cor:Int32 Name="UI_FocusFrameSize" Int32="6" />
+
+
+</Mcml>

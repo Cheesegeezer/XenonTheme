@@ -1,0 +1,306 @@
+D:\VS 2012 Projects\Xtender\Xtender\bin\Debug\Xtender.dll
+D:\VS 2012 Projects\Xtender\Xtender\bin\Debug\Xtender.pdb
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.dll
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.pdb
+D:\VS 2012 Projects\Xenon\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon 0.0.0.4\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon 0.0.0.4 - Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\Newtonsoft.Json.dll
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\WebSocket4Net.dll
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\MediaBrowser.dll
+D:\VS 2012 Projects\Xenon Working Copy\Xtender\bin\Debug\MediaBrowser.pdb
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\MediaBrowser.dll
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\Newtonsoft.Json.dll
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\WebSocket4Net.dll
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\bin\Debug\MediaBrowser.pdb
+D:\VS 2012 Projects\Xenon Working Copy - Non Actors\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\x64\SQLite.Interop.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\x86\SQLite.Interop.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\System.Data.SQLite.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\System.Data.SQLite.Linq.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\Newtonsoft.Json.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\WebSocket4Net.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.6 - Actors\Xtender\bin\Debug\System.Data.SQLite.xml
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.7 Views Nearly Done\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Backup - Copy (2)\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Remove V RAL\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.8 Next UP RAL - Tidy Up EHS VF\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Back on Track!!!\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 - Images Clean Up\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.9 -Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Backdrop Art fix on EHS\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.11- Music Final Page\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.12- Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.13 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.14 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.15 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.16 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.17 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.18 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.19 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.20 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.23 -  Working copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.24 -  Working copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.26 - Localized String Implementation\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.27 - More localized strings 24hr clock\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 0.0.0.28 - Working Copy\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.3 - Added New JIL and Xtra Views\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Backdrop + Logo, other bits\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.pdb

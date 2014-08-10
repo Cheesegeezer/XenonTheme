@@ -1,0 +1,134 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+>
+
+  <UI Name="FinalLabelValue">
+
+    <Properties>
+      <Font Name="FinalFontLabel" Font="font://xs:FinalDetailsInfoLabelFont"/>
+      <Font Name="FinalValueFont" Font="font://xs:FinalDetailsInfoValueFont" />
+      <Color Name="FinalValueColor" Color="color://xs:FinalDetailsInfoValueColor" />
+      <Color Name="FinalLabelColor" Color="color://xs:FinalDetailsInfoLabelColor" />
+      <cor:String Name="Label" String=""></cor:String>
+      <cor:String Name="Value" String=""></cor:String>
+    </Properties>
+
+    <Rules>
+      <Binding Target="[LabelText.Content]" Source="[Label]"></Binding>
+      <Binding Target="[ValueText.Content]" Source="[Value]"></Binding>
+
+      <Condition Source="[Value]" ConditionOp="Equals" SourceValue="" Target="[Panel.Visible]" Value="false"></Condition>
+
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" Name="Panel" Visible="true">
+        <Children>
+          <Text Name="LabelText" Color="[FinalLabelColor]" Font="[FinalFontLabel]"/>
+          <Text Name="ValueText" Color="[FinalValueColor]" WordWrap="true" MaximumLines="2" Font="[FinalValueFont]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="FinalTagLabelValue">
+
+    <Properties>
+      <Font Name="TaglineFont" Font="font://xs:PosterTagLineFont"/>
+      <Color Name="TaglineColor" Color="color://xs:PosterTaglineColor"/>
+      <cor:String Name="TagLabel" String="" />
+    </Properties>
+
+    <Rules>
+      <Binding Target="[TagLabelText.Content]" Source="[TagLabel]" />
+      <Condition Source="[TagLabel]" ConditionOp="Equals" SourceValue="" Target="[Panel.Visible]" Value="false" />
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" Name="Panel" Visible="true">
+        <Children>
+          <Text Name="TagLabelText" Color="[TaglineColor]" Font="[TaglineFont]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="PosterLabelValue">
+
+    <Properties>
+      <Font Name="FontLabel" Font="font://xs:PosterDetailsInfoLabelFont"/>
+      <Font Name="ValueFont" Font="font://xs:PosterDetailsInfoValueFont" />
+      <Color Name="ValueColor" Color="color://xs:PosterDetailsInfoValueColor" />
+      <Color Name="LabelColor" Color="color://xs:PosterDetailsInfoLabelColor" />
+      <cor:String Name="Label" String=""></cor:String>
+      <cor:String Name="Value" String=""></cor:String>
+
+    </Properties>
+
+    <Rules>
+      <Binding Target="[LabelText.Content]" Source="[Label]"></Binding>
+      <Binding Target="[ValueText.Content]" Source="[Value]"></Binding>
+
+      <Condition Source="[Value]" ConditionOp="Equals" SourceValue="" Target="[Panel.Visible]" Value="false"></Condition>
+
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" Name="Panel" Visible="true">
+        <Children>
+          <Text Name="LabelText" Color="[LabelColor]" Font="[FontLabel]"/>
+          <Text Name="ValueText" Color="[ValueColor]" WordWrap="true" MaximumLines="2" Font="[ValueFont]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="PosterTagLabelValue">
+
+    <Properties>
+      <Font Name="TaglineFont" Font="font://xs:PosterTagLineFont"/>
+      <Color Name="TaglineColor" Color="color://xs:PosterTaglineColor"/>
+      <cor:String Name="TagLabel" String="" />
+    </Properties>
+
+    <Rules>
+      <Binding Target="[TagLabelText.Content]" Source="[TagLabel]" />
+      <Condition Source="[TagLabel]" ConditionOp="Equals" SourceValue="" Target="[Panel.Visible]" Value="false" />
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" Name="Panel" Visible="true">
+        <Children>
+          <Text Name="TagLabelText" Color="[TaglineColor]" Font="[TaglineFont]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="BBarLabelValue">
+
+    <Properties>
+      <Font Name="BBarValueFont" Font="font://xs:BottomBarLabelFont" />
+      <Color Name="BBarValueColor" Color="color://xs:BottomBarLabelColor" />
+      <cor:String Name="Value" String=""></cor:String>
+    </Properties>
+
+    <Rules>
+      <Binding Target="[ValueText.Content]" Source="[Value]"></Binding>
+
+      <Condition Source="[Value]" ConditionOp="Equals" SourceValue="" Target="[Panel.Visible]" Value="false"></Condition>
+
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" Name="Panel" Visible="true">
+        <Children>
+          <Text Name="ValueText" Color="[BBarValueColor]" WordWrap="false" MaximumLines="1" Font="[BBarValueFont]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

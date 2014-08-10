@@ -1,0 +1,1041 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+    xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+    xmlns:an="resx://MediaBrowser/MediaBrowser.Resources/Animations"
+    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+    xmlns:siw="resx://MediaBrowser/MediaBrowser.Resources/StudioImages"
+    xmlns:it="resx://Xenon/Xenon.Resources/Images"
+    xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"
+    xmlns:xs="file://Xenon_Styles.mcml"
+    xmlns:sr="resx://Xenon/Xenon.Resources/StarRating"
+    xmlns:mip="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel"      
+    xmlns:xh="assembly://Xenon/Xenon"
+    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
+    xmlns:lv="resx://Xenon/Xenon.Resources/LabelValue"
+    xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
+    xmlns:pb="resx://Xenon/Xenon.Resources/PersonButton"
+    xmlns:si="resx://Xenon/Xenon.Resources/SpeakerInfo"
+    xmlns:esrb="resx://Xenon/Xenon.Resources/ESRBRating"
+    xmlns:cb="resx://Xenon/Xenon.Resources/ChapterButton"
+    xmlns:sb="resx://Xenon/Xenon.Resources/SpecialsButton"
+    xmlns:act="assembly://Xenon/Xenon.Actors"
+    xmlns:actp="resx://Xenon/Xenon.Resources/ActorPopup"
+    xmlns:als="resx://Xenon/Xenon.Resources/ActorScroller"
+    xmlns:me = "Me">
+  
+  <UI Name="InfoPanelSelector">
+    <Properties>
+      <lib:Item Name="Item" Item="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <a:Application Name="Application" Application="$Required"/>
+      <cor:String Name="Tab" String="Info"></cor:String>
+    </Properties>
+
+    <Locals>
+      <BooleanChoice Name="ActorListHasFocus" Value="false"/>
+      <IntRangedValue Name="SelectedActorIndex" Value="0"/>
+      <lib:ActorItemWrapper Name="SelectedActor" ActorItemWrapper="null" />
+    </Locals>
+
+    <Rules>
+      <Binding Target="[MovieInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[SeriesInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[SeasonInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[EpisodeInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[SongInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[ArtistAlbumInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[GameInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Target="[ConsoleInfoPanel.Item]" Source="[Item]"></Binding>
+      <Binding Source="[Item]" Target="[ActorScroller.Item]"/>
+
+
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Movie" Target="[MovieInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="MusicVideo" Target="[MovieInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="BoxSet" Target="[MovieInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Series" Target="[SeriesInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Season" Target="[SeasonInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Episode" Target="[EpisodeInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Song" Target="[SongInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="ArtistAlbum" Target="[ArtistAlbumInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="GameItem" Target="[GameInfoPanel.Visible]" Value="true" />
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="ConsoleFolder" Target="[ConsoleInfoPanel.Visible]" Value="true" />
+
+      <Condition Source="[Tab]" SourceValue="Info">
+        <Actions>
+          <Set Value="true" Target="[InfoPanels.Visible]"></Set>
+          <Set Value="false" Target="[Actors.Visible]"></Set>
+          <Set Value="false" Target="[ReviewsItem.Visible]"></Set>
+          <Set Value="false" Target="[Chapters.Visible]" />
+          <Set Value="false" Target="[Specials.Visible]" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Tab]" SourceValue="Reviews">
+        <Actions>
+          <Set Value="false" Target="[InfoPanels.Visible]"></Set>
+          <Set Value="false" Target="[Actors.Visible]"></Set>
+          <Set Value="true" Target="[ReviewsItem.Visible]"></Set>
+          <Set Value="false" Target="[Chapters.Visible]" />
+          <Set Value="false" Target="[Specials.Visible]" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Tab]" SourceValue="Actors">
+        <Actions>
+          <Set Value="false" Target="[InfoPanels.Visible]"></Set>
+          <Set Value="true" Target="[Actors.Visible]"></Set>
+          <Set Value="false" Target="[ReviewsItem.Visible]"></Set>
+          <Set Value="false" Target="[Chapters.Visible]" />
+          <Set Value="false" Target="[Specials.Visible]" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Tab]" SourceValue="Chapters">
+        <Actions>
+          <Set Value="false" Target="[InfoPanels.Visible]"></Set>
+          <Set Value="false" Target="[Actors.Visible]"></Set>
+          <Set Value="false" Target="[ReviewsItem.Visible]"></Set>
+          <Set Value="true" Target="[Chapters.Visible]" />
+          <Set Value="false" Target="[Specials.Visible]" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Tab]" SourceValue="Specials">
+        <Actions>
+          <Set Value="false" Target="[InfoPanels.Visible]"></Set>
+          <Set Value="false" Target="[Actors.Visible]"></Set>
+          <Set Value="false" Target="[ReviewsItem.Visible]"></Set>
+          <Set Value="false" Target="[Chapters.Visible]" />
+          <Set Value="true" Target="[Specials.Visible]" />
+        </Actions>
+      </Condition>
+
+      <!-- Cast -->
+      <Changed Source="[Item]" InitialEvaluate="true">
+        <Actions>
+          <Set Target="[SelectedActorIndex.Value]" Value="0" />
+          <Invoke Target="[ThemeHelper.GetActor]" item="[Item]" index="[SelectedActorIndex.Value]" ResultTarget="[SelectedActor]" InvokePolicy="Synchronous" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[SelectedActorIndex.Value]" InitialEvaluate="true">
+        <Actions>
+          <Invoke Target="[ThemeHelper.GetActor]" item="[Item]" index="[SelectedActorIndex.Value]" ResultTarget="[SelectedActor]" InvokePolicy="Synchronous" />
+        </Actions>
+      </Changed>
+
+      
+      
+    </Rules>
+    <Content>
+      <Panel>
+        <Children>
+          <Panel Name="InfoPanels">
+            <Children>
+              <me:MovieInfoPanel Name="MovieInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:MovieInfoPanel>
+              <me:SeriesInfoPanel Name="SeriesInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:SeriesInfoPanel>
+              <me:SeasonInfoPanel Name="SeasonInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:SeasonInfoPanel>
+              <me:EpisodeInfoPanel Name="EpisodeInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:EpisodeInfoPanel>
+              <me:SongInfoPanel Name="SongInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:SongInfoPanel>
+              <me:ArtistAlbumInfoPanel Name="ArtistAlbumInfoPanel" Application="[Application]" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:ArtistAlbumInfoPanel>
+              <me:GameInfoPanel Name="GameInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:GameInfoPanel>
+              <me:ConsoleInfoPanel Name="ConsoleInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:ConsoleInfoPanel>
+            </Children>
+          </Panel>
+          <Panel Name="Actors">
+            <Children>
+              <als:ActorList Margins="-20,0,-20,0" Name="ActorScroller" Item="[Item]" Application="[Application]" CurrentIndex="[SelectedActorIndex]" />
+            </Children>
+          </Panel>
+          <Panel Name="Reviews">
+            <Children>
+              <me:Reviews Name="ReviewsItem" Item="[Item]" Application="[Application]" />
+            </Children>
+          </Panel>
+          <!--<Panel Name="Details">
+            <Children>
+              <me:FullMediaInfo Name="DetailsList" Item="[Item]" Application="[Application]" />
+            </Children>
+          </Panel>-->
+          <Panel Name="Chapters">
+            <Children>
+              <me:ChapterList Name="ChapterList" Item="[Item]" Application="[Application]" />
+            </Children>
+          </Panel>
+          <Panel Name="Specials">
+            <Children>
+              <me:SpecialsList Name="SpecialsList" Item="[Item]" Application="[Application]" />
+            </Children>
+          </Panel>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="InfoPanel">
+    <Properties>
+      <lib:Item Name="Item" Item="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <a:Application Name="Application" Application="$Required" />
+    </Properties>
+
+    <Rules>
+      
+      <Binding Target="[Summary.Text]" Source="[Item.Overview]"></Binding>
+      <Binding Source="[Item.ImdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[Item.PrimaryImage]" Target="[ItemImage.Content]"></Binding>
+      <Binding Source="[Item.RunningTimeString]" Target="[SideInfo.Value]"></Binding>
+      <Binding Source="[Item.MpaaRating]" Target="[mpaa.Value]"></Binding>
+
+      <!-- Watched Indicator -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.Config.EnableListViewTicks]" Value="true" />
+          <Equality Source="[Item.HaveWatched]"  Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TickIndicatorPanel.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+      
+      
+
+      <Default Value="[Application.LocalStrings.#RunsStr!cor:String] " Target="[SideInfo.Label]"></Default>
+
+      <Binding Source="[ThemeHelper.EndTime]" Target="[SideInfo1.Value]"></Binding>
+      <Default Value=" [Application.LocalStrings.#EndStr!cor:String] " Target="[SideInfo1.Label]"></Default>
+
+      <!--IMAGE PLACEMENT IF ITS POSTER OR THUMB-->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ItemImage.Margins]" Value="-100,25,0,0" />
+          <Set Target="[Summary.Margins]" Value="25,0,0,0" />
+          <Set Target="[Title.Margins]" Value="10,10,0,0" />
+          <Set Target="[LogoImage.Margins]" Value="25,0,0,0" />
+          <Set Target="[MediaInfoPanel.Margins]" Value="25,0,0,0" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ItemImage.Margins]" Value="-100,25,0,0" />
+          <Set Target="[Summary.Margins]" Value="25,0,0,0" />
+          <Set Target="[Title.Margins]" Value="175,10,0,0" />
+          <Set Target="[LogoImage.Margins]" Value="175,0,0,0" />
+          <Set Target="[MediaInfoPanel.Margins]" Value="25,0,0,0" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ItemImage.Margins]" Value="0,0,0,0" />
+        </Actions>
+      </Rule>
+
+      <Binding Target="[StudioRepeater.Source]"    Source="[Item.StudioItems]">
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+      </Binding>
+      <Binding Target="[StudioRepeater.Source]"    Source="[Item.Series.StudioItems]">
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" Value="Episode"/>
+        </Conditions>
+      </Binding>
+      
+      <!--LOGO'S LOGIC-->
+      <Binding Target="[Title.Content]"       Source="[Item.Name]"/>
+      <Binding Target="[LogoImage.Content]" Source="[Item.LogoImage]"/>
+      
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.HasLogoImage]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Season"/>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[LogoImage.Visible]" Value="true" />
+          <Set Target="[Title.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+      <Default Target="[LogoImage.Visible]" Value="false"/>
+      <Default Target="[Title.Visible]" Value="true"/>
+    </Rules>
+    
+    <Content>
+      <Panel Layout="Form">
+        <Children>  
+          <!-- MPAA RATINGS ICONS-->
+          <ColorFill Name="MPAARatings" Content="Transparent"  MaximumSize="0,45" MinimumSize="0,45">
+            <LayoutInput>
+              <FormLayoutInput Bottom="Parent,1,-15" Right="Parent,1,-15"/>
+            </LayoutInput>
+            <Children>
+              <mpaa:MPAARating MaximumSize="80,48" Name="mpaa"  >
+                <LayoutInput>
+                  <DockLayoutInput Alignment="Far" Position="Top"/>
+                </LayoutInput>
+              </mpaa:MPAARating>
+              <esrb:ESRBRating MaximumSize="0,48" Name="esrb" >
+                <LayoutInput>
+                  <DockLayoutInput Alignment="Far" Position="Top"/>
+                </LayoutInput>
+              </esrb:ESRBRating>
+            </Children>
+          </ColorFill>
+
+          <Panel Name="Studio" MaximumSize="400,55" Layout="Scale">
+            <LayoutInput>
+              <AnchorLayoutInput Top="ChildBG,0,40" Right="ChildBG,1,-120"  />
+            </LayoutInput>
+            <Children>
+              <Repeater Name="StudioRepeater" Source="[Item.StudioItems]">
+                <Layout>
+                  <FlowLayout Orientation="Horizontal" ItemAlignment="Center" Spacing="10,10"/>
+                </Layout>
+                <Content>
+                  <siw:Studio StudioItem="[RepeatedItem!lib:StudioItemWrapper]" Name="StudioLogo"/>
+                </Content>
+              </Repeater>
+            </Children>
+          </Panel>
+          
+          <!--MEDIAINFO ICONS-->
+          <Panel >
+            <LayoutInput>
+              <FormLayoutInput Bottom="Parent,1" Left="OverviewPanel,0,275"  />
+            </LayoutInput>
+            <Children>
+              <mip:MediaInfoPanel Name="MediaInfoPanel" Item="[Item]" MaximumSize="0,45" />
+            </Children>
+          </Panel>
+
+          <st:ScrollableText Name="Summary" Font="font://xs:OverviewFont" Color="color://xs:OverviewColor" MaximumSize="480,150" >
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0,85" Left="Parent,0,275" />
+            </LayoutInput>
+          </st:ScrollableText>
+          
+          <Panel  Scale="1,1,1" Padding="0,0,0,0" Layout="Center" Alpha="0.8" Name="TickIndicatorPanel" Visible="[Application.Config.EnableListViewTicks]" MaximumSize="30,30" >
+            <LayoutInput>
+              <AnchorLayoutInput Right="OverviewPanel,0,-10" Top="OverviewPanel,0,5"/>
+            </LayoutInput>
+            <Children>
+              <Panel Name="TickPanel" Layout="Center" Margins="2,10,0,0">
+                <Children>
+                  <Graphic Content="image://i:Watched"  MaximumSize="30,30" MaintainAspectRatio="true"  />
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+
+          <!--MOVIE DETAILS INCLUDING SYNOPSIS, DIRECTORS RUNTIME ETC-->
+          <Graphic Name="OverviewPanel" Padding="30,15,15,-5">
+            <Layout>
+              <FlowLayout Orientation="Horizontal" Spacing="20,20"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Vertical="Fill"/>
+            </LayoutInput>
+            <Children>
+              <Graphic Name="ItemImage" MaximumSize="350,0" MaintainAspectRatio="true" />
+              <ColorFill Margins="0,14,0,0" Content="Transparent">
+                <Layout>
+                  <FlowLayout Orientation="Vertical" StripAlignment="Near"/>
+                </Layout>
+                <Children>
+                  <!--Text Content="Synopsis:" Font="font://f:OverviewFont" Color="color://c:SupportColor" Margins="0,0,0,5" /-->
+                  <Panel Layout="VerticalFlow" MaximumSize="480,210">
+                    <Children>
+                      <Text Name="Title" Font="font://xs:FinalDetailsTitle" Color="color://xs:FinalDetailsTitleColor" Visible="false"/>
+                      <Graphic Name="LogoImage" Margins="18,0,0,5" MaintainAspectRatio="true" MaximumSize="0,50" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </ColorFill>
+            </Children>
+          </Graphic>
+          
+          
+
+          <Panel Layout="VerticalFlow" Margins="850,10,0,0" >
+            <Layout>
+              <FlowLayout Orientation="Vertical" StripAlignment="Near" ItemAlignment="Near"/>
+            </Layout>
+            <Children>
+              <lv:FinalLabelValue Name="TitleSupportlv"></lv:FinalLabelValue>
+              <lv:FinalLabelValue Name="TitleSupportlv1"></lv:FinalLabelValue>
+              <lv:FinalLabelValue Name="TitleSupportlv2"></lv:FinalLabelValue>
+              <lv:FinalLabelValue Name="TitleSupportlv3"></lv:FinalLabelValue>
+
+              <Panel Layout="HorizontalFlow" Name="RuntimeInfo" Visible="true">
+                <Children>
+                  <lv:FinalLabelValue Name="SideInfo"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="SideInfo1"></lv:FinalLabelValue>
+                </Children>
+              </Panel>
+              <sr:StarRating Margins="0,4,0,0" MaximumSize="0,20" Name="StarRating" ></sr:StarRating>
+            </Children>
+          </Panel>
+
+          <Graphic Name="ChildBG" Content="image://it:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="global://xs:RALPanelAlpha">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,-100" Right="Parent,1,100" Top="Parent,0,-20" Bottom="Parent,1,37"  />
+            </LayoutInput>
+          </Graphic>
+        
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="MovieInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+      <Default Target="[TitleSupportlv.Label]" Value="[Application.LocalStrings.#DirectorStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[Item.DirectorString]"></Binding>
+
+      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#WritersStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[Item.WritersString]"/>
+
+      <Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+
+      <Default Target="[TitleSupportlv3.Label]" Value="[Application.LocalStrings.#YearStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv3.Value]" Source="[Item.ProductionYear.ToString]"></Binding>
+    </Rules>
+
+  </UI>
+
+  <UI Name="SeriesInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Series">
+        <Actions>
+          <Set Target="[TitleSupportlv.Value]" Value="[Item!lib:FolderModel.Folder.Children.Count.ToString]" />
+        </Actions>
+      </Condition>
+      <Default Target="[TitleSupportlv.Label]" Value="Seasons: "></Default>
+
+      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+
+      <Default Target="[TitleSupportlv3.Label]" Value="[Application.LocalStrings.#StatusStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv3.Value]" Source="[Item.PhysicalParent.Status]" />
+
+    </Rules>
+
+  </UI>
+
+  <UI Name="SeasonInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+
+      <Default Target="[TitleSupportlv.Label]" Value="Episodes: "></Default>
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Season">
+        <Actions>
+          <Set Target="[TitleSupportlv.Value]" Value="[Item!lib:FolderModel.Folder.Children.Count.ToString]" />
+        </Actions>
+      </Condition>
+
+      <Binding Source="[Item.PhysicalParent.ImdbRating]" Target="[StarRating.Value]">
+        <Conditions>
+          <IsValid Source="[Item.PhysicalParent]"/>
+        </Conditions>
+      </Binding>
+      <Binding Source="[Item.PhysicalParent.RunningTimeString]" Target="[SideInfo.Value]">
+        <Conditions>
+          <IsValid Source="[Item.PhysicalParent]"/>
+        </Conditions>
+      </Binding>
+
+
+    </Rules>
+
+  </UI>
+  <UI Name="EpisodeInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+      <Default Target="[TitleSupportlv.Label]" Value="[Application.LocalStrings.#DirectorStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[Item.DirectorString]"></Binding>
+
+      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#WritersStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[Item.WritersString]"></Binding>
+
+      <Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#AiredStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[Item.FirstAired]"></Binding>
+      
+      <Default Target="[TitleSupportlv3.Label]" Value="[Application.LocalStrings.#StatusStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv3.Value]" Source="[Item.PhysicalParent.Status]" />
+
+
+    </Rules>
+  </UI>
+
+  <UI Name="SongInfoPanel" BaseUI="me:InfoPanel">
+    <Rules>
+      <Binding Source="[Item.PhysicalParent.PreferredImage]" Target="[ItemImage.Content]">
+        <Conditions>
+          <IsValid Source="[Item.PhysicalParent]"/>
+        </Conditions>
+      </Binding>
+
+      <Default Target="[TitleSupportlv.Label]" Value="Album: "></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[ThemeHelper.Album]"></Binding>
+
+      <Default Target="[TitleSupportlv1.Label]" Value="Artist: "></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.Artist]"></Binding>
+
+      <Default Target="[SideInfo.Label]" Value="Duration: "></Default>
+      <Binding Target="[SideInfo.Value]" Source="[ThemeHelper.Duration]"></Binding>
+
+
+      <Binding Target="[SideInfo1.Value]" Source="[ThemeHelper.ProductionYear]" ></Binding>
+      <Default Target="[SideInfo1.Label]" Value=" Year: " ></Default>
+    </Rules>
+
+  </UI>
+  <UI Name="ArtistAlbumInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+      <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="ArtistAlbum">
+        <Actions>
+          <Set Target="[TitleSupportlv.Value]" Value="[Item!lib:FolderModel.Folder.Children.Count.ToString]" />
+        </Actions>
+      </Condition>
+      <Default Target="[TitleSupportlv.Label]" Value="Songs: "></Default>
+
+      <Default Target="[SideInfo.Label]" Value="Duration: "></Default>
+      <Binding Target="[SideInfo.Value]" Source="[ThemeHelper.Duration]"></Binding>
+
+    </Rules>
+
+  </UI>
+  <UI Name="GameInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+      <Default Target="[TitleSupportlv.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#PlayersStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.Players]"></Binding>
+      <Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#YearStr!cor:String]"/>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[Item.ProductionYearString]"/>
+      <Binding Source="[ThemeHelper.TgdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[ThemeHelper.EsrbRating]" Target="[esrb.Value]"></Binding>
+    </Rules>
+
+  </UI>
+  <UI Name="ConsoleInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+      <Default Target="[TitleSupportlv.Label]" Value="[Application.LocalStrings.#CompanyStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[ThemeHelper.Company]"></Binding>
+      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#ReleasedStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.ConsoleReleaseYear]"></Binding>
+
+      
+
+      
+    </Rules>
+
+  </UI>
+
+<!--CONTROL PANEL
+
+  <Changed Source="[TopShortcut.Invoked]">
+    <Actions>
+      <Invoke Target="[Application.BackToRoot]"/>
+      <PlaySound Sound="sound://sounds:Miniselect" />
+    </Actions>
+  </Changed>-->
+
+  <UI Name="Reviews">
+    <!--public float? CriticRating { get; set; }
+        public string CriticSummary { get; set; }
+        public float? MetaScore { get; set; }-->
+    <Properties>
+      <a:Application Name="Application" Application="$Required" />
+      <lib:Item Name="Item" Item="$Required"/>
+    </Properties>
+    <Locals>
+      <cor:Single Name="RatingValue" Single="0" />
+      <cor:Single Name="ScoreValue" Single="0" />
+    </Locals>
+
+    <Rules>
+      <Binding Source="[Item.CriticRating]" Target="[RatingValue]" />
+      <Binding Source="[Item.CriticRatingSummary]" Target="[Summary.Text]" />
+      <Binding Source="[Item.RottenTomatoImage]" Target="[RTImage.Content]" />
+
+      <Binding Source="[RatingValue!cor:String]" Target="[Rating.Content]" />
+    </Rules>
+
+    <Content>
+      <Panel Name="RTInfo" Layout="Form" Padding="15,15,15,15">
+        <LayoutInput>
+          <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
+        </LayoutInput>
+        <Children>
+
+          <!--<Panel Name="CriticSummary" >
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0,20" Right="Parent,1,-10" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+            <Children>
+              <Text Name="Summary" MaximumSize="600,0" WordWrap="true" Visible="true" Font="font://xs:OverviewFont" Color="color://xs:OverviewColor" />
+            </Children>
+          </Panel>-->
+          
+          <Panel Name="CriticsPanel">
+            <Layout>
+              <FlowLayout Orientation="Horizontal"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0.2" Right="Parent,0.8" Top="Parent,0.3" Bottom="Parent,1"/>
+            </LayoutInput>
+            <Children>
+              <Graphic Name="RTImage" MaximumSize="100,100" Margins="0,0,10,0" />
+              <Text Name="Rating" WordWrap="true"  Visible="true" Margins="0,0,20,0" Font="font://xs:NoChaptersFont" Color="color://xs:NoChaptersTextColor" />
+              <!--Text Name="Summary" MaximumSize="400,0" WordWrap="true" Visible="true" Font="font://xs:OverviewFont" Color="color://xs:OverviewColor" /-->
+               <st:ScrollableText Name="Summary" MaximumSize="600,200" Font="font://xs:OverviewFont" Color="color://xs:OverviewColor" />
+            </Children>
+          </Panel>
+          
+          <Graphic Content="image://it:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="global://xs:RALPanelAlpha">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,-200" Right="Parent,1,200" Top="Parent,0,-20" Bottom="Parent,1,50"  />
+            </LayoutInput>
+          </Graphic>
+        </Children>
+      </Panel>
+    </Content>
+    
+  </UI>
+
+
+  <!--<UI Name="ActorList">
+    <Properties>
+      <xh:ActorInfo Name="ActorInfo" />
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+    </Properties>
+    <Locals>
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandlePageKeys="true" HandlePageCommands="true"/>
+      <ScrollingData Name="ScrollingData" BeginPadding="70" EndPadding="70" />
+      <xh:XenonHelper Name="ThemeHelper" />
+    </Locals>
+    <Rules>
+      <Binding Source="[Item.Actors]" Target="[ListRepeater.Source]" />
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+    </Rules>
+    
+    <Content>
+      <Panel Name="MovieActors" Layout="Form" Padding="15,15,15,15">
+        <LayoutInput>
+          <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
+        </LayoutInput>
+        <Children>
+          
+          <Scroller Name="ActorScroller" Orientation="Horizontal" FadeSize="5" ScrollingData="[ScrollingData]">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Right="Parent,1" Vertical="Center"/>
+            </LayoutInput>
+            <Children>
+
+              <Repeater Name="ListRepeater" Source="[Item.Actors]" Layout="HorizontalFlow" >
+                <Animations>
+                  <Animation Type="Move">
+                    <Keyframes>
+                      <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="Log,2"/>
+                      <PositionKeyframe Time="0.5" RelativeTo="Final"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+
+                <Content>
+                  <me:Actor PersonItem="[RepeatedItem!lib:ActorItemWrapper]" Font="font://xs:OverviewFont" Application="[Application]" ActorInfo="[ActorInfo]" ThemeHelper="[ThemeHelper]" />
+                </Content>
+              </Repeater>
+            </Children>
+          </Scroller>
+          <Graphic Content="image://it:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="global://xs:RALPanelAlpha">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,-200" Right="Parent,1,200" Top="Parent,0,-20" Bottom="Parent,1,50"  />
+            </LayoutInput>
+          </Graphic>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+
+  <UI Name="Actor">
+    <Properties>
+      <xh:ActorInfo Name="ActorInfo" ActorInfo="$Required" />
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:ActorItemWrapper Name="PersonItem" ActorItemWrapper="$Required" />
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <Font Name="Font" Font="$Required"/>
+      <lib:Item Name="Item" />
+    </Properties>
+
+    <Locals>
+      <Command Name="NavigateToActorsPopup"/>
+    </Locals>
+
+    <Rules>
+      <Changed Source="[NavigateToActorsPopup.Invoked]" ConditionLogicalOp="And">
+        <Actions>
+          <Invoke Target="[PersonButton.NavigateInto]" />
+        </Actions>
+      </Changed>
+      
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" >
+        <Children>
+          
+          <pb:PersonButton Name="PersonButton" PersonItem="[PersonItem]" Size="280,160" Command="[NavigateToActorsPopup]" />
+
+          <Clip Layout="Form" Padding="[Application.Config.OverScanPadding]" Scale="[Application.Config.OverScanScaling]" CenterPointPercent="0.5,0.5,0.5">
+            <Animations>
+              <Animation Animation="animation://an:PageHide" />
+            </Animations>
+            <Children>
+              <Graphic Name="ActorsPopup" MinimumSize="1024,650" Visible="false" >
+                <LayoutInput>
+                  <AnchorLayoutInput Horizontal="Center" Top="Parent,0,-650"></AnchorLayoutInput>
+                </LayoutInput>
+                <Animations>
+                  <Animation Type="Show">
+                    <Keyframes>
+                      <PositionKeyframe Time="0" Value="0,0,0" Interpolation="Log,5"/>
+                      <PositionKeyframe Time="1" Value="0,650,0"/>
+                    </Keyframes>
+                  </Animation>
+                  <Animation Type="Hide">
+                    <Keyframes>
+                      <PositionKeyframe Time="0" Value="0,650,0" Interpolation="Log,2"/>
+                      <PositionKeyframe Time="1" Value="0,0,0"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+                <Children>
+                  <actp:ActorPopup Margins="116,101,0,0" Name="ActorPopup" PopupSize="720,480" Application="[Application]" Person="[ActorInfo]" Item="[Item]" Command="[NavigateToActorsPopup]" />
+
+                </Children>
+              </Graphic>
+            </Children>
+          </Clip>
+        </Children>
+      </Panel>
+
+      
+    </Content>
+  </UI>-->
+
+  <UI Name="ChapterList">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+    </Properties>
+    
+    <Locals>
+      <cor:Int32 Name="Startup" />
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandlePageKeys="true" HandlePageCommands="true"/>
+      <ScrollingData Name="ScrollingData" BeginPadding="70" EndPadding="70" />
+    </Locals>
+    
+    <Rules>
+      <Binding Source="[Item.Chapters]" Target="[ListRepeater.Source]" />
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+      <!--<Default Target="[Startup]" Value="1" ConditionLogicalOp="And">
+          <Conditions>
+            <Equality Source="[Item.Chapters.Count]" ConditionOp="GreaterThan" Value="0" />
+          </Conditions>
+          <Actions>
+            <Invoke Target="[ListRepeater.NavigateIntoIndex]"  index="[Folder.FirstUnwatchedIndex]"/>
+          </Actions>
+        </Default>-->
+      
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.Chapters.Count]" ConditionOp="Equals" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NoChapters.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+    </Rules>
+
+    <Content>
+      <Panel Name="MovieChapters" Layout="Form" Padding="15,15,15,15">
+        <LayoutInput>
+          <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
+        </LayoutInput>
+        <Children>
+
+          <Scroller Name="ChapterScroller" Orientation="Horizontal" FadeSize="5" ScrollingData="[ScrollingData]">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Right="Parent,1" Vertical="Center"/>
+            </LayoutInput>
+            <Children>
+
+              <Repeater Name="ListRepeater" Source="[Item.Chapters]" Layout="HorizontalFlow" >
+                <Animations>
+                  <Animation Type="Move">
+                    <Keyframes>
+                      <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="Log,2"/>
+                      <PositionKeyframe Time="0.5" RelativeTo="Final"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+
+                <Content>
+                  <me:Chapter ChapterItem="[RepeatedItem!lib:ChapterItem]" Font="font://xs:ChapterNameFont" Application="[Application]" />
+                </Content>
+              </Repeater>
+            </Children>
+          </Scroller>
+        <Text Name="NoChapters" Content="[Application.LocalStrings.#NoChaptersStr!cor:String]" Visible="false" Font="font://xs:NoChaptersFont" Alpha=".7" Color="color://xs:NoChaptersTextColor" />
+          <Graphic Content="image://it:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="global://xs:RALPanelAlpha">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,-200" Right="Parent,1,200" Top="Parent,0,-20" Bottom="Parent,1,50"  />
+            </LayoutInput>
+          </Graphic>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+  
+  <!--Chapter-->
+  <UI Name="Chapter">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:ChapterItem Name="ChapterItem" ChapterItem="$Required" />
+      <Font Name="Font" Font="$Required"/>
+    </Properties>
+
+    <Locals>
+      <Command Name="PlayCommand"/>
+    </Locals>
+
+    <Rules>
+      <Changed Source="[PlayCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[ChapterItem.PlayAction]"  />
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" >
+        <Children>
+          <cb:ChapterButton ChapterItem="[ChapterItem]" Color="color://xs:ChapterItemColor" Command="[PlayCommand]" />
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="SpecialsList">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+    </Properties>
+
+    <Locals>
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandlePageKeys="true" HandlePageCommands="true"/>
+      <ScrollingData Name="ScrollingData" BeginPadding="70" EndPadding="70" />
+    </Locals>
+
+    <Rules>
+      <Binding Source="[Item.SpecialFeatures]" Target="[ListRepeater.Source]" />
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.SpecialFeatures.Count]" ConditionOp="Equals" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NoSpecials.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+    </Rules>
+
+    <Content>
+      <Panel Name="SpecialFeatures" Layout="Form" Padding="15,15,15,15">
+        <LayoutInput>
+          <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
+        </LayoutInput>
+        <Children>
+
+          <Scroller Name="SpecialsScroller" Orientation="Horizontal" FadeSize="5" ScrollingData="[ScrollingData]">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Right="Parent,1" Vertical="Center"/>
+            </LayoutInput>
+            <Children>
+
+              <Repeater Name="ListRepeater" Source="[Item.SpecialFeatures]" Layout="HorizontalFlow" >
+                <Animations>
+                  <Animation Type="Move">
+                    <Keyframes>
+                      <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="Log,2"/>
+                      <PositionKeyframe Time="0.5" RelativeTo="Final"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+
+                <Content>
+                  <me:Specials SpecialsItem="[RepeatedItem!lib:Item]" Font="font://xs:ChapterNameFont" Application="[Application]" />
+                </Content>
+              </Repeater>
+            </Children>
+          </Scroller>
+          <Text Name="NoSpecials" Content="[Application.LocalStrings.#NoSpecialsStr!cor:String]" Visible="false" Font="font://xs:NoChaptersFont" Alpha=".7" Color="color://xs:NoChaptersTextColor" />
+          <Graphic Content="image://it:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="global://xs:RALPanelAlpha">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,-200" Right="Parent,1,200" Top="Parent,0,-20" Bottom="Parent,1,50"  />
+            </LayoutInput>
+          </Graphic>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <!--Specials-->
+  <UI Name="Specials">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="SpecialsItem" Item="$Required" />
+      <Font Name="Font" Font="$Required"/>
+    </Properties>
+
+    <Locals>
+      <Command Name="PlayCommand"/>
+    </Locals>
+
+    <Rules>
+      <Changed Source="[PlayCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[SpecialsItem.PlayAction]"  />
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" >
+        <Children>
+          <sb:SpecialsButton SpecialsItem="[SpecialsItem]" Color="color://xs:ChapterItemColor" Command="[PlayCommand]" />
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+
+  <UI Name="FullMediaInfo">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+    </Properties>
+    <Locals>
+      <xh:XenonHelper Name="ThemeHelper" CurrentItem="[Item]"></xh:XenonHelper>
+    </Locals>
+    <Rules>
+      <Binding Target="[ThemeHelper.CurrentItem]" Source="[Item]"></Binding>
+
+
+      <Default Target="[TitleSupportlv.Label]" Value="Resolution: "></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[ThemeHelper.Resolution]"></Binding>
+      <Default Target="[TitleSupportlv1.Label]" Value="Audio Bitrate: "></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.AudioBitRate]"></Binding>
+      <Default Target="[TitleSupportlv2.Label]" Value="Video Bitrate: "></Default>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.VideoBitRate]"></Binding>
+      <Default Target="[TitleSupportlv3.Label]" Value="Video Codec: "></Default>
+      <Binding Target="[TitleSupportlv3.Value]" Source="[ThemeHelper.VideoCodec]"></Binding>
+      <Default Target="[TitleSupportlv4.Label]" Value="Audio Format: "></Default>
+      <Binding Target="[TitleSupportlv4.Value]" Source="[ThemeHelper.AudioFormat]"></Binding>
+      <Default Target="[TitleSupportlv5.Label]" Value="Audio Stream Count: "></Default>
+      <Binding Target="[TitleSupportlv5.Value]" Source="[ThemeHelper.AudioStreamCount]"></Binding>
+      <Default Target="[TitleSupportlv6.Label]" Value="Audio Channel Count: "></Default>
+      <Binding Target="[TitleSupportlv6.Value]" Source="[ThemeHelper.AudioChannelCount]"></Binding>
+      <Default Target="[TitleSupportlv7.Label]" Value="Video FPS: "></Default>
+      <Binding Target="[TitleSupportlv7.Value]" Source="[ThemeHelper.VideoFPS]"></Binding>
+
+    </Rules>
+
+    <Content>
+      <Panel Name="MediaInfo" Layout="Form" Padding="15,15,15,15" >
+        <LayoutInput>
+          <AnchorLayoutInput Left="Parent,0" Top="Parent,0" Right="Parent,1" Bottom="Parent,1"/>
+        </LayoutInput>
+        <Children>
+          
+          <Panel Name="MediaInfoTextPanel">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0" Top="Parent,0,30" Right="Parent,1" Bottom="Parent,1" Horizontal="Near"/>
+            </LayoutInput>
+            <Layout>
+              <FlowLayout Orientation="Vertical" StripAlignment="Near" ItemAlignment="Near"/>
+            </Layout>
+            <Children>
+              <Panel Margins="20,0,0,0" >
+                <Layout>
+                  <FlowLayout Orientation="Vertical" StripAlignment="Near" ItemAlignment="Near"/>
+                </Layout>
+                <Children>
+                  <lv:FinalLabelValue Name="TitleSupportlv"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="TitleSupportlv1"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="TitleSupportlv2"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="TitleSupportlv3"></lv:FinalLabelValue>
+                </Children>
+              </Panel>
+              <Panel Margins="20,0,0,0" >
+                <Layout>
+                  <FlowLayout Orientation="Vertical" StripAlignment="Near" ItemAlignment="Near"/>
+                </Layout>
+                <Children>
+
+                  <lv:FinalLabelValue Name="TitleSupportlv4"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="TitleSupportlv5"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="TitleSupportlv6"></lv:FinalLabelValue>
+                  <lv:FinalLabelValue Name="TitleSupportlv7"></lv:FinalLabelValue>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+
+          <Panel Name="InfoIcons" >
+            <Layout>
+              <FlowLayout StripAlignment="Far" ItemAlignment="Center" Orientation="Horizontal"/>
+            </Layout>
+            <Children>
+              <mip:MediaInfoPanel Item="[Item]" ></mip:MediaInfoPanel>
+              <si:SpeakerInfo Alpha="0.6" ThemeHelper="[ThemeHelper]" MaximumSize="0,45" ></si:SpeakerInfo>
+            </Children>
+          </Panel>
+
+          <Graphic Content="image://it:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="global://xs:RALPanelAlpha">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,-200" Right="Parent,1,200" Top="Parent,0,-20" Bottom="Parent,1,50"  />
+            </LayoutInput>
+          </Graphic>
+          
+          
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

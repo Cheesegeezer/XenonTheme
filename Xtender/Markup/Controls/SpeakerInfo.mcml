@@ -1,0 +1,28 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:xh="assembly://Xenon/Xenon"
+    xmlns:i="resx://Xenon/Xenon.Resources/Images">
+
+  <UI Name="SpeakerInfo">
+
+    <Properties>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required"></xh:XenonHelper>
+    </Properties>
+    <Rules>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="2" Target="[SpeakerImage.Content]" Value="image://i:TwoSpeaker"></Condition>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="3" Target="[SpeakerImage.Content]" Value="image://i:ThreeSpeaker"></Condition>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="6" Target="[SpeakerImage.Content]" Value="image://i:SixSpeaker"></Condition>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="7" Target="[SpeakerImage.Content]" Value="image://i:SevenSpeaker"></Condition>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="5" Target="[SpeakerImage.Content]" Value="image://i:FiveSpeaker"></Condition>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="4" Target="[SpeakerImage.Content]" Value="image://i:FourSpeaker"></Condition>
+      <Condition Source="[ThemeHelper.AudioChannelCount]" ConditionOp="Equals" SourceValue="1" Target="[SpeakerImage.Content]" Value="image://i:OneSpeaker"></Condition>
+
+    </Rules>
+
+    <Content>
+      <Graphic MaintainAspectRatio="true" MaximumSize="48,48" SizingPolicy="SizeToContent" Name="SpeakerImage"></Graphic>
+    </Content>
+
+  </UI>
+
+</Mcml>

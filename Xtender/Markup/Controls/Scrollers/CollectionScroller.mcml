@@ -1,0 +1,215 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:cor="assembly://MSCorLib/System"
+      xmlns:col="assembly://MSCorLib/System.Collections"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:act="assembly://Xenon/Xenon.Actors"
+      xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
+      xmlns:me="Me"
+      >
+
+  
+  <UI Name="CollectionScroller">
+
+    <Properties>
+      
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <a:Application      Name="Application"    Application="$Required"/>
+    </Properties>
+
+    <Locals>
+      <xh:ActorInfo Name="Person" />
+      <ArrayListDataSet Name="SourceData" />
+      <lib:ActorItemWrapper Name="aiw" />
+      <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
+      <ScrollingData Name="ScrollingData" LockedAlignment="0.2" LockedPosition="0.2" EndPaddingRelativeTo="Far" BeginPaddingRelativeTo="Near" EndPadding="30" />
+
+      
+      <ShortcutHandler Name="JumpForward" Shortcut="SkipForward" HandlerStage="Bubbled" Handle="true" />
+      <ShortcutHandler Name="JumpBack"    Shortcut="SkipBack"    HandlerStage="Bubbled" Handle="true"/>
+
+      <IntRangedValue Name="SelectedIndex" Value="0"/>
+    </Locals>
+
+    <Rules>
+      
+      <Default Target="[Input.CreateInterestOnFocus]" Value="true" />
+
+
+      
+      <Changed Source="[JumpForward.Invoked]">
+        <Actions>
+          <Invoke Target="[ScrollingData.PageDown]"/>
+        </Actions>
+      </Changed>
+      <Changed Source="[JumpBack.Invoked]">
+        <Actions>
+          <Invoke Target="[ScrollingData.PageUp]"/>
+        </Actions>
+      </Changed>
+      
+      <!--<Changed Source="[Person.HasLoaded]" InitialEvaluate="true" >
+        <Actions>
+          <Invoke Target="[ThemeHelper.GetActorLocalCredits]" item="[aiw.Item]" ResultTarget="[SourceData]" />
+        </Actions>
+      </Changed>-->
+
+      <Binding Target="[ScrollingHandler.ScrollingData]" Source="[ScrollingData]"/>
+      <Binding Target="[Scroller.ScrollingData]"         Source="[ScrollingData]"/>
+
+      <Default Target="[ScrollingData.Repeater]" Value="[MyRepeater]"/>
+      <Binding Source="[SourceData]" Target="[MyRepeater.Source]"/>
+
+    </Rules>
+
+    <Content>
+      <Panel FocusOrder="0" Layout="Form">
+        <Children>
+          <Scroller Orientation="Vertical" FadeSize="5"  Name="Scroller" Navigation="RememberFocus" ScrollingData="[ScrollingData]">
+            <LayoutInput>
+              <FormLayoutInput Vertical="Fill" Horizontal="Near"/>
+            </LayoutInput>
+            <Children>
+              <Repeater Source="[SourceData]" Name="MyRepeater">
+                <Layout>
+                  <GridLayout Orientation="Horizontal" Columns="1" Repeat="Never" AllowWrap="true" Spacing="0,0"/>
+                </Layout>
+                <Content>
+                  <me:CollectionItem Application="[Application]" Item="[RepeatedItem!lib:ActorItemWrapper.Item]" Index="[RepeatedItemIndex]" />
+                </Content>
+                <Animations>
+                  <Animation Type="Move">
+                    <Keyframes>
+                      <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="EaseIn, 1.0, 0.25"/>
+                      <PositionKeyframe Time="0.65" RelativeTo="Final"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+              </Repeater>
+            </Children>
+          </Scroller>
+        </Children>
+      </Panel>
+    </Content>
+
+  </UI>
+
+  <UI Name="CollectionItem">
+    <Properties>
+      <a:Application     Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required" />
+      <Index Name="Index" Index="$Required"/>
+      <Size Name="Size" Size="0,40"/>
+    </Properties>
+
+    <Locals>
+      <FormatTransformer Name="Count" Format="{0}"/>
+      <Color Name="Color"        Color="color://xs:OverviewColor" />
+      <ClickHandler Name="Clicker"/>
+    </Locals>
+
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+
+      <Changed Source="[Input.KeyFocus]" ConditionLogicalOp="And" >
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Application.CurrentItem]" Value="[Item]" />
+          <Set Target="[MainArt.Scale]" Value="1.1,1.1,1.1" />
+          <Set Target="[Title.Visible]" Value="true" />
+          <Set Target="[MainArt.ColorFilter]" Value="White" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Input.KeyFocus]" ConditionLogicalOp="And" >
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Application.CurrentItem]" Value="[Item]" />
+          <Set Target="[MainArt.Scale]" Value="1.1,1.1,1.1" />
+          <Set Target="[Title.Visible]" Value="true" />
+          <Set Target="[MainArt.ColorFilter]" Value="White" />
+        </Actions>
+      </Changed>
+
+
+      <Binding Source="[Item.Name]" Target="[Title.Content]">
+        <Transformer>
+          <FormatTransformer ToUpper="true"/>
+        </Transformer>
+      </Binding>
+
+      <Binding Source="[Item.PrimaryImage]" Target="[MainArt.Content]"/>
+        
+
+      
+      <Changed Source="[Clicker.Invoked]">
+        <Actions>
+          <PlaySound Sound="sound://sounds:Select" />
+          <Invoke Target="[Application.Navigate]"  item="[Item]"/>
+        </Actions>
+      </Changed>
+
+      <!--Binding Source="[Item.HaveWatched]" Target="[TickIndicator.Visible]"/-->
+    </Rules>
+
+    <Content>
+      <Panel>
+        <Children>
+
+          <Graphic Name="MainArt" MaximumSize="0,100" Scale="1,1,1" ColorFilter="100,100,100" MaintainAspectRatio="true" Margins="0,10,0,0">
+            <Animations>
+              <Animation Loop="0" CenterPointPercent="0.5,0.5,1.0" Type="Scale">
+                <Keyframes>
+                  <ScaleKeyframe Time="0.00" RelativeTo="Current" Interpolation="Log" />
+                  <ScaleKeyframe Time="0.4" RelativeTo="Final"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Graphic>
+
+          <!--<Panel  Scale="1,1,1" Padding="0,0,0,0" Layout="Center" Alpha="0.8" Name="TickIndicator" Visible="[Item.HaveWatched]" MaximumSize="32,32"  >
+            <LayoutInput>
+              <AnchorLayoutInput Horizontal="Near" Vertical="Near" />
+            </LayoutInput>
+            <Children>
+              <Panel Name="TickPanel" Layout="Center">
+                <Children>
+                  <Graphic Content="image://i:TickPoster"  MaximumSize="30,30"  />
+                  <Graphic Content="image://i:TickPosterBase" ColorFilter="color://xs:XC_WatchedBG" MaximumSize="30,30" Visible="global://s:ShowWatchedMarkerBackgrounds"  />
+                </Children>
+              </Panel>
+              </Children>
+          </Panel>-->
+
+          <Panel Name="TitlePanel" Layout="VerticalFlow" Margins="20,-30,0,0" MaximumSize="280,0">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0" Top="Parent,0" />
+            </LayoutInput>
+            <Children>
+              <Text Name="Title" Content="[Item.Name]" Color="color://xs:XC_RALItemTitle" Font="font://xs:XF_RALItemTitle" Visible="false" />
+            </Children>
+          </Panel>
+        
+          <!-->Clip Name="imgButton" Orientation="Horizontal" MaximumSize="0,55" Margins="-10,-7,-10,-15">
+            <Children>
+              <Graphic Name="Frame" Content="image://me:Frame" SizingPolicy="SizeToConstraint" ColorFilter="color://s:FontColorLight" Alpha="0"/>
+            </Children>
+          </Clip>-->
+        </Children>
+      </Panel>
+
+    </Content>
+  </UI>
+</Mcml>

@@ -1,0 +1,192 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:cor ="assembly://mscorlib/System"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:mpaa="resx://Xenon/Xenon.Resources/MPAARating"
+      xmlns:mip="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel" 
+      xmlns:sr="resx://Xenon/Xenon.Resources/StarRating"
+      xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+      xmlns:lv="resx://Xenon/Xenon.Resources/LabelValue"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:me = "Me">
+
+  <UI Name="InfoPanelSelector">
+    <Properties>
+      <lib:Item Name="Item" Item="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <Size Name="MaxIconSize" Size="0,55"/>
+    </Properties>
+    
+  <Rules>
+    <Binding Target="[MovieInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[SeriesInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[SeasonInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[EpisodeInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[SongInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[ArtistAlbumInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[GameInfoPanel.Item]" Source="[Item]"></Binding>
+    <Binding Target="[ConsoleInfoPanel.Item]" Source="[Item]"></Binding>
+
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Movie" Target="[MovieInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Series" Target="[SeriesInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Season" Target="[SeasonInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Episode" Target="[EpisodeInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="Song" Target="[SongInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="ArtistAlbum" Target="[ArtistAlbumInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="GameItem" Target="[GameInfoPanel.Visible]" Value="true" />
+    <Condition Source="[Item.ItemTypeString]" ConditionOp="Equals" SourceValue="ConsoleFolder" Target="[ConsoleInfoPanel.Visible]" Value="true" />
+  </Rules>
+  <Content>
+    <Panel>
+      <Children>
+        <me:MovieInfoPanel Name="MovieInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:MovieInfoPanel>
+        <me:SeriesInfoPanel Name="SeriesInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:SeriesInfoPanel>
+        <me:SeasonInfoPanel Name="SeasonInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:SeasonInfoPanel>
+        <me:EpisodeInfoPanel Name="EpisodeInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:EpisodeInfoPanel>
+        <me:SongInfoPanel Name="SongInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:SongInfoPanel>
+        <me:ArtistAlbumInfoPanel Name="ArtistAlbumInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:ArtistAlbumInfoPanel>
+        <me:GameInfoPanel Name="GameInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:GameInfoPanel>
+        <me:ConsoleInfoPanel Name="ConsoleInfoPanel" Item="[Item]" ThemeHelper="[ThemeHelper]" Visible="false"></me:ConsoleInfoPanel>
+
+      </Children>
+    </Panel>
+  </Content>
+  </UI>
+
+  <UI Name="InfoPanel">
+
+    <Properties>
+      <lib:Item Name="Item" Item="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required"></xh:XenonHelper>
+    </Properties>
+
+    <Rules>
+    
+      <Binding Source="[Item.Name]" Target="[Title.Content]" />
+      <Binding Source="[Item.ImdbRating]" Target="[StarRating.Value]" />
+      <Binding Source="[Item.PrimaryImage]" Target="[PosterItemImage.Content]" />
+      <Binding Source="[Item]" Target="[MediaInfoPanel.Item]" />
+      <Binding Source="[Item]" Target="[mpaa.Item]" />
+      <Binding Source="[Item]" Target="[Fullmpaa.Item]" />
+    
+      <Binding Source="[Item.ImdbRating]" Target="[StarRating.Value]" />
+      <Binding Source="[Item.MediaInfo]" Target="[MediaInfoPanel.Item]" />
+      <Binding Source="[Item.OfficialRating]" Target="[mpaa.Value]" />
+      <Binding Source="[Item.OfficialRating]" Target="[Fullmpaa.Value]" />
+      <Binding Source="[Item.ProductionYearString]" Target="[ProdYear.Value]" />
+      <Binding Source="[Item.RunningTimeString]" Target="[Runtime.Value]" />
+      <Binding Source="[Item.Status]" Target="[TVStatus.Value]" />
+
+    <!--LOGO'S LOGIC-->
+    <Binding Target="[Title.Content]"       Source="[Item.Name]"/>
+    <Binding Target="[LogoImage.Content]" Source="[Item.LogoImage]"/>
+
+    <Rule>
+      <Conditions>
+        <Equality Source="[Item.HasLogoImage]" ConditionOp="Equals" Value="true" />
+        <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Season"/>
+        <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+      </Conditions>
+      <Actions>
+        <Set Target="[LogoImage.Visible]" Value="true" />
+        <Set Target="[Title.Visible]" Value="false" />
+      </Actions>
+    </Rule>
+    <Default Target="[LogoImage.Visible]" Value="false"/>
+    <Default Target="[Title.Visible]" Value="true"/>
+  </Rules>
+
+  <Content>
+    <Panel Layout="Form">
+      <Children>
+
+        <Panel Name="ItemPanel" Layout="VerticalFlow" Visible="true">
+          <LayoutInput>
+            <AnchorLayoutInput Horizontal="Center" Bottom="Parent,1,-20" />
+          </LayoutInput>
+          <Children>
+            <Text Name="Title" Font="font://xs:BottomBarTitleFont" Color="color://xs:BottomBarTitleColor" Visible="false"/>
+            <Graphic Name="LogoImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="0,100" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
+            
+          </Children>
+        </Panel>
+
+        <Panel Name="YearPanel" Layout="VerticalFlow" >
+          <LayoutInput>
+            <AnchorLayoutInput Right="MPAARatingPanel,0,-10" Bottom="Parent,1,-2" />
+          </LayoutInput>
+          <Children>
+            <lv:BBarLabelValue Name="ProdYear" MaximumSize="0,55" Margins="0,0,0,0"/>
+            <lv:BBarLabelValue Name="Runtime" MaximumSize="0,55" />
+          </Children>
+        </Panel>
+
+        <Panel Name="TVStatusPanel">
+          <LayoutInput>
+            <AnchorLayoutInput Right="YearPanel,0,-10" Bottom="Parent,1,-2" />
+          </LayoutInput>
+          <Children>
+            <lv:BBarLabelValue Name="TVStatus" MaximumSize="0,55" />
+          </Children>
+        </Panel>
+
+        <sr:StarRating MaximumSize="0,55" Name="StarRating" Margins="0,0,0,0" >
+          <LayoutInput>
+            <AnchorLayoutInput Horizontal="Center" Bottom="Parent,1,-2" />
+          </LayoutInput>
+        </sr:StarRating>
+        
+        <Panel Name="MPAARatingPanel" >
+          <LayoutInput>
+            <AnchorLayoutInput Right="Parent,1,-100" Bottom="Parent,1,-10" />
+          </LayoutInput>
+          <Children>
+            <mpaa:FullMPAARating MaximumSize="0,55" Name="Fullmpaa" Item="[Item]" Visible="false"/>
+            <mpaa:MPAARating MaximumSize="0,55" Name="mpaa" Item="[Item]" Visible="false"/>
+          </Children>
+        </Panel>
+
+        <Panel Name="MediaInfo" >
+          <LayoutInput>
+            <AnchorLayoutInput Bottom="Parent,1,-10" Horizontal="Near" />
+          </LayoutInput>
+          <Children>
+            <mip:MediaInfoPanel Name="MediaInfoPanel" Item="[Item]" MaximumSize="0,55" />
+          </Children>
+        </Panel>
+        
+        <Clip Name="BottomBarGraphic" ColorFilter="color://xs:BottomBarColorOverlay" >
+          <LayoutInput>
+            <FormLayoutInput Left="Parent,0" Right="Parent,1" Bottom="Parent,1,5" Horizontal="Fill" />
+          </LayoutInput>
+          <Children>
+            <Graphic Name="BottomBar" Content="image://vi:BottomBar" MaximumSize="0,80" MaintainAspectRatio="true" />
+          </Children>
+        </Clip>
+      
+      </Children>
+    </Panel>
+  </Content>
+</UI>
+
+  <UI Name="MovieInfoPanel" BaseUI="me:InfoPanel">
+
+    <Rules>
+      <Default Target="[TitleSupportlv.Label]" Value="Director: "></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[Item.DirectorString]"></Binding>
+
+      <Default Target="[TitleSupportlv1.Label]" Value="Writers: "></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[Item.WritersString]"/>
+
+      <Default Target="[TitleSupportlv2.Label]" Value="Genres: "></Default>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+
+      <Default Target="[TitleSupportlv3.Label]" Value="Year: "></Default>
+      <Binding Target="[TitleSupportlv3.Value]" Source="[Item.ProductionYear.ToString]"></Binding>
+    </Rules>
+
+  </UI>
+
+</Mcml>

@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E97E4898-7E4A-4BAD-9DDD-3D4C9005FA79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xenon</RootNamespace>
+    <AssemblyName>Xenon</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <AssemblyOriginatorKeyFile>Theme.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <FullyQualifiedOutputPath>$(MSBuildProjectDirectory)\bin\Debug</FullyQualifiedOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <FullyQualifiedOutputPath>$(MSBuildProjectDirectory)\bin\Release</FullyQualifiedOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <StartWorkingDirectory>$(windir)\eHome</StartWorkingDirectory>
+    <StartArguments>-load:"resx://Crystal/Crystal.Resources/Default" -assemblyredirect:"$(FullyQualifiedOutputPath)" -markupredirect:"resx://Crystal/Crystal.Resources/,file://$(MSBuildProjectDirectory)\Markup\,.mcml"</StartArguments>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(windir)\eHome\McmlPad.exe</StartProgram>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MediaBrowser, Version=3.0.182.0, Culture=neutral, PublicKeyToken=59fc04479785fd64, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\MediaBrowser\3.0.182.0__59fc04479785fd64\MediaBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="MediaBrowser.Model, Version=3.0.5301.18247, Culture=neutral, PublicKeyToken=6cde51960597a7f9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MediaBrowser.Common.3.0.414\lib\net35\MediaBrowser.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.MediaCenter" />
+    <Reference Include="Microsoft.MediaCenter.UI" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actors\ActorCreditItem.cs" />
+    <Compile Include="Actors\ActorHelper.cs" />
+    <Compile Include="Actors\ActorInfo.cs" />
+    <Compile Include="ConfigData.cs" />
+    <Compile Include="CustomStyles.cs" />
+    <Compile Include="Fonts\FontManager.cs" />
+    <Compile Include="APICalls\GetAPIItems.cs" />
+    <Compile Include="APICalls\APIQueries.cs" />
+    <Compile Include="Library\Cache.cs" />
+    <Compile Include="Library\XenonHelper.cs" />
+    <Compile Include="Library\DetailsItem.cs" />
+    <Compile Include="MyConfig.cs" />
+    <Compile Include="MyStrings.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Development Log.txt" />
+    <Content Include="Images\ActorBackdrop.jpg" />
+    <Content Include="Images\BottomInfoPane.png" />
+    <Content Include="Images\Icons\AddIcon.png" />
+    <Content Include="Images\Icons\AddIconSmall.png" />
+    <Content Include="Images\Icons\cycle.png" />
+    <Content Include="Images\Icons\Gear.png" />
+    <Content Include="Images\Icons\NextItem.png" />
+    <Content Include="Images\Icons\PrevItem.png" />
+    <Content Include="Images\Icons\refresh.png" />
+    <Content Include="Images\Icons\rottensplat.png" />
+    <Content Include="Images\Icons\rottentomatoes.png" />
+    <Content Include="Images\RootImages\PrevPanel.png" />
+    <Content Include="Images\RootImages\NextPanel.png" />
+    <Content Include="Images\RootImages\DetailsInfoPanel.png" />
+    <Content Include="Images\RootImages\ralBG.png" />
+    <Content Include="Sounds\Clicker.wav" />
+    <Content Include="Sounds\shutter.wav" />
+    <None Include="Fonts\BebasNeue.ttf" />
+    <None Include="Fonts\impact.ttf" />
+    <None Include="Fonts\InterBold.ttf" />
+    <None Include="Fonts\InterOne.ttf" />
+    <Content Include="Images\ConfigUI\minus.png" />
+    <Content Include="Images\ConfigUI\plus.png" />
+    <Content Include="Images\MediaInfo\1080.png" />
+    <Content Include="Images\MediaInfo\720.png" />
+    <Content Include="Images\MediaInfo\IMDB.png" />
+    <Content Include="Images\MediaInfo\imdb2.png" />
+    <Content Include="Images\MediaInfo\time.png" />
+    <Content Include="Images\MediaInfo\year.png" />
+    <Content Include="Images\Icons\IconHome.png" />
+    <Content Include="Images\Icons\IconHomeSmall.png" />
+    <Content Include="Images\Icons\IconNowPlaySmall.png" />
+    <Content Include="Images\Icons\GearSmall.png" />
+    <Content Include="Images\Icons\IconNowPlay.png" />
+    <Content Include="Images\ProgressBar\PBBack.png" />
+    <Content Include="Images\ProgressBar\PBFill.png" />
+    <Content Include="Images\GlowLine.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_12.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_12A.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_12A_full.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_12_full.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_15.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_15_full.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_18.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_18_full.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_PG.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_PG_full.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_U.png" />
+    <Content Include="Images\Ratings\GB\rated_gb_U_full.png" />
+    <Content Include="Images\Ratings\US\rated-empty.png" />
+    <Content Include="Images\Ratings\US\rated-g.png" />
+    <Content Include="Images\Ratings\US\rated-nc-17.png" />
+    <Content Include="Images\Ratings\US\rated-nr.png" />
+    <Content Include="Images\Ratings\US\rated-pg-13.png" />
+    <Content Include="Images\Ratings\US\rated-pg.png" />
+    <Content Include="Images\Ratings\US\rated-r.png" />
+    <Content Include="Images\Ratings\US\rated_movie_g_full.png" />
+    <Content Include="Images\Ratings\US\rated_movie_nc_17_full.png" />
+    <Content Include="Images\Ratings\US\rated_movie_nr_full.png" />
+    <Content Include="Images\Ratings\US\rated_movie_pg_13_full.png" />
+    <Content Include="Images\Ratings\US\rated_movie_pg_full.png" />
+    <Content Include="Images\Ratings\US\rated_movie_r_full.png" />
+    <Content Include="Images\Ratings\US\rated_tv_14.png" />
+    <Content Include="Images\Ratings\US\rated_tv_g.png" />
+    <Content Include="Images\Ratings\US\rated_tv_ma.png" />
+    <Content Include="Images\Ratings\US\rated_tv_pg.png" />
+    <Content Include="Images\Ratings\US\rated_tv_y.png" />
+    <Content Include="Images\Ratings\US\rated_tv_y7.png" />
+    <Content Include="Images\Ratings\US\rated_tv_y7_fv.png" />
+    <Content Include="Images\RootImages\InfoPanelTime.png" />
+    <Content Include="Images\RootImages\RALSelectorPanel.png" />
+    <Content Include="Images\RootImages\InfoPanel.png" />
+    <Content Include="Images\RootImages\rootBG.png" />
+    <Content Include="Images\RootImages\rootBGGlass.png" />
+    <Content Include="Images\RootImages\rootbg_glow.png" />
+    <Content Include="Images\RootImages\rootBGblack.png" />
+    <Content Include="Images\RootImages\rootbgoverlay.png" />
+    <Content Include="Images\RootImages\RootDownArrow.png" />
+    <Content Include="Images\ThumbPanelBlack.png" />
+    <None Include="Markup\Animations.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\BusyIndicator.mcml" />
+    <None Include="Markup\Controls\Buttons\DetailsOptionButton.mcml" />
+    <None Include="Markup\Controls\Buttons\ItemButton.mcml" />
+    <None Include="Markup\Controls\Buttons\RALOptionButton.mcml" />
+    <None Include="Markup\Controls\Buttons\SpecialsButton.mcml" />
+    <None Include="Markup\Controls\InfoPanels\BottomInfoBar.mcml" />
+    <None Include="Markup\Controls\MBPosterViewItem.mcml" />
+    <None Include="Markup\Controls\ProgressBar.mcml" />
+    <None Include="Markup\Controls\Scrollers\ActorScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\Copy of CollectionScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\UpcomingTVLayoutScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\CoverflowScroller.mcml" />
+    <None Include="Markup\Controls\Scrollers\NextUpLayoutScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\PosterScroller.mcml" />
+    <None Include="Markup\Controls\Scrollers\RALLayoutScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Markup\Views\LayoutDetailsOrig.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Markup\Controls\Scrollers\SeasonListScroller.mcml" />
+    <None Include="Markup\Styles\Colors.mcml" />
+    <None Include="Markup\Styles\Mint.mcml" />
+    <None Include="Markup\Styles\Rouge.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Styles\Fonts.mcml" />
+    <None Include="Markup\Controls\Scrollers\CollectionScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Styles\Royal.mcml" />
+    <Content Include="Markup\Views\BannerLayoutDetails.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Views\LayoutDetails.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Markup\Views\LayoutRoot.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Views\LayoutCoverflow.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Views\ExtraViews\LayoutBannerView.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Views\LayoutMusic.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sounds\Sounds.mcml" />
+    <None Include="Markup\Styles\Metro.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\UIMenus\CommandButton.mcml" />
+    <None Include="Markup\UIMenus\DefaultContextMenu.mcml" />
+    <None Include="Markup\UIMenus\UI.mcml" />
+    <None Include="Markup\UIMenus\UIConfig.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Views\LayoutThumbStrip.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Images\Icons\IconSearchSmall.png" />
+    <Content Include="Images\Icons\IconSearch.png" />
+    <None Include="Fonts\SegoeWP-Black.ttf" />
+    <None Include="Fonts\SegoeWP-Light.ttf" />
+    <None Include="Fonts\SegoeWP.ttf" />
+    <EmbeddedResource Include="Fonts\Urban Elegance.ttf" />
+    <Content Include="Images\Icons\lock.png" />
+    <Content Include="Images\Icons\unlock.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-AO.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-E.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-E10.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-EC.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-M.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-RP.png" />
+    <Content Include="Images\Ratings\GAMES\ESRB-T.png" />
+    <Content Include="Images\SpeakerSet\FiveSpeaker.png" />
+    <Content Include="Images\SpeakerSet\FourSpeaker.png" />
+    <Content Include="Images\SpeakerSet\OneSpeaker.png" />
+    <Content Include="Images\SpeakerSet\SevenSpeaker.png" />
+    <Content Include="Images\SpeakerSet\SixSpeaker.png" />
+    <Content Include="Images\SpeakerSet\ThreeSpeaker.png" />
+    <Content Include="Images\SpeakerSet\TwoSpeaker.png" />
+    <Content Include="Markup\ConfigPanel.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\DetailMovieView.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Selectors\Page.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Selectors\PageDetailArea.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Views\ExtraViews\LayoutCV2.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Views\ExtraViews\LayoutDetailsQuickList.mcml" />
+    <Content Include="Markup\Views\LayoutPoster.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Views\LayoutThumb.mcml" />
+    <None Include="Markup\Controls\Buttons\ChapterButton.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Buttons\ImageButton.mcml" />
+    <None Include="Markup\Controls\MarqueeText.mcml" />
+    <None Include="Markup\Controls\StarRating.mcml" />
+    <None Include="Markup\UserIndicator.mcml" />
+    <None Include="Markup\Views\ActorPopup.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Weather.mcml" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Markup\Controls\Buttons\ListButton.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Buttons\PCIndicatorButton.mcml" />
+    <None Include="Markup\Controls\Buttons\PersonButton.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Buttons\MenuButton.mcml" />
+    <None Include="Markup\Controls\Buttons\OptionButton.mcml" />
+    <None Include="Markup\Controls\Buttons\RadioButton.mcml" />
+    <None Include="Markup\Controls\Buttons\SimpleButton.mcml" />
+    <None Include="Markup\Controls\InfoPanels\FullInfoPanel.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\AutoScrollableText.mcml" />
+    <None Include="Markup\Controls\Scrollers\BasicPosterScroller.mcml" />
+    <None Include="Markup\Controls\Scrollers\FancyText.mcml" />
+    <None Include="Markup\Controls\Scrollers\ListScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\2PosterScroller.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\Scrollers\--WaveScroller.mcml" />
+    <None Include="Markup\Controls\Backdrop.mcml" />
+    <None Include="Markup\Controls\LabelValue.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\MediaInfoPanel.mcml" />
+    <None Include="Markup\Controls\PosterViewItem.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Controls\--ShortcutHandler.mcml" />
+    <None Include="Markup\Controls\SpeakerInfo.mcml" />
+    <None Include="Markup\Images\ESRBRating.mcml" />
+    <None Include="Markup\Images\Images.mcml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Markup\Images\MPAARating.mcml" />
+    <None Include="Markup\Images\Studio.mcml" />
+    <None Include="Theme.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetPath)" "C:\ProgramData\MediaBrowser-Classic\Plugins" /y
+xcopy "$(TargetPath)" "D:\Users\bryced\Dropbox\MBC DEV" /y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

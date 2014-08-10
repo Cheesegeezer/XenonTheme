@@ -1,0 +1,130 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	    xmlns:cor="assembly://MSCorLib/System"
+      xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+      xmlns:me="Me"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml" >
+
+  <UI Name="RadioGroup" >
+
+    <Properties>
+      <Choice Name="Model" Choice="$Required" />
+      <Size Name="Size" Size="135,135"/>
+    </Properties>
+
+    <Rules>
+      <Default Target="[Input.MakeTopmostOnFocus]" Value="true"/>
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+      <Binding Source="[Model.Options]" Target="[Repeater.Source]" />
+    </Rules>
+    <Content>
+      <Panel>
+        <Children>
+          <Repeater Name="Repeater" ContentName="RadioButton" Navigation="RememberFocus" DefaultFocusIndex="[Model.DefaultIndex]" >
+            <Layout>
+              <FlowLayout Orientation="Vertical" Spacing="5,0" ItemAlignment="Near" AllowWrap="true"/>
+            </Layout>
+          </Repeater>
+        </Children>
+      </Panel>
+    </Content>
+    <Content Name="RadioButton">
+      <me:ViewButtons Model="[Model]" Option="[RepeatedItem!cor:String]" Size="[Size]"/>
+    </Content>
+  </UI>
+
+  <UI Name="ViewButtons">
+    <Properties>
+      <Choice     Name="Model" Choice="$Required"/>
+      <cor:String Name="Option" String="$Required"/>
+      <Size       Name="Size" Size="135,135"/>
+    </Properties>
+    <Locals>
+      <ClickHandler Name="Clicker" HandleEnterSpaceKeys ="true" HandlePrimaryMouseButton ="true" HandlerStage="Bubbled"/>
+
+    </Locals>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+
+      <Changed Source="[Clicker.Invoked]">
+        <Actions>
+          <Set Target="[Model.Chosen]" Value="[Option]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Model.Chosen]">
+        <Conditions>
+          <Equality Source="[Model.Chosen]" Value="[Option]" />
+        </Conditions>
+        <Actions>
+          <Set Target="[IconImage.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+
+
+
+      <Changed Source="[Model.Chosen]">
+        <Conditions>
+          <Equality Source="[Model.Chosen]"  ConditionOp="NotEquals" Value="[Option]" />
+
+        </Conditions>
+        <Actions>
+          <Set Target="[IconImage.Visible]" Value="false" />
+
+        </Actions>
+      </Changed>
+
+      <Condition Source="[Model.Chosen]" ConditionOp="Equals" SourceValue="[Option]" Target="[IconImage.Visible]" Value="true"></Condition>
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="false">
+        <Actions>
+          <Set Target="[Text.Color]" Value="color://xs:OptionButton" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[Text.Color]" Value="color://xs:OptionButtonHighLight" />
+        </Actions>
+      </Condition>
+
+
+
+      <Condition Source="[Option]" SourceValue="Poster" Target="[Text.Content]" Value="Poster View"/>
+      <Condition Source="[Option]" SourceValue="Detail" Target="[Text.Content]" Value="Detail View"/>
+      <Condition Source="[Option]" SourceValue="Cover Flow" Target="[Text.Content]" Value="Coverflow View"/>
+      <Condition Source="[Option]" SourceValue="Thumb" Target="[Text.Content]" Value="Thumb View"/>
+      <Condition Source="[Option]" SourceValue="Thumb Strip" Target="[Text.Content]" Value="Strip View"/>
+      <Condition Source="[Option]" SourceValue="name" Target="[Text.Content]" Value="Name"/>
+      <Condition Source="[Option]" SourceValue="date" Target="[Text.Content]" Value="Date"/>
+      <Condition Source="[Option]" SourceValue="rating" Target="[Text.Content]" Value="Rating"/>
+      <Condition Source="[Option]" SourceValue="runtime" Target="[Text.Content]" Value="Runtime"/>
+      <Condition Source="[Option]" SourceValue="unwatched" Target="[Text.Content]" Value="Unwatched"/>
+      <Condition Source="[Option]" SourceValue="year" Target="[Text.Content]" Value="Year"/>
+      <Condition Source="[Option]" SourceValue="none" Target="[Text.Content]" Value="None"/>
+      <Condition Source="[Option]" SourceValue="actor" Target="[Text.Content]" Value="Actor"/>
+      <Condition Source="[Option]" SourceValue="genre" Target="[Text.Content]" Value="Genre"/>
+      <Condition Source="[Option]" SourceValue="director" Target="[Text.Content]" Value="Director"/>
+      <Condition Source="[Option]" SourceValue="studio" Target="[Text.Content]" Value="Studio"/>
+    </Rules>
+
+    <Content>
+
+      <Graphic Name="BoxImage" SizingPolicy="SizeToChildren">
+        <Children>
+          <Panel Layout="HorizontalFlow">
+            <Children>
+              <Text Name="Text" Font="font://xs:OptionButton" Color="color://xs:OptionButton"></Text>
+              <Graphic Visible="false" Name="IconImage" Content="image://vi:Tick" MaximumSize="20,20" Margins="5,10,0,0" MinimumSize="20,20"></Graphic>
+
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+
+    </Content>
+
+  </UI>
+
+</Mcml>

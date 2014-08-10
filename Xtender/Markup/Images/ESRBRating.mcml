@@ -1,0 +1,39 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:cor ="assembly://mscorlib/System"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:me = "Me">
+
+  <UI Name="ESRBRating">
+    <Properties>
+      <cor:String Name="Value" String=""/>
+    </Properties>
+    <Locals>
+      <cor:String Name="ESRBRating" String="" />
+    </Locals>
+    <Rules>
+      <Binding Source="[Value]" Target="[ESRBRating]"/>
+
+      <Condition Source="[ESRBRating]" SourceValue="" ConditionOp="Equals" Target="[Image.Visible]" Value="false" />
+      <Condition Source="[ESRBRating]" SourceValue="" ConditionOp="NotEquals" Target="[Image.Visible]" Value="true" />
+
+      <Condition Source="[ESRBRating]" SourceValue="E"    ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-E" />
+      <Condition Source="[ESRBRating]" SourceValue="EC"   ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-EC" />
+      <Condition Source="[ESRBRating]" SourceValue="10+"  ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-E10" />
+      <Condition Source="[ESRBRating]" SourceValue="T"    ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-T" />
+      <Condition Source="[ESRBRating]" SourceValue="M"    ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-M" />
+      <Condition Source="[ESRBRating]" SourceValue="AO"   ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-AO" />
+      <Condition Source="[ESRBRating]" SourceValue="RP"   ConditionOp="Equals" Target="[Image.Content]" Value="image://vi:ESRB-RP" />
+    </Rules>
+
+    <Content>
+      <Graphic Name="Image" Visible="true" MaximumSize="0,70" Content="image://vi:ESRB-RP" SizingPolicy="SizeToConstraint" MaintainAspectRatio="true" />
+    </Content>
+  </UI>
+
+
+</Mcml>

@@ -1,0 +1,570 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:xh="assembly://Xenon/Xenon"
+    xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+    xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
+    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+    xmlns:sr="resx://MediaBrowser/MediaBrowser.Resources/StarRating"
+    xmlns:mpaa="resx://Xenon/Xenon.Resources/MPAARating"
+    xmlns:sls="resx://Xenon/Xenon.Resources/SeasonListScroller"
+    xmlns:lv="resx://Xenon/Xenon.Resources/LabelValue"
+    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText" 
+    xmlns:mqt="resx://Xenon/Xenon.Resources/MarqueeText"
+    xmlns:xs="file://Xenon_Styles.mcml"
+    xmlns:s="file://Styles_DoNotEdit.mcml"
+    xmlns:me="Me"
+    >
+
+	<UI Name="XenonLayoutBannerView">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+    </Properties>
+
+    <Locals>
+      <lib:Item Name="SelectedItem" Item="[Folder.SelectedChild]"/>
+      <Timer Name="InfoTimer" AutoRepeat="false" Enabled="false" Interval="1000"  />
+      <IntRangedValue Name="SelectedIndex" Value="0"/>
+      <IntRangedValue Name="SelectedChildIndex" Value="-1"/>
+    </Locals>
+
+    <Rules>
+      <Binding Target="[ThemeHelper.CurrentItem]" Source="[Folder.SelectedChild]" />
+      <Binding Target="[Application.CurrentItem]" Source="[Folder.SelectedChild]" />
+
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!-- Folder Pref Backdrop -->
+      <Binding Target="[Backdrop.Image]" Source="[Folder.SelectedChild.BackdropImage]" />
+      <Binding Target="[Backdrop.Item]" Source="[Folder.SelectedChild]" />
+      <Binding Target="[Backdrop.Visible]"   Source="[ThemeHelper.Config.FolderShowBackdrop]">
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowBackdrop]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
+      <!-- Backdrop Overlay-->
+      <Binding Target="[Overlay.Visible]"   Source="[ThemeHelper.Config.FolderShowBackdropOverlay]">
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowBackdropOverlay]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
+
+      <!--Force focus to scroller
+      <Changed Source="[InfoTimer.Tick]" ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Input.DeepKeyFocus]" ConditionOp="Equals" Value="false" />
+          <Equality Source="[ThemeHelper.IsMenuOpen]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ListItems.NavigateInto]"></Invoke>
+        </Actions>
+      </Changed>-->
+
+      <Binding Source="[SelectedIndex.Value]" Target="[Folder.SelectedChildIndex]" />
+      <Changed Source="[Folder.SelectedChildIndex]" InitialEvaluate="true">
+        <Conditions>
+          <Equality ConditionOp="NotEquals" Source="[Folder.SelectedChildIndex]" Value="-1"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[InfoTimer.Enabled]" Value="true"/>
+          <Invoke Target="[InfoTimer.Stop]" />
+          <Invoke Target="[InfoTimer.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[InfoTimer.Tick]">
+        <Actions>
+          <Set Target="[SelectedItem]" Value="[Folder.SelectedChild]" />
+        </Actions>
+      </Changed>
+
+      <!--ITEM COUNTER-->
+      <Binding Source="[Folder.SelectedChildIndex.ToString]" Target="[List_Counter.Content]" >
+        <Transformer>
+          <MathTransformer Add="1"/>
+        </Transformer>
+      </Binding>
+      <Binding Source="[Folder.Children.Count]" Target="[List_Total.Content]" >
+        <Transformer>
+          <FormatTransformer Format="| {0}" />
+        </Transformer>
+      </Binding>
+    </Rules>
+
+    <Content>
+      <Panel Layout="Form">
+        <Children>
+
+          <Panel Name="CounterPanel">
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,1,-43" Bottom="Parent,1,0" Left="Parent,0,25"/>
+            </LayoutInput>
+            <Children>
+              <Panel Name="CounterPosition" Layout="HorizontalFlow">
+                <Children>
+                  <Text Name="List_Counter" Content="0" Color="color://xs:counterColor" Font="font://xs:counterFont" />
+                  <Text Name="List_Total" Content="0" Color="color://xs:totalCounterColor" Font="font://xs:totalCounterFont"/>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+
+          <!--DETAILS LIST-->
+
+          <Text Name="ParentFolderName" Content="[Folder.Name]" WordWrap="true" Font="font://xs:XF_DQLFolderTitle" Color="color://xs:XC_DQLFolderTitleColor">
+            <LayoutInput>
+              <AnchorLayoutInput Top="Parent,0,10" Left="Parent,0,20" Right="Parent,0,200" Bottom="Parent,0,100" />
+            </LayoutInput>
+          </Text>
+          
+          <me:SeriesListScroller Name="ListItems" Visible="true" Application="[Application]" Folder="[Folder]" ThemeHelper="[ThemeHelper]" >
+            <LayoutInput>
+              <AnchorLayoutInput Name="ListPosition" Bottom="Parent,0.9" Top="Parent,0.1" Left="Parent,0" Right="Parent,0.4" />
+            </LayoutInput>
+          </me:SeriesListScroller>
+
+          <sls:SeasonListScroller Name="SeasonItems" Visible="true" Application="[Application]" Folder="[Folder]" ThemeHelper="[ThemeHelper]" >
+            <LayoutInput>
+              <AnchorLayoutInput Name="SeasonPosition" Bottom="Parent,0.8" Top="Parent,0.2" Left="Parent,0.4" Right="Parent,0.7" />
+            </LayoutInput>
+          </sls:SeasonListScroller>
+          
+          <me:EpisodeDetails Name="Details" Visible="true" Application="[Application]" Folder="[Folder]" ThemeHelper="[ThemeHelper]" >
+            <LayoutInput>
+              <AnchorLayoutInput Name="DetailsPosition" Bottom="Parent,0.7" Top="Parent,0.3" Left="Parent,0.7" Right="Parent,1,-5" />
+            </LayoutInput>
+          </me:EpisodeDetails>
+
+          <ColorFill Name="Overlay" Layout="Fill" Visible="[ThemeHelper.Config.FolderShowBackdropOverlay]" Alpha="0.4" Content="Black" />
+
+          <bd:Backdrop4 LoadDelay="280" FadeTime="0.3"  Application="[Application]" Name="Backdrop" Visible="[ThemeHelper.Config.FolderShowBackdrop]" Image="[Folder.SelectedChild.BackdropImage]" Item="[SelectedItem]"/>
+
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="SeriesListScroller">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+    </Properties>
+
+    <Locals>
+      <lib:Item Name="SelectedItem" Item="[Folder.SelectedChild]" />
+      <!-- Use the MouseWheel handler to handle the mouse wheel.  -->
+      <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
+      <ScrollingData Name="ScrollingData" LockedAlignment="0.1" LockedPosition="0.1" />
+      <ShortcutHandler Name="JumpForward" Shortcut="SkipForward" HandlerStage="Bubbled" Handle="true" />
+      <ShortcutHandler Name="JumpBack" Shortcut="SkipBack" HandlerStage="Bubbled" Handle="true"/>
+      <IntRangedValue Name="SelectRepeaterIndex"/>
+      <cor:Int32 Name="InfoTimer" Int32="60" />
+      <cor:Int32 Name="backFocus" Int32="[Folder.SelectedChildIndex]" />
+      <IntRangedValue Name="NavCount" Value="0" />
+      <FlowLayout Name="Layout" Orientation="Horizontal" ItemAlignment="Center" Repeat="WhenTooBig"/>
+    </Locals>
+
+    <Rules>
+
+      <!-- Set the UI to be mouse and keyboard interactive. -->
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!--Navigate to First Unwatched-->
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Modified Source="[Application]" InitialEvaluate="true"/>
+          <Equality Source="[Application.NavigatingForward]" Value="true"/>
+          <Equality Source="[Folder.Children.Count]" ConditionOp="GreaterThan" Value="0"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[MyRepeater.NavigateIntoIndex]"  index="[Folder.FirstUnwatchedIndex]"/>
+        </Actions>
+      </Rule>
+
+      <!-- Give ScrollingData to ScrollingHandler. -->
+      <Binding Target="[ScrollingHandler.ScrollingData]" Source="[ScrollingData]"/>
+      <Binding Target="[Scroller.ScrollingData]"         Source="[ScrollingData]"/>
+
+      <!-- Give Repeater to ScrollingData. -->
+      <Default Target="[ScrollingData.Repeater]" Value="[MyRepeater]"/>
+      <Binding Target="[MyRepeater.Source]"      Source="[Folder.Children]"/>
+
+      <Changed Source="[Folder.JILShift]">
+        <Actions>
+          <Invoke Target="[ScrollingData.Scroll]"  amount="[Folder.JILShift]"/>
+        </Actions>
+      </Changed>
+      <Rule>
+        <Conditions>
+          <Modified Source="[JumpForward.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.PageDown]"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Modified Source="[JumpBack.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.PageUp]"/>
+        </Actions>
+      </Rule>
+    </Rules>
+
+    <Content>
+      <!-- List Repeater -->
+      <Scroller Orientation="Vertical" Name="Scroller" ScrollingData="[ScrollingData]" Navigation="Column,RememberFocus" FadeSize="10"  >
+        <Children>
+          <Repeater Source="[Folder.Children]" Name="MyRepeater" Layout="[Layout]" DiscardOffscreenVisuals="false" DividerName="Divider">
+            <Layout>
+              <FlowLayout Orientation="Vertical"  Spacing="5,5" />
+            </Layout>
+            <Content>
+              <me:SeriesListItems Application="[Application]"
+                            ParentItem="[Folder]"
+                            Item="[RepeatedItem!lib:Item]"
+                            Index="[RepeatedItemIndex]"
+                            InfoTimer="[InfoTimer]" NavCount="[NavCount]"
+                            UnwatchedCountFont="font://xs:UnwatchedCountFont"
+                            SelectRepeaterIndex="[SelectRepeaterIndex]"/>
+            </Content>
+            <Animations>
+              <Animation Type="Move">
+                <Keyframes>
+                  <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="EaseIn, 1.0, 0.25"/>
+                  <PositionKeyframe Time="0.35" RelativeTo="Final"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Repeater>
+        </Children>
+      </Scroller>
+    </Content>
+    <Content Name="Divider">
+      <Graphic Content="image://vi:GlowLine" MaximumSize="500,15" ColorFilter="color://xs:QLDividerColor" />
+    </Content>
+  </UI>
+
+  <UI Name="SeriesListItems">
+    <Properties>
+      <a:Application Name="Application" Application="$Required" />
+      <xh:XenonHelper Name="ThemeHelper" />
+      <lib:FolderModel Name="ParentItem" FolderModel="$Required"/>
+      <lib:Item Name="Item" Item="$Required" />
+      <Index Name="Index" Index="$Required"/>
+      <cor:Int32 Name="InfoTimer" Int32="1000" />
+      <IntRangedValue Name="SelectRepeaterIndex" IntRangedValue="$Required"/>
+      <IntRangedValue Name="NavCount" IntRangedValue="$Required" />
+      <Image Name="BlankImage" Image="null"/>
+      <Font Name="UnwatchedCountFont" Font="$Required"/>
+      
+    </Properties>
+
+    <Locals>
+      <ClickHandler Name="Clicker"/>
+      <Timer Name="AnimTimer" Interval="[InfoTimer]" Enabled="false" AutoRepeat="false"/>
+      <BooleanChoice Name="InFocus" Value="false" />
+    </Locals>
+
+
+    <Rules>
+
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+      <Default Target="[Input.MakeTopmostOnFocus]" Value="true"/>
+
+      <Condition Source="[ParentItem.SelectedChildIndex]" ConditionOp="NotEquals" SourceValue="[Index.SourceValue]">
+        <Actions>
+          <Invoke Target="[AnimTimer.Stop]" />
+          <Set Target="[NavCount.Value]" Value="[NavCount.Value]" ExclusiveApply="false">
+            <Transformer>
+              <MathTransformer Add="1"/>
+            </Transformer>
+          </Set>
+        </Actions>
+      </Condition>
+
+      <Binding Target="[ThemeHelper.CurrentItem]" Source="[Item]" />
+      
+
+      <Binding Target="[ItemPoster.Content]" Source="[Item.BannerImage]" />
+      <!--<Binding Target="[Title.Content]" Source="[Item.Name]" />
+      <Binding Source="[ThemeHelper.CurrentItem]" Target="[mpaa.Item]" />
+      <Binding Source="[Item.MpaaRating]" Target="[mpaa.Value]" />
+      <Binding Source="[Item.ImdbRating]" Target="[StarRating.Value]" />-->
+      <Binding Source="[Item.HaveWatched]" Target="[TickIndicatorPanel.Visible]" />
+
+      <Binding Source="[Item.HaveWatched]" Target="[TickPanel.Visible]" />
+      <Binding Source="[Item.UnwatchedCountString]" Target="[UnwatchedCount.Content]" />
+      <Binding Source="[Item.ShowUnwatched]" Target="[UnwatchedIndicator.Visible]" />
+
+      <Changed Source="[Application.Config.ShowWatchedTickOnFolders]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Item.IsPlayable]" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TickIndicatorPanel.Visible]" Value="[Application.Config.ShowWatchedTickOnFolders]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Application.Config.ShowWatchTickInPosterView]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Item.IsPlayable]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TickIndicatorPanel.Visible]" Value="[Application.Config.ShowWatchTickInPosterView]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Item.ShowUnwatched]">
+        <Actions>
+          <Set Target="[UnwatchedCount.Content]" Value="[Item.UnwatchedCountString]" />
+        </Actions>
+      </Changed>
+
+      <Binding Source="[Item.IsHD]" Target="[HDImage.Visible]"  ConditionLogicalOp="And"  >
+        <Conditions>
+          <Equality Source="[Application.Config.ShowHDIndicatorOnPosters]" Value="true" />
+        </Conditions>
+      </Binding>
+      <Condition Source="[Item.HDType]" ConditionOp="Equals" SourceValue="720" Target="[HDImage.Content]" Value="image://i:HDLogo720" />
+      <Condition Source="[Item.HDType]" ConditionOp="Equals" SourceValue="1080" Target="[HDImage.Content]" Value="image://i:HDLogo1080" />
+
+      <Condition Source="[Application.Config.DimUnselectedPosters]" ConditionOp="Equals" SourceValue="false" Target="[PosterPanel.ColorFilter]" Value="White" />
+      <Condition Source="[Application.Config.DimUnselectedPosters]" ConditionOp="Equals" SourceValue="false" Target="[PosterPanel.Alpha]" Value="1" />
+
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+
+      <Changed Source="[Input.KeyFocus]" >
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true" />
+        </Conditions>
+        <Actions>
+          <!--<Set Target="[Title.Font]" Value="font://xs:XF_DQLSelected" />
+          <Set Target="[Title.Color]" Value="color://xs:XC_DQLHighlighted"/>-->
+          <Set Target="[ParentItem.SelectedChildIndex]" Value="[Index.SourceValue]"/>
+          <Invoke Target="[AnimTimer.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[AnimTimer.Tick]">
+        <Actions>
+          <Set Target="[InFocus.Value]" Value="true"/>
+          <Set Target="[NavCount.Value]" Value="0" ExclusiveApply="false"/>
+        </Actions>
+      </Changed>
+
+      <!--<Condition Source="[Input.KeyFocus]" SourceValue="false">
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Title.Color]" Value="color://xs:XC_DQLUnselected"/>
+        </Actions>
+      </Condition>-->
+
+      <Changed Source="[Clicker.Invoked]">
+        <Conditions>
+          <Equality Source="[ParentItem.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Season"/>
+          <Equality Source="[ParentItem.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <!--PlaySound Sound="sound://sounds:Miniselect" /-->
+          <Invoke Target="[Application.Navigate]" item="[Item]"/>
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Name="Bg" >
+        <Children>
+          <Clip Layout="Anchor" Navigation="RememberFocus" Name="ItemDetails"  >
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0" Top="Parent,0" Right="Parent,1" Bottom="Parent,1"/>
+            </LayoutInput>
+            <Children>
+              
+
+              <!--<Text Name="Title" WordWrap="false" Font="font://xs:XF_DQLUnselected" Margins="20,0,20,0" >
+                <LayoutInput>
+                  <AnchorLayoutInput Left="PosterPanel,1,20" Top="PosterPanel,0,10" Right="PosterPanel,1,550"/>
+                </LayoutInput>
+              </Text>-->
+
+              <Panel  Scale="1,1,1"  Layout="Anchor"  Name="TickIndicatorPanel" Visible="[ThemeHelper.Config.FolderEnableWatchedIndicators]" MaximumSize="30,30">
+                <LayoutInput>
+                  <AnchorLayoutInput Right="PosterPanel,1,-20" Top="PosterPanel,0" />
+                </LayoutInput>
+                <Children>
+                  <Panel Name="TickPanel" Layout="Center">
+                    <Children>
+                      <Graphic Content="image://i:TickPoster"  MaximumSize="30,30"  />
+                      <Graphic Content="image://i:TickPosterBase" ColorFilter="color://xs:XC_WatchedBG" MaximumSize="30,30" Visible="global://s:ShowWatchedMarkerBackgrounds"  />
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+
+              <Panel  Margins="2,2,0,0" Scale="1,1,1" Padding="0,0,0,0" Layout="Center" Name="UnwatchedIndicator" MaximumSize="30,30" >
+                <!--Rotation="15deg;0,0,1"-->
+                <LayoutInput>
+                  <AnchorLayoutInput Left="PosterPanel,0" Top="PosterPanel,0"/>
+                </LayoutInput>
+                <Children>
+                  <Text Name="UnwatchedCount" Content="" Color="color://s:FontColorLight" Font="[UnwatchedCountFont]" Margins="0,0,-3,-10"></Text>
+                  <Graphic Visible="global://s:ShowWatchedMarkerBackgrounds" Content="image://i:Unwatched"  MinimumSize="45,45" MaximumSize="45,45" MaintainAspectRatio="true" Layout="Center" ></Graphic>
+                  <Graphic Visible="true" ColorFilter="color://s:FilterColor" Content="image://i:UnwatchedBase" MinimumSize="45,45" MaximumSize="45,45"  MaintainAspectRatio="true" Layout="Center" ></Graphic>
+                </Children>
+              </Panel>
+
+              <Panel Name ="HD" >
+                <LayoutInput>
+                  <AnchorLayoutInput Bottom="PosterPanel,1" Right="PosterPanel,1,-20"/>
+                </LayoutInput>
+                <Children>
+                  <Graphic Name="HDImage" Content="image://i:HDLogo" Margins="0,0,0,0" MaximumSize="0,30" MaintainAspectRatio="true" />
+                </Children>
+              </Panel>
+              
+              <Clip Name="PosterPanel" Margins="0,0,0,0" >
+                <Children>
+                  <Graphic Name="ItemPoster" Content="resx://MediaBrowser/Mediabrowser.Resources/MissingPerson" MaximumSize="500,0"
+                    Scale="1,1,1" ColorFilter="125,125,125" MaintainAspectRatio="true" SizingPolicy="SizeToConstraint" Margins="0,5,0,5">
+                    <LayoutInput>
+                      <AnchorLayoutInput Left="Parent,0"/>
+                    </LayoutInput>
+                    <Animations>
+                      <Animation Loop="0" CenterPointPercent="0.5,0.5,1.0" Type="Scale">
+                        <Keyframes>
+                          <ScaleKeyframe Time="0.00" RelativeTo="Current" Interpolation="Log" />
+                          <ScaleKeyframe Time="0.4" RelativeTo="Final"/>
+                        </Keyframes>
+                      </Animation>
+                    </Animations>
+                  </Graphic>
+                  <Graphic Name="Border" Content="image://i:BlankImage" ColorFilter="color://xs:XC_FocusFrame" >
+                    <LayoutInput>
+                      <AnchorLayoutInput Left="ItemPoster,0,-2" Right="ItemPoster,1,2" Top="ItemPoster,0,-2" Bottom="ItemPoster,1,2" />
+                    </LayoutInput>
+                  </Graphic>
+                </Children>
+              </Clip>
+
+            </Children>
+          </Clip>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+  
+  <UI Name="EpisodeDetails" >
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+    </Properties>
+
+    <Locals>
+      <Timer AutoRepeat="false" Enabled="true" Interval="2000" Name="InfoTimer" />
+      <lib:Item Name="Item" />
+      <Command Name="FocusGained" />
+    </Locals>
+  
+    <Rules>
+      <Binding Target="[ThemeHelper.CurrentItem]" Source="[Folder.SelectedChild]" />
+      <Binding Target="[Application.CurrentItem]" Source="[Folder.SelectedChild]" />
+      
+      <Binding Target="[Summary.Text]" Source="[Folder.SelectedChild.Overview]" />
+      <Binding Target="[Summary.Visible]" Source="[ThemeHelper.ShowOverview]" /> 
+    
+      <!--Use Production Year-->
+      <Binding Target="[ProdYear.Value]"     Source="[Folder.SelectedChild.ProductionYearString]"> 
+        <Conditions>
+          <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Season"/>
+          <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+      </Binding>
+      <!--Use First Air-->
+      <Binding Target="[ProdYear.Value]"     Source="[Folder.SelectedChild.FirstAired]">
+        <Conditions>
+          <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="Equals" Value="Season"/>
+          <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="Equals" Value="Episode"/>
+        </Conditions>
+      </Binding>
+      <Default Value=" Year:" Target="[ProdYear.Label]" />
+
+      <Binding Source="[Folder.SelectedChild.RunningTimeString]" Target="[Runtime.Value]" />
+      <Default Value="Runtime:" Target="[Runtime.Label]" />
+
+      <!--LOGO'S LOGIC-->
+      <Binding Target="[Title.Content]"       Source="[Folder.SelectedChild.Name]"/>
+      <Binding Target="[LogoImage.Content]" Source="[Folder.SelectedChild.LogoImage]"/>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Folder.SelectedChild.HasLogoImage]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Season"/>
+          <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[LogoImage.Visible]" Value="true" />
+          <Set Target="[Title.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+      <Default Target="[LogoImage.Visible]" Value="false"/>
+      <Default Target="[Title.Visible]" Value="true"/>
+    </Rules>
+  
+  <Content>
+    <Clip Name="ItemInfoPanel"  >
+            <Layout>
+              <FlowLayout Orientation="Vertical" />
+            </Layout>
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,1,-325" Top="Parent,0.2" Right="Parent,1" Bottom="Parent,0.8"/>
+            </LayoutInput>
+            <Children>
+              <Panel Name="ItemPanel" Visible="true">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Top="Parent,0" />
+                </LayoutInput>
+                <Children>
+                  <mqt:MarqueeText Name="Title" Font="font://xs:PosterTitleFont" Color="color://xs:PosterTitleColor" Visible="false"/>
+                  <Graphic Name="LogoImage" Margins="0,5,5,15" MaintainAspectRatio="true" MaximumSize="0,75" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
+                </Children>
+              </Panel>
+              
+              <Panel Name="YearPanel" Layout="HorizontalFlow" >
+                <Children>
+                  <lv:FinalLabelValue Name="ProdYear" Margins="0,0,0,0" />
+                  <lv:FinalLabelValue Name="Runtime" Margins="5,0,0,0" />
+                </Children>
+              </Panel>
+
+              <Clip Name="Divider" MaximumSize="350,0" Visible="true" ColorFilter="color://xs:ThumbDividerColor" >
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Top="Parent,0" />
+                </LayoutInput>
+                <Children>
+                  <Graphic Name="DividerGlowLine" Content="image://vi:GlowLine"/>
+                </Children>
+              </Clip>
+              
+              <st:ScrollableText Name="Summary" Font="font://xs:PosterOverviewFont" Color="color://xs:PosterOverviewTextColor">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Top="Parent,0" Right="Parent,1" />
+                </LayoutInput>
+              </st:ScrollableText>
+            </Children>
+          </Clip>
+  </Content>
+  </UI>
+
+
+
+    </Mcml>

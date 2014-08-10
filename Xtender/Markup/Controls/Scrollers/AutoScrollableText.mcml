@@ -1,0 +1,94 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+	  xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:me="Me">
+
+
+  <UI Name="ScrollableText">
+    <Properties>
+      <cor:String Name="Text" String="" />
+      <Font Name="Font" Font="$Required"/>
+      <Color Name="Color" Color="255,255,255"/>
+    </Properties>
+
+    <Locals>
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="false" />
+      <ScrollingData Name="ScrollingData" ScrollStep="1" />
+
+      <Timer Name="ScrollText" Interval="100" AutoRepeat="true" Enabled="false" />
+      <Timer Name="Delay" Interval="8000" AutoRepeat="false" Enabled="true"/>
+      <Timer Name="EndDelay" Interval="8000" AutoRepeat="false" Enabled="false"/>
+    </Locals>
+
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="false" />
+
+      <Changed Source="[Delay.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollText.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ScrollText.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.ScrollDown]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ScrollText.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[EndDelay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[EndDelay.Tick]">
+        <Actions>
+          <Invoke Target="[ScrollingData.Home]" />
+          <Invoke Target="[Delay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Text]" InitialEvaluate="true">
+        <Actions>
+          <Invoke Target="[ScrollingData.Home]" />
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[EndDelay.Stop]" />
+          <Invoke Target="[Delay.Stop]" />
+          <Invoke Target="[Delay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Binding Source="[Text]" Target="[TextVal.Content]" />
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+    </Rules>
+
+    <Content>
+      <Scroller Name="AutoText" Orientation="Vertical" FadeSize="-5" ScrollingData="[ScrollingData]">
+        <Children>
+          <Text Name="TextVal" Color="[Color]" Font="[Font]" WordWrap="true" Content="[Text]">
+            <Animations>
+              <Animation Type="Move">
+                <Keyframes>
+                  <PositionKeyframe RelativeTo="Current" Time="0"/>
+                  <PositionKeyframe RelativeTo="Final" Time="0.1"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Text>
+        </Children>
+      </Scroller>
+    </Content>
+  </UI>
+
+
+</Mcml>

@@ -1,0 +1,133 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml">
+
+  <Animation Name="CVFocusGained" CenterPointPercent="0.5,0.5,0.5">
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp,1"/>
+      <ScaleKeyframe Time="0.4" Value="1.3,1.3,1" Interpolation="SCurve,0.5"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="SCurve,0.5"/>
+      <PositionKeyframe Time="0.4" Value="0,-5,0" Interpolation="SCurve,0.5"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="CVFocusLost" CenterPointPercent="0.5,0.5,0.5" >
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp"/>
+      <ScaleKeyframe Time="0.3" Value="1,1,1"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="Exp, 0.5"/>
+      <PositionKeyframe Time="0.3" Value="0,0,0"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="TSFocusGained" CenterPointPercent="0.5,0.5,0.5">
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp,1"/>
+      <ScaleKeyframe Time="0.4" Value="1.3,1.3,1" Interpolation="SCurve,0.5"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="SCurve,0.5"/>
+      <PositionKeyframe Time="0.4" Value="0,-35,0" Interpolation="SCurve,0.5"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="TSFocusLost" CenterPointPercent="0.5,0.5,0.5" >
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp"/>
+      <ScaleKeyframe Time="0.2" Value="1,1,1"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="Exp, 0.5"/>
+      <PositionKeyframe Time="0.2" Value="0,0,0"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="DetailsFocusGained" CenterPointPercent="0,0.5,0.5">
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp,1"/>
+      <ScaleKeyframe Time="0.4" Value="1.3,1.3,1" Interpolation="SCurve,0.5"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="SCurve,0.5"/>
+      <PositionKeyframe Time="0.4" Value="20,0,0" Interpolation="SCurve,0.5"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="DetailsFocusLost" CenterPointPercent="0,0.5,0.5" >
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp"/>
+      <ScaleKeyframe Time="0.2" Value="1,1,1"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="Exp, 0.5"/>
+      <PositionKeyframe Time="0.2" Value="0,0,0"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="TagLineZoom" CenterPointPercent="0.5,0.5,0.5" >
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" Value="1,1,1" RelativeTo="Current" Interpolation="Exp"/>
+      <ScaleKeyframe Time="4.0" Value="2,2,1"/>
+      <PositionKeyframe Time="0.00" Value="0,0,0" RelativeTo="Current" Interpolation="Exp, 0.5"/>
+      <PositionKeyframe Time="2" Value="0,0,500"/>
+      <AlphaKeyframe Time="0" Value="0" RelativeTo="Current"/>
+      <AlphaKeyframe Time="2" Value="1" RelativeTo="Current"/>
+      <AlphaKeyframe Time="2" Value="1" RelativeTo="Current"/>
+      <AlphaKeyframe Time="5" Value="0"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="ShowSlideRight" Type="ContentChangeShow">
+    <Keyframes>
+      <PositionKeyframe Time="0" RelativeTo="Final" Value="1,0,0" Interpolation="Log"/>
+      <PositionKeyframe Time=".65" RelativeTo="Final"/>
+    </Keyframes>
+  </Animation>
+  
+  <Animation Name="ShowSlideLeft" Type="ContentChangeShow">
+    <Keyframes>
+      <PositionKeyframe Time="0" RelativeTo="Final" Value="-1,0,0" Interpolation="Log"/>
+      <PositionKeyframe Time=".65" RelativeTo="Final"/>
+    </Keyframes>
+  </Animation>
+  
+  <Animation Name="HideSlideRight" Type="ContentChangeHide">
+    <Keyframes>
+      <PositionKeyframe Time="0" RelativeTo="Final" Interpolation="Log"/>
+      <PositionKeyframe Time=".65" RelativeTo="Final"  Value="-1,0,0"/>
+    </Keyframes>
+  </Animation>
+  
+  <Animation Name="HideSlideLeft" Type="ContentChangeHide">
+    <Keyframes>
+      <PositionKeyframe Time="0" RelativeTo="Final" Interpolation="Log"/>
+      <PositionKeyframe Time=".65" RelativeTo="Final" Value="1,0,0"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="NavigateToForward" Type="Show">
+    <Keyframes>
+      <PositionKeyframe Time="0.0" Value="400, 0, 0" RelativeTo="Final"/>
+      <PositionKeyframe Time="0.3" Value="400, 0, 0" RelativeTo="Final" Interpolation="EaseIn, 3.0, 0.2"/>
+      <PositionKeyframe Time="1.0" Value="0, 0, 0" RelativeTo="Final"/>
+      <AlphaKeyframe Time="0.0" Value="0.0" RelativeTo="Absolute"/>
+      <AlphaKeyframe Time="0.3" Value="0.0" RelativeTo="Absolute"/>
+      <AlphaKeyframe Time="1.0" Value="1.0" RelativeTo="Absolute"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="NavigateAwayBackward" Type="Hide" CenterPointPercent="0.0, 0.5, 0.0">
+    <Keyframes>
+      <ScaleKeyframe Time="0.0" RelativeTo="Current" Interpolation="Exp"/>
+      <ScaleKeyframe Time="0.4" Value="0.5, 0.5, 1.0"/>
+      <AlphaKeyframe Time="0.0" RelativeTo="Current"/>
+      <AlphaKeyframe Time="0.4" Value="0.0" RelativeTo="Absolute"/>
+    </Keyframes>
+  </Animation>
+  
+  <Animation Name="Show">
+    <Keyframes>
+      <AlphaKeyframe Value="0" Time="0" RelativeTo="Current"/>
+      <AlphaKeyframe Value="0" Time="0.3" RelativeTo="Current"/>
+      <AlphaKeyframe Value="1" Time="1.5" RelativeTo="Final"/>
+    </Keyframes>
+  </Animation>
+
+  <Animation Name="Hide">
+    <Keyframes>
+      <AlphaKeyframe Value="1" Time="0" RelativeTo="Current"/>
+      <AlphaKeyframe Value="0" Time="0.5" RelativeTo="Final"/>
+    </Keyframes>
+  </Animation>
+
+</Mcml>

@@ -1,0 +1,44 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+	  xmlns:xs="file://Xenon_Styles.mcml"
+	  xmlns:me="Me">
+
+  <UI Name="BusyIndicator">
+    <Properties>
+      <Color Name="OverlayColor" Color="color://xs:RootHorizontalBGglowColor"/>
+    </Properties>
+    <Content>
+      <Panel Name="WatchedPanel" MaximumSize="30,30" Layout="Center" CenterPointPercent="0.5,0.5,0.5" Padding="3,3,3,3">
+        <Children>
+          <Graphic Content="resx://Xenon/Xenon.Resources/refresh" ColorFilter="[OverlayColor]" Layout="Fill">
+            <Animations>
+              <Animation Name="RotateRound" CenterPointPercent="0.5,0.5,0.5" Loop="-1" Type="Idle">
+                <Keyframes>
+                  <RotateKeyframe Time="0.0" Value="0deg;0,0,0" Interpolation="Linear" RelativeTo="Current" />
+                  <RotateKeyframe Time="1.5" Value="360deg;0,0,0" RelativeTo="Current" />
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Graphic>
+        </Children>
+        <Animations>
+          <Animation Type="Show">
+            <Keyframes>
+              <AlphaKeyframe Time="0" Value="0"/>
+              <AlphaKeyframe Time="0.4" Value="0"/>
+              <AlphaKeyframe Time=".8" Value="1"/>
+            </Keyframes>
+          </Animation>
+          <Animation Type="Hide">
+            <Keyframes>
+              <AlphaKeyframe Time="0" Value="1"/>
+              <AlphaKeyframe Time="0.6" Value="0"/>
+            </Keyframes>
+          </Animation>
+        </Animations>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

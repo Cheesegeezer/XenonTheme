@@ -1,0 +1,644 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+  xmlns:addin="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+  xmlns:cor="assembly://MsCorLib/System"
+  xmlns:a="assembly://MediaBrowser/MediaBrowser"
+  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+  xmlns:s="file://Styles_DoNotEdit.mcml"
+	xmlns:f="file://Fonts_DoNotEdit.mcml"
+  xmlns:xs="file://Xenon_Styles.mcml"
+  xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+  xmlns:an="resx://MediaBrowser/MediaBrowser.Resources/Animations"
+  xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
+  xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+  xmlns:pci="resx://Xenon/Xenon.Resources/PCIndicatorButton"
+  xmlns:pda="resx://Xenon/Xenon.Resources/PageDetailArea" 
+  xmlns:uic="resx://Xenon/Xenon.Resources/UIConfig"
+  xmlns:dcm="resx://Xenon/Xenon.Resources/DefaultContextMenu"
+  xmlns:cmb="resx://Xenon/Xenon.Resources/CommandButton"
+  xmlns:xh="assembly://Xenon/Xenon"
+  xmlns:me="Me">
+
+  <UI Name="PageXenon">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+      <IntRangedValue Name="SortOrderIndex" MinValue ="0" MaxValue="999"/>
+      <FormLayoutInput Name="FullScreen" Bottom="Parent,1" Left="Parent,0" Right="Parent,1" Top="Parent,0"/>
+      <xh:XenonHelper Name="Helper" />
+    </Properties>
+
+    <Locals>
+      
+      <a:Config Name="Config" Config="[Application.Config]"/>
+      <lib:Item Name="SelectedItem" Item="[Folder.SelectedChild]" />
+      <lib:Item Name="PreSelectedItem" Item="[Folder.SelectedChild]" />
+      <lib:Item Name="PreviousSelectedItem" Item="[Folder.SelectedChild]" />
+      <Timer Name="FullDetailsTimer" Interval="300" AutoRepeat="false"/>
+      <Timer Name="MediaPlaying" Interval="300" AutoRepeat="true"/>
+      <cor:Boolean Name="CanPlay" Boolean="false" />
+      <Timer Name="HideFindAsYouType" Interval="3000" AutoRepeat="false"/>
+      <addin:AddInHost Name="AddInHost" />
+
+      <!--INTERACTION MENU COMMANDS-->
+      <Command Name="Configure" />
+      <Command Name="RefreshCommand" />
+      <Command Name="CloseCommand" />
+      <Command Name="ClosePopupPlay"/>
+      <Command Name="ShowOptionsCommand" />
+      <Command Name="HideOptionsCommand" />
+      <Command Name="ShowContextMenuCommand" />
+      <Command Name="HideContextMenuCommand" />
+      <Command Name="ShowPlayMenuCommand" />
+      <Command Name="HidePlayMenuCommand" />
+      <Command Name="NowPlayingPanel"/>
+      <Command Name="ShowNowPlaying"/>
+      <Command Name="HideNowPlaying"/>
+      <Command Name="CloseSearch"/>
+      <!--END INTERACTION MENU COMMANDS-->
+      
+      <!--CONFIG PANEL COMMANDS-->
+      <Command Name="SearchFunction" />
+      <Command Name="SearchFocus" />
+      <Command Name="SearchFocusLost" />
+
+      <Command Name="ConfigFocus" />
+      <Command Name="ConfigFocusLost" />
+      <Command Name="ConfigOptions" />
+
+      <Command Name="NPVFocus" />
+      <Command Name="NPVFocusLost" />
+      <Command Name="GoToNowPlaying" />
+
+      <Command Name="HomeFocus" />
+      <Command Name="HomeFocusLost" />
+      <Command Name="HomeButtonCommand" />
+
+      <Command Name="UserFocus" />
+      <Command Name="UserFocusLost" />
+      <Command Name="CloseUserMenuCommand" />
+      <Command Name="SwitchUserCommand" />
+      <!--END CONFIG PANEL COMMANDS-->
+
+      <!-- Variable that uses the .NET Framework DateTime object -->
+      <cor:String Name="CurrentTime" String="[Helper.CurrentTime]"/>
+      <Timer Name="MyTimer" AutoRepeat="true" Interval="1500" Enabled="true"/>
+      <Timer Name="ButtonPanelTimer" AutoRepeat="false" Interval="500" Enabled="true"/>
+      <IntRangedValue Name="Hour"/>
+
+      <!--KEYBOARD SHORTCUTS-->
+      <!--<KeyHandler Name="MenuKey" Key="D3" Handle="false" Modifiers="Shift" HandlerStage="Bubbled"/>-->
+      <KeyHandler Name="InfoBtn" Key="D8" Handle="false" Modifiers="Shift" HandlerStage="Bubbled"/>
+      <KeyHandler Name="InfoMenu" Key="Underscore" Handle="false" HandlerStage="Bubbled"/>
+      <ShortcutHandler Name="RecordBtn" Handle="true" Shortcut="Record" HandlerStage="Bubbled"/>
+      <KeyHandler Key="F2" Name="ViewKey" HandlerStage="Bubbled" Repeat="false" Handle="true"/>
+      <ShortcutHandler Name="SearchShortcut" Handle="true" HandlerStage="Bubbled" Shortcut="Yellow"/>
+      <KeyHandler Name="SearchKey" Handle="true" HandlerStage="Bubbled" Key="S" Modifiers="Control"/>
+      <ShortcutHandler Name="BackHandler" Handle="false" Shortcut="Back" HandlerStage="Bubbled"/>
+      
+      <TypingHandler Name="TypingHandler" HandlerStage="Bubbled" TypingPolicy="TripleTap"  >
+        <EditableText>
+          <EditableText Value="" />
+        </EditableText>
+      </TypingHandler>
+    </Locals>
+
+    <Rules>
+      <!-- Set Folder Config Context -->
+      <!-- IMPORTANT: There are timing issues using Folder.ActualThumbSize when the folder's display prefs haven't been loaded
+                            yet.  So call LoadDisplayPrefs early and synchronously to ensure that all is initialized properly. -->
+      <Rule>
+        <Actions>
+          <Invoke Target="[Helper.GetFolderPrefsId]" folder="[Folder.PhysicalParent]" ResultTarget="[Helper.ThemeConfig.ParentFolderId]" InvokePolicy="Synchronous" ExclusiveApply="false" />
+          <Invoke Target="[Helper.GetFolderPrefsId]" folder="[Folder]" ResultTarget="[Helper.Config.FolderId]" InvokePolicy="Synchronous" ExclusiveApply="false" />
+          <Invoke Target="[Helper.LoadDisplayPrefs]" folder="[Folder]" InvokePolicy="Synchronous" />
+        </Actions>
+      </Rule>
+      <Binding Source="[Folder]" Target="[Helper.CurrentParent]" />
+
+      <Changed Source="[ButtonPanelTimer.Tick]" >
+        <Actions>
+          <Set Target="[ButtonPanel.Visible]" Value="true"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[FullDetailsTimer.Tick]">
+        <Actions>
+          <Set Target="[SelectedItem]" Value="[PreSelectedItem]"/>
+          <Set Target="[PreviousSelectedItem]" Value="[PreSelectedItem]"/>
+        </Actions>
+      </Changed>
+
+      <Binding Source="[FindAsYouType.Content]" Target="[ShadowLabel.Content]" />
+      <Binding Source="[TypingHandler.DisplayValue]" Target="[FindAsYouType.Content]" />
+      <Binding Source="[TypingHandler.DisplayValue]" Target="[Folder.TripleTapSelect]" />
+
+      <Changed Source="[TypingHandler.DisplayValue]" >
+        <Conditions>
+          <Equality Source="[TypingHandler.DisplayValue]" ConditionOp="NotEquals" Value="" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[HideFindAsYouType.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[HideFindAsYouType.Tick]">
+        <Actions>
+          <Set Target="[TypingHandler.EditableText.Value]" Value="" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Configure.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.OpenConfiguration]" showFullOptions="true" />
+        </Actions>
+      </Changed>
+
+      <!-- EHS Options -->
+      <Binding Source="[Application.Config.ShowConfigButton]" Target="[ConfigMenuButton.Visible]">
+        <Conditions>
+          <Equality Source="[Folder.IsRoot]" Value="false" />
+        </Conditions>
+      </Binding>
+      
+      <!--CLOCK-->
+      <Binding Source="[Application.Config.ShowClock]" Target="[ClockDisplay.Visible]" >
+        <Conditions>
+          <Equality Source="[Folder.IsRoot]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+      </Binding>
+      
+      <!--CLOCK-->
+      <Binding Source="[Application.Config.ShowClock]" Target="[ClockDisplay.Visible]"/>
+
+      <Changed Source="[ButtonPanelTimer.Tick]" >
+        <Actions>
+          <Set Target="[ButtonPanel.Visible]" Value="true"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[MyTimer.Tick]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Folder.IsRoot]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[CurrentTime]" Value="[Helper.CurrentTime]"/>
+          <Set Target="[TimeDisplay.Content]" Value="[CurrentTime]"/>
+        </Actions>
+      </Changed>
+      
+
+     <Binding Target="[Helper.IsMenuOpen]" Source="[ContextMenu.Visible]"></Binding>
+
+      <!-- Config Popup Options -->
+      <Changed Source="[Configure.Invoked]" ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Folder.IsRoot]" Value="true" />
+          <Equality Source="[Application.Config.EnableRootPage]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Application.OpenConfiguration]" showFullOptions="true" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShowOptionsCommand.Invoked]">
+        <Actions>
+          <Set Target="[UIConfig.Visible]" Value="true" />
+          <Invoke Target="[UIConfig.NavigateInto]" />
+          <Set Target="[ViewPanel.Enabled]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[HideOptionsCommand.Invoked]">
+        <Actions>
+          <Set Target="[ViewPanel.Enabled]" Value="true" />
+          <Set Target="[UIConfig.Visible]" Value="false" />
+          <Invoke Target="[ViewPanel.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[TypingHandler.DisplayValue]">
+        <Conditions>
+          <Equality Source="[TypingHandler.DisplayValue]" ConditionOp="Equals" Value="*" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ShowContextMenuCommand.Invoke]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShowContextMenuCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.ResetContextMenu]" />
+          <Set Target="[ViewPanel.Enabled]" Value="false" />
+          <Set Target="[TypingHandler.EditableText.Value]" Value="" />
+          <Set Target="[FindAsYouTypePanel.Visible]" Value="false" />
+          <Set Target="[ContextMenu.Visible]" Value="true"/>
+          <Invoke Target="[ContextMenu.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[HideContextMenuCommand.Invoked]">
+        <Actions>
+          <Set Target="[ViewPanel.Enabled]" Value="true" />
+          <Invoke Target="[ViewPanel.NavigateInto]" />
+          <Set Target="[ContextMenu.Visible]" Value="false" />
+          <Set Target="[FindAsYouTypePanel.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.DisplayPopupPlay]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Application.DisplayPopupPlay]" Value="false" />
+          <Invoke Target="[ShowPlayMenuCommand.Invoke]" />
+        </Actions>
+      </Rule>
+
+      <Changed Source="[ShowPlayMenuCommand.Invoked]">
+        <Actions>
+          <Set Target="[ViewPanel.Enabled]" Value="false" />
+          <Set Target="[FindAsYouTypePanel.Visible]" Value="false" />
+          <Set Target="[PlayMenu.Visible]" Value="true"/>
+          <Invoke Target="[PlayMenu.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[HidePlayMenuCommand.Invoked]">
+        <Actions>
+          <Set Target="[ViewPanel.Enabled]" Value="true" />
+          <Invoke Target="[ViewPanel.NavigateInto]" />
+          <Set Target="[PlayMenu.Visible]" Value="false" />
+          <Set Target="[FindAsYouTypePanel.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+      <!--Config Popup Options-->
+
+      <!--Conditions for displaying the Now Playing Icon-->
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Application.PlaybackController.IsStopped]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[NowPlayKey.Visible]" Value="false"></Set>
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Application.PlaybackController.IsPlaying]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[NowPlayKey.Visible]" Value="true"></Set>
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Application.PlaybackController.IsPaused]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[NowPlayKey.Visible]" Value="true"></Set>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Actions>
+          <Invoke Target="[MediaPlaying.Start]" />
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Modified Source="[GoToNowPlaying.Invoked]" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Application.PlaybackController.GoToFullScreen]"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Modified Source="[ViewKey.Invoked]" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Folder.DisplayPrefs.ToggleViewTypes]" />
+        </Actions>
+      </Rule>
+
+      <!--HOME BUTTON LOGIC-->
+      <Condition Source="[Folder.IsRoot]" SourceValue="true"  >
+        <Actions>
+          <Set Target="[HomePanel.Visible]" Value="false" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Folder.IsRoot]" SourceValue="false"  >
+        <Actions>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+          <Set Target="[HomePanel.Visible]" Value="true" />
+        </Actions>
+      </Condition>
+
+      <Changed Source="[HomeButtonCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.BackToRoot]"/>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+        </Actions>
+      </Changed>
+
+      <!--MBC 3.0.97 USER SWITCHING-->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.DisplayUserMenu]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[UserMenu.Visible]" Value="true" />
+          <Invoke Target="[UserMenu.NavigateInto]" />
+        </Actions>
+      </Rule>
+
+      <Changed Source="[SwitchUserCommand.Invoked]">
+        <Actions>
+          <Set Target="[Application.DisplayUserMenu]" Value="true"/>
+          <Set Target="[ContextMenu.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[CloseUserMenuCommand.Invoked]">
+        <Actions>
+          <Set Target="[Application.DisplayUserMenu]" Value="false" />
+          <Invoke Target="[ViewPanel.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <!--CONFIG PANEL ICONS FOCUS/FOCUSLOST ACTIONS-->
+      <Changed Source="[UserFocus.Invoked]">
+        <Actions>
+          <Set Target="[UserKey.Alpha]" Value="1" />
+          <Set Target="[UserKey.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[UserFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[UserKey.Alpha]" Value="0.5" />
+          <Set Target="[UserKey.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+      
+      <Changed Source="[SearchFocus.Invoked]">
+        <Actions>
+          <Set Target="[SearchMenuPanel.Alpha]" Value="1" />
+          <Set Target="[SearchMenuPanel.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[SearchFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[SearchMenuPanel.Alpha]" Value="0.5" />
+          <Set Target="[SearchMenuPanel.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ConfigFocus.Invoked]">
+        <Actions>
+          <Set Target="[ConfigurationKey.Alpha]" Value="1" />
+          <Set Target="[ConfigurationKey.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ConfigFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[ConfigurationKey.Alpha]" Value="0.5" />
+          <Set Target="[ConfigurationKey.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[NPVFocus.Invoked]">
+        <Actions>
+          <Set Target="[NowPlayKey.Alpha]" Value="1" />
+          <Set Target="[NowPlayKey.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[NPVFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[NowPlayKey.Alpha]" Value="0.5" />
+          <Set Target="[NowPlayKey.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[HomeFocus.Invoked]">
+        <Actions>
+          <Set Target="[HomeButton.Alpha]" Value="1" />
+          <Set Target="[HomeButton.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[HomeFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[HomeButton.Alpha]" Value="0.5" />
+          <Set Target="[HomeButton.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[CloseSearch.Invoked]">
+        <Actions>
+          <Set Target="[MouseBlocker.Visible]" Value="false" />
+          <Set Target="[Application.ShowSearchPanel]" Value="false" />
+        </Actions>
+      </Changed>
+      
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Modified Source="[SearchShortcut.Invoked]" />
+          <Modified Source="[SearchKey.Invoked]" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Application.ShowSearchPanel]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Modified Source="[SearchFunction.Invoked]" />
+          <Modified Source="[SearchKey.Invoked]" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Application.ShowSearchPanel]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Condition Source="[Application.ShowSearchPanel]" SourceValue="true"  >
+        <Actions>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+          <Set Target="[MouseBlocker.Visible]" Value="true" />
+          
+        </Actions>
+      </Condition>
+      <!--END SEARCH PANEL LOGIC-->
+
+      <Condition Source="[Folder.IsRoot]" SourceValue="true" Target="[ConfigurationKey.Visible]" Value="true"/>
+      <Condition Source="[Application.Config.ShowConfigButton]" SourceValue="true" Target="[ConfigurationKey.Visible]" Value="true"/>
+
+      <Rule>
+        <Conditions>
+          <Modified Source="[RecordBtn.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <PlaySound Sound="res://ehres!MiniSelect_a.wav" />
+          <Invoke Target="[PreSelectedItem.RefreshMetadata]"/>
+        </Actions>
+      </Rule>
+    </Rules>
+
+    <Content>
+      <Panel Layout="Form"  Navigation="RememberFocus">
+        <Children>
+          <Text Name="IsPlaying" ></Text>
+          <Text Name="IsStopped" ></Text>
+          <Text Name="IsPaused" ></Text>
+
+          <NowPlaying ShowFullMetadata="Never" SnapToDefaultPosition="true" Visible="false" Name="NowPlay">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Top="Parent,1"/>
+            </LayoutInput>
+          </NowPlaying>
+
+          <Clip Layout="Form" Padding="[Application.Config.OverScanPadding]" Scale="[Application.Config.OverScanScaling]" CenterPointPercent="0.5,0.5,0.5">
+            <Animations>
+              <Animation Animation="animation://an:PageHide" />
+            </Animations>
+            <Children>
+              <uic:UIConfig Name="UIConfig"
+                            Application="[Application]"
+                            Config="[Helper.Config]"
+                            Folder="[Folder]"
+                            CloseCommand="[HideOptionsCommand]"
+                            Prefs="[Folder.DisplayPrefs]"
+                            Visible="false">
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1" />
+                </LayoutInput>
+              </uic:UIConfig>
+
+              <!-- Play Menu -->
+              <dcm:ContextMenu Name="PlayMenu" Application="[Application]" CloseCommand="[HidePlayMenuCommand]" Visible="false" MenuType="Play" />
+
+              <dcm:ContextMenu Name="ContextMenu" Application="[Application]" CloseCommand="[HideContextMenuCommand]" Visible="false" MenuType="Context" />
+              
+              <!--USER SWITCHING MENU-->
+              <dcm:UserMenu Name="UserMenu" Application="[Application]" CloseCommand="[CloseUserMenuCommand]" Visible="false" MenuType="User"/>
+
+              <Panel Name="FindAsYouTypePanel" >
+                <LayoutInput>
+                  <FormLayoutInput Bottom="Parent,1,-30" Right="Parent,1,-30"/>
+                </LayoutInput>
+                <Layout>
+                  <FlowLayout ItemAlignment="Center"/>
+                </Layout>
+                <Children>
+                  <ColorFill Content="Transparent" Padding="8,0,8,-3" Layout="Anchor">
+                    <Children>
+                      <Text Name="FindAsYouType" Font="Neutra Text Book,150" Content="" Color="color://s:FontColorLight" />
+                      <Text Name="ShadowLabel" Content="" Color="255, 0, 0, 0" Font="Neutra Text Light,150">
+                        <LayoutInput>
+                          <AnchorLayoutInput Top="FindAsYouType, 0, 2" Left="FindAsYouType, 0, 2"/>
+                        </LayoutInput>
+                      </Text>
+                    </Children>
+                  </ColorFill>
+                </Children>
+              </Panel>
+
+              <Panel Name="MouseBlocker" MouseInteractive="true" Layout="Fill" Visible="false" />
+              
+              <Panel Padding="0,0,0,0" Name="ClockDisplay" >
+                <LayoutInput>
+                  <FormLayoutInput Top="Parent,0,5" Right="Parent,1,-20" />
+                </LayoutInput>
+                <Children>
+                  <Text Name="TimeDisplay" Color="color://xs:ClockColor" Font="font://xs:ClockFont"/>
+                </Children>
+              </Panel>
+
+              <!--Options buttons, Search, Settings and NPV button-->
+              <Panel Name="ButtonPanel" Visible="false" Layout="HorizontalFlow" FocusOrder="100" Navigation="Row" >
+                <LayoutInput>
+                  <AnchorLayoutInput Top="Parent,0,28" Right="Parent,1,-20" />
+                </LayoutInput>
+                <Animations>
+                  <Animation Type="Show">
+                    <Keyframes>
+                      <AlphaKeyframe Value="0" Time="0"/>
+                      <AlphaKeyframe Value="0.5" Time="0.2"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+                <Children>
+
+                  <Graphic FocusOrder="101" Navigation="ContainHorizontal,PreferFocusOrder,Row" Layout="HorizontalFlow"  MaximumSize="0,80" MinimumSize="0,80" SizingPolicy="SizeToChildren" Padding="0,15,0,13">
+                    <Layout>
+                      <FlowLayout Orientation="Horizontal" ItemAlignment="Far"/>
+                    </Layout>
+                    <Children>
+
+                      <!--USER SWITCHING MENU-->
+                      
+                      <Panel Name="UserKey" FocusOrder="10">
+                        <Children>
+                          <vsb:SimpleButton Name="UserMenuButton" Application="[Application]" OnFocus="[UserFocus]" OnLooseFocus="[UserFocusLost]" ImageNoFocus="[Application.CurrentUser.PrimaryImage]" Command="[SwitchUserCommand]" Size="30,30" Margins="0,0,0,0" />
+                        </Children>
+                      </Panel>
+                      
+                      <Panel Name="NowPlayKey" Visible="false" FocusOrder="102">
+                        <Children>
+                          <vsb:SimpleButton OnFocus="[NPVFocus]" Size="50,50" OnLooseFocus="[NPVFocusLost]" Name="NowPlayButton" Application="[Application]" FocusImage="image://vi:IconNowPlay" ImageNoFocus="image://vi:IconNowPlaySmall" Command="[GoToNowPlaying]" />
+                        </Children>
+                      </Panel>
+
+                      <Panel Name="SearchMenuPanel" FocusOrder="103"  >
+                        <Children>
+                          <vsb:SimpleButton Name="SearchMenuButton" Size="50,50" Application="[Application]" OnFocus="[SearchFocus]" OnLooseFocus="[SearchFocusLost]" FocusImage="image://vi:IconSearch" ImageNoFocus="image://vi:IconSearchSmall" Command="[SearchFunction]"/>
+                        </Children>
+                      </Panel>
+
+                      <Panel Name="ConfigurationKey" FocusOrder="104">
+                        <Children>
+                          <vsb:SimpleButton Name="ConfigMenuButton" Size="50,50" Application="[Application]" OnFocus="[ConfigFocus]" OnLooseFocus="[ConfigFocusLost]" FocusImage="image://vi:Gear" ImageNoFocus="image://vi:GearSmall" Command="[ShowOptionsCommand]"/>
+                        </Children>
+                      </Panel>
+
+                      <Panel Name="HomePanel" FocusOrder="105"  >
+                        <Children>
+                          <vsb:SimpleButton Name="HomeButton" Size="50,50" Application="[Application]" OnFocus="[HomeFocus]" OnLooseFocus="[HomeFocusLost]" FocusImage="image://vi:IconHome" ImageNoFocus="image://vi:IconHomeSmall" Command="[HomeButtonCommand]"/>
+                        </Children>
+                      </Panel>
+
+                      <!--Panel Name="UserIndicatorPanel" FocusOrder="106" >
+                        <Children>
+                          <ind:UserIndicator Application="[Application]" Command="[UserButton]" OnFocus="[UserFocus]" OnLooseFocus="[UserFocusLost]" />
+                        </Children>
+                      </Panel-->
+
+                      <Panel Name="PCBtn" Margins="0,0,0,0" Visible="true" FocusOrder="107">
+                        <Children>
+                          <pci:PCIndicatorButton Application="[Application]" Size="50,50"/>
+                        </Children>
+                      </Panel>
+                    </Children>
+                  </Graphic>
+                </Children>
+              </Panel>
+
+              <pda:PageDetailAreaXenon ThemeHelper="[Helper]" Name="ViewPanel" Folder="[Folder]" Application="[Application]" LayoutInput="[FullScreen]"/>
+
+              <Graphic Name="MainBG" Layout="Fill" Alpha="0" Content="image://vi:BackgroundBlack" Visible="[Application.Config.ShowRootBackground]"/>
+            </Children>
+          </Clip>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

@@ -1,0 +1,38 @@
+Xenon 0.0.0.1
+--------------
+
+Most of this is rewritten, but reworked from simplicity to speed up coding process
+EHS
+----
+Moved VF Items to Vertical Left
+Moved RAL Items to Vertical Right
+RAL selector moved above RAL, still need to add focusing to it and also the option that text changes for watched if the option to show in progress is checked in the Main Config for MBC.
+Moved Item Details to Bottom Centre. Made Tagline visible and Year visible.
+Added 5 Day forecast to Top left (only current weather shows when not focused)
+Enlarged Clock
+Made NPV icon hidden when player is stopped
+NVP icon is shown when player is playing or paused
+Changed Icons to be a little more modern
+
+Still to Add
+RAL gradient fade
+Currently Selected Item gradient fade
+
+Note: You can only enter items direct from RAL - this utilises old Simplicity DetailMovieView (I used it to test NPV icon
+
+Have a play Mike.  I think the Navigation is pretty sweet.
+
+BAS RECOMMENDATIONS
+-------------------
+
+1. Wrap EHS Folders if greater than 5
+2. Selected VF is Centered
+3. Left Press moves to Weather
+4. Same with RAL with Right press taking you to RALSelector
+5. Add cloud BGs, for EHS, RAL, RALSelector, Clock, ItemDetails
+6. Expose Text, Colors, CloudOverlays for user customisation
+7. Add Search function
+8. Series Info: Seasons, Runtime, Stars, MPAA and status(continuing/ended) with thumb image above the Title
+9. Movie info: Add MPAA
+10. 
+

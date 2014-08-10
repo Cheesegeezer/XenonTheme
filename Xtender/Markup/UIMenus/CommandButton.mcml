@@ -1,0 +1,53 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+	  xmlns:xs="file://Xenon_Styles.mcml"
+	  xmlns:me="Me">
+
+  <UI Name="CommandButton">
+
+    <Properties>
+      <cor:String Name="Text" String="$Required" />
+      <Font Name="Font" Font="$Required" />
+      <Font Name="SelFont" Font="$Required" />
+      <Color Name="Color" Color="255,255,255" />
+      <Color Name="SelColor" Color="255,255,255" />
+      <ICommand Name="Command" ICommand="$Required" />
+      <cor:Boolean Name="Enabled" Boolean="true" />
+    </Properties>
+
+    <Locals>
+      <ClickHandler Name="Clicker" />
+    </Locals>
+
+    <Rules>
+      <Binding Source="[Text]" Target="[ButtonText.Content]" />
+      <Binding Source="[Enabled]" Target="[Input.KeyInteractive]" />
+      <Binding Source="[Command]" Target="[Clicker.Command]" />
+
+      <Condition Source="[Enabled]" ConditionOp="Equals" SourceValue="false" Target="[ButtonText.Alpha]" Value="0.3" />
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[ButtonText.Color]" Value="[SelColor]"/>
+        </Actions>
+      </Condition>
+
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ButtonText.Font]" Value="[SelFont]"/>
+        </Actions>
+      </Rule>
+    </Rules>
+
+    <Content>
+      <Text Name="ButtonText" Content="[Text]" Font="[Font]" Color="[Color]" WordWrap="true" Alpha="1" />
+    </Content>
+
+  </UI>
+
+</Mcml>

@@ -1,0 +1,7 @@
+D:\VS 2012 Projects\Xtender\Xtender\bin\Debug\Xtender.dll
+D:\VS 2012 Projects\Xtender\Xtender\bin\Debug\Xtender.pdb
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.Resources.resources
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.dll
+D:\VS 2012 Projects\Xtender\Xtender\obj\Debug\Xtender.pdb

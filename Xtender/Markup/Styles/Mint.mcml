@@ -1,0 +1,215 @@
+<!-- CORE VERSION (DO NOT EDIT): 6 -->
+<!-- STYLE VERSION: 3 -->
+<!-- IMPORTANT: The above lines MUST exist in order as the first 2 lines of any theme file
+                The CORE VERSION must match the Xenon styles core version and must implement
+                    all items from that version (reference: The Original.mcml)
+                The STYLE VERSION allows for modifications to be made to a given style; if
+                    greater than that bundled with Xenon, it will not be overwritten -->
+
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:cor="assembly://MSCorLib/System">
+
+  <!--EHS CONTENT-->
+  <Font Name="UnselectedEHSTitleFont" Font="BebasNeue,50" />
+  <Color Name="UnselectedEHSTitleColor" Color="MintCream"/>
+  <Font Name="SelectedEHSTitleFont" Font="BebasNeue,90" />
+  <Color Name="SelectedTitleColor" Color="SeaGreen"/>
+      <!--EHS BACKGROUND BAR COLORS-->
+      <Color Name="RootHorizontalBGColor" Color="MintCream" />
+      <Color Name="RootHorizontalBGglowColor" Color="SeaGreen" />
+      <Color Name="RootHorizontalBGoverlayColor" Color="SeaGreen" />
+      <Color Name="RootDownArrowColor" Color="SeaGreen" />
+      <!--CLOCK-->
+      <Font Name="ClockFont" Font="InterBold, 16" />
+      <Color Name="ClockColor" Color="MintCream" />
+  
+    <!--RAL ITEMS-->
+      <!--RAL Items List Font-->
+      <Font Name="RALUnselectedFont" Font="InterOne, 20" />
+      <Font Name="RALSelectedFont" Font="InterBold, 20" />
+      <!--RAL & NEXTUP PANEL FONTS AND COLORS -->
+      <Font Name="XF_RALPopupItem" Font="BebasNeue,24"/>
+      <Color Name="XC_RALPopupItem" Color="SeaGreen"/>
+      <Font Name="XF_NoRALPopupItem" Font="InterBold,16"/>
+      <Color Name="XC_NoRALPopupItem" Color="SeaGreen"/>
+      <Font Name="XF_RALItemTitle" Font="Impact,16"/>
+      <Color Name="XC_RALItemTitle" Color="MintCream"/>
+      <Color Name="XC_RALPanelFilterColor" Color="SeaGreen"/>
+      <cor:Single Name="RALPanelAlpha" Single="0.6"/>
+        <!--RAL SELECTOR FONTS & COLORS-->
+        <Font Name="XF_RALOption" Font="InterBold, 14"/>
+        <Color Name="XC_RALOption" Color="200,200,200"/>
+        <Font Name="XF_Option" Font="InterBold, 14"/>
+        <Color Name="XC_RALOption" Color="200,200,200"/>
+        <Color Name="RALOptionButtonHighLight" Color="MintCream"/>
+        <Color Name="RALOptionButtonHighLightBG" Color="SeaGreen" />
+ 
+  <!--Items Details Font-->
+  <Font Name="DetailsTitle" Font="InterOne,22" />
+  <Font Name="TagLineFont" Font="InterBold,18" />
+  <Font Name="DetailsInfoLabelFont" Font="InterOne,18" />
+  <Font Name="DetailsInfoValueFont" Font="InterOne,18" />
+
+  <!-- FULL DETAILS AND MEDIA PAGE-->
+    <Font Name="OverviewFont" Font="InterOne, 16"/>
+    <Color Name="OverviewColor" Color="MintCream"/>
+      <!--Options Scroller List Fonts-->
+      <Font Name="DetailOptionFont" Font="BebasNeue, 24"/>
+      <Font Name="DetailSelOptionFont" Font="BebasNeue, 24"/>
+      <Color Name="DetailOptionColor" Color="SeaGreen"/>
+      <Color Name="DetailSelOptionColor" Color="240,240,240"/>
+      <!--Actors Fonts-->
+      <Font Name="ActorNameFont" FontName="InterBold" FontSize="20" />
+      <Color Name="ActorNameColor" Color="MintCream" />
+      <Font Name="ActorRoleFont" FontName="InterBold" FontSize="16" />
+      <Color Name="ActorRoleColor" Color="MintCream" />
+      <!--Chapters Fonts-->
+      <Font Name="ChapterNameFont" FontName="InterBold" FontSize="20" />
+      <Color Name="ChapterNameColor" Color="MintCream" />
+      <Font Name="ChapterTimeFont" FontName="InterOne" FontSize="16" />
+      <Color Name="ChapterTimeColor" Color="MintCream" />
+      <Color Name="ChapterItemColor" Color="MintCream" />
+      <Color Name="NoChaptersTextColor" Color="MintCream" />
+      <Font Name="NoChaptersFont" Font="InterBold,36" />
+      <!--Final Page Items Details Fonts-->
+      <Font Name="FinalDetailsTitle" Font="InterBold,22" />
+      <Color Name="FinalDetailsTitleColor" Color="255,255,255" />
+      <Font Name="FinalTagLineFont" Font="InterOne,18" />
+      <Color Name="FinalTaglineColor" Color="255,255,190" />
+      <Font Name="FinalDetailsInfoLabelFont" Font="InterBold,16" />
+      <Color Name="FinalDetailsInfoLabelColor" Color="240,240,240" />
+      <Font Name="FinalDetailsInfoValueFont" Font="InterOne,14" />
+      <Color Name="FinalDetailsInfoValueColor" Color="255,255,190" />
+  
+
+  <!--POSTER VIEW-->
+      <!--FONTS-->
+      <Font Name="PosterTitleFont" Font="InterBold,28" />
+      <Font Name="PosterOverviewFont" Font="InterOne,16" />
+      <Font Name="PosterTagLineFont" Font="Impact,26, Bold" />
+      <Font Name="PosterShadowTagLineFont" Font="Impact,26, Bold" />
+      <Font Name="PosterDetailsInfoLabelFont" Font="InterBold,18" />
+      <Font Name="PosterDetailsInfoValueFont" Font="InterOne,18" />
+      <Font Name="PosterSmallFont" Font="InterBold,20" />
+      <!--COLORS-->
+      <Color Name="PosterTitleColor" Color="255,255,255" />
+      <Color Name="PosterOverviewTextColor" Color="MintCream" />
+      <Color Name="PosterOverviewCloudBGColor" Color="0,0,0" />
+      <Color Name="PosterTaglineColor" Color="255,255,190" />
+      <Color Name="PosterShadowTaglineColor" Color="25,25,25" />
+      <Color Name="PosterDetailsInfoLabelColor" Color="255,255,190" />
+      <Color Name="PosterDetailsInfoValueColor" Color="240,240,240" />
+      <Color Name="StarsColor" Color="255,255,30" />
+
+  <!--COVERFLOW VIEW-->
+  <Font Name="CV_PosterTopLabelFont" Font="InterBold, 20" />
+
+  <!--THUMBSTRIP VIEW-->
+      <!--FONTS-->
+      <Font Name="ThumbStripTitleFont" Font="InterBold, 20" />
+      <Font Name="ThumbStripOverviewFont" Font="InterOne, 16" />
+      <Font Name="ThumbStripShadowOverviewFont" Font="InterOne, 16" />
+      <Font Name="ThumbStripYearFont" Font="InterBold, 16" />
+      <Font Name="ThumbStripTagLineFont" Font="Impact,28, Bold" />
+      <Font Name="ThumbStripShadowTagLineFont" Font="Impact,28, Bold" />
+      <!--COLORS-->
+      <Color Name="ThumbStripOverviewColor" Color="255,255,255" />
+      <Color Name="ThumbStripShadowOverviewColor" Color="25,25,25" />
+      <Color Name="ThumbStripYearColor" Color="255,255,30" />
+      <Color Name="ThumbStripTitleColor" Color="255,255,255" />
+      <Color Name="ThumbDividerColor" Color="255,255,240" />
+      <Color Name="ThumbStripTaglineColor" Color="255,255,190" />
+      <Color Name="ThumbStripShadowTaglineColor" Color="25,25,25" />
+
+  <!--FULL DETAILS VIEW-->
+      <Font Name="ListScrollerFont" Font="Neutra Text,18"/>
+      <Font Name="DetailsParentFolderHeadingFont" Font="InterBold,22" />
+      <Font Name="DetailsOverviewFont" Font="InterOne,20" />
+
+  <!--DETAILS QUICKLIST VIEW-->
+      <Font Name="XF_DQLFolderTitle" Font="BebasNeue,24" />
+      <Color Name="XC_DQLFolderTitleColor" Color="SeaGreen"/>
+      <Font Name="XF_DQLUnselected" Font="BebasNeue,24" />
+      <Font Name="XF_DQLSelected" Font="BebasNeue,32" />
+      <Color Name="XC_DQLUnselected" Color="150,150,150"/>
+      <Color Name="XC_DQLHighlighted" Color="MintCream"/>
+      <Color Name="XC_DQLHighlightedBG" Color="230,230,230"/>
+      <Color Name="QLDividerColor" Color="SeaGreen" />
+
+  <!--THUMB VIEW-->
+      <Font Name="ThumbTitleFont" Font="InterBold, 20" />
+      <Color Name="ThumbTitleColor" Color="MintCream" />
+      <Font Name="WaveSelected" FontName="InterBold" FontSize="32" />
+      <Font Name="WaveNotSelected" FontName="InterOne" FontSize="24" />
+
+  <!--BOTTOM BAR FONTS-->
+      <!--FONTS-->
+      <Font Name="BottomBarTitleFont" Font="BebasNeue,36, Bold" />
+      <Font Name="BottomBarYearFont" Font="BebasNeue,20, Bold" />
+      <Font Name="BottomBarRuntimeFont" Font="BebasNeue,20,Bold" />
+      <Font Name="BottomBarStatusFont" Font="BebasNeue,20,Bold" />
+      <Font Name="BottomBarLabelFont" Font="BebasNeue,20,Bold" />
+      <!--COLORS-->
+      <Color Name="BottomBarTitleColor" Color="MintCream"/>
+      <Color Name="BottomBarYearColor" Color="MintCream" />
+      <Color Name="BottomBarRuntimeColor" Color="MintCream" />
+      <Color Name="BottomBarStatusColor" Color="MintCream" />
+      <Color Name="BottomBarLabelColor" Color="MintCream" />
+      <Color Name="BottomBarColorOverlay" Color="SeaGreen" />
+  
+  <!--ACTOR PAGE -->
+      <Font Name="ActorPopupNameFont" Font="BebasNeue,36,Bold"/>
+      <Color Name="ActorPopupNameColor" Color="MintCream"/>
+      <Font Name="ActorInfoLabelFont" Font="InterBold, 20"/>
+      <Color Name="ActorInfoLabelColor" Color="SeaGreen"/>
+      <Font Name="ActorInfoValueFont" Font="InterBold, 22"/>
+      <Color Name="ActorInfoValueColor" Color="MintCream"/>
+      <Font Name="ActorBioFont" Font="InterOne, 16"/>
+      <Color Name="ActorBioColor" Color="MintCream"/>
+          <!-- ACTOR CREDITS SCROLLER -->
+          <Font Name="ActorCreditTitleFont" Font="BebasNeue,36,Bold"/>
+          <Color Name="ActorCreditTitleColor" Color="MintCream"/>
+          <Font Name="ActorCreditUnselectedTitleFont" Font="InterBold, 20"/>
+          <Color Name="ActorCreditUnselectedTitleColor" Color="SeaGreen
+"/>
+  
+  <!--COUNTERS-->
+      <!--FONTS-->
+      <Font Name="UnwatchedCountFont" Font="InterOne, 12" />
+      <Font Name="counterFont" Font="InterBold, 14" />
+      <Font Name="totalCounterFont" Font="InterBold, 14" />
+      <!--COLORS-->
+      <Color Name="counterColor" Color="MintCream" />
+      <Color Name="totalCounterColor" Color="MintCream" />
+      <Color Name="XC_WatchedBG" Color="SeaGreen" />
+
+  <!--CONFIG UI POPUP PANELS-->
+      <!-- Color and opacity of the "glow" fade used at the edges of the UI panels -->
+      <Color Name="XC_PanelGlow" Color="90,255,255,255" />
+      <!-- Color and opacity of primary UI panels -->
+      <Color Name="XC_PanelPrimaryBG" Color="225,0,0,0" />
+      <!-- Color and opacity of secondary UI panels -->
+      <Color Name="XC_PanelSecondaryBG" Color="150,0,0,0" />
+      <!-- Color and opacity of the background used under popup menus -->
+      <Color Name="XC_PopupMenuBG" Color="150,128,128,128" />
+      <!-- Color and opacity of the text used for the popup menu list items -->
+      <Color Name="XC_PopupMenuItem" Color="128,255,255,255" />
+      <!-- Color and opacity of the text used for the selected popup menu list item -->
+      <Color Name="XC_PopupMenuItemSel" Color="255,255,255,255" />
+      <!-- Color and opacity of the panel used for the popup menu list of items/actions -->
+      <Color Name="XC_PopupMenuItemBG" Color="225,0,0,0" />
+      <!-- Color of the text used for the popup menu title -->
+      <Color Name="XC_PopupMenuTitle" Color="200,200,220" />
+      <!-- Color and opacity of the panel used for the popup menu title -->
+      <Color Name="XC_PopupMenuTitleBG" Color="150,0,0,0" />
+        <!-- Font for the text used for the popup menu title -->
+        <Font Name="XF_PopupMenuTitle" Font="InterBold, 18" />
+        <!-- Font for the text used for the popup menu list items -->
+        <Font Name="XF_PopupMenuItem" Font="InterOne, 18" />
+        <!-- Color and opacity of the focus frame, if enabled -->
+        <Color Name="XC_FocusFrame" Color="255,255,255,255" />
+        <!-- Size that the focus frame extends from outside of the bounds of the poster -->
+        <cor:Int32 Name="UI_FocusFrameSize" Int32="6" />
+
+ 
+</Mcml>

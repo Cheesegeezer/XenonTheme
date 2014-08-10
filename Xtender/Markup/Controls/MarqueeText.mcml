@@ -1,0 +1,140 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:me="Me">
+
+
+  <UI Name="MarqueeText">
+    <Properties>
+      <cor:String Name="Content" String="" />
+      <Font Name="Font" Font="$Required" />
+      <Color Name="Color" />
+      <cor:Boolean Name="Scroll" Boolean="true" />
+      <Size Name="MaximumSize" Size="0,0" />
+    </Properties>
+
+    <Locals>
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="false" />
+      <ScrollingData Name="ScrollingData" ScrollStep="4" />
+
+      <Timer Name="ScrollText" Interval="100" AutoRepeat="true" Enabled="false" />
+      <Timer Name="Delay" Interval="2000" AutoRepeat="false" Enabled="false"/>
+      <Timer Name="EndDelay" Interval="4000" AutoRepeat="false" Enabled="false"/>
+    </Locals>
+
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="false" />
+
+      <Changed Source="[Scroll]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Scroll]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[Delay.Stop]" />
+          <Invoke Target="[EndDelay.Stop]" />
+          <Invoke Target="[Delay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Scroll]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Scroll]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[Delay.Stop]" />
+          <Invoke Target="[EndDelay.Stop]" />
+          <Invoke Target="[ScrollingData.Home]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Delay.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollText.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ScrollText.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.ScrollDown]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ScrollText.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[EndDelay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[EndDelay.Tick]">
+        <Actions>
+          <Invoke Target="[ScrollingData.Home]" />
+          <Invoke Target="[Delay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Content]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Scroll]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.Home]" />
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[EndDelay.Stop]" />
+          <Invoke Target="[Delay.Stop]" />
+          <Invoke Target="[Delay.Start]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Content]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Scroll]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.Home]" />
+          <Invoke Target="[ScrollText.Stop]" />
+          <Invoke Target="[EndDelay.Stop]" />
+          <Invoke Target="[Delay.Stop]" />
+        </Actions>
+      </Changed>
+
+      <Binding Source="[Font]" Target="[TextVal.Font]" />
+      <Binding Source="[Color]" Target="[TextVal.Color]" />
+      <Binding Source="[Content]" Target="[TextVal.Content]" />
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+    </Rules>
+
+    <Content>
+      <Scroller Name="AutoText" MaximumSize="[MaximumSize]" Orientation="Horizontal" FadeSize="-3" ScrollingData="[ScrollingData]">
+        <Children>
+          <Text Name="TextVal" Color="[Color]" Font="[Font]" WordWrap="false" Content="[Content]">
+            <Animations>
+              <Animation Type="Move">
+                <Keyframes>
+                  <PositionKeyframe RelativeTo="Current" Time="0"/>
+                  <PositionKeyframe RelativeTo="Final" Time="0.1"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Text>
+        </Children>
+      </Scroller>
+    </Content>
+  </UI>
+</Mcml>

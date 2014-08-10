@@ -1,0 +1,92 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml">
+
+  <!--EHS CONTENT-->
+  <Color Name="EHSTitleColor" Color="255,255,190"/>
+  <Color Name="EHSTitleUnselectedColor" Color="255,255,255" />
+  <Color Name="ClockColor" Color="255,255,255" />
+  <Color Name="VFCloudBGColor" Color="0,0,0" />
+        <!--RAL(Recently Added List) ITEMS-->
+        <!--RAL Items List-->
+        <Color Name="RALUnselectedColor" Color="255,255,255" />
+        <Color Name="RALSelectedColor" Color="255,255,190" />
+        <Color Name="RALCloudBGColor"  Color="0,0,0" />
+        <!--RAL Selector(Added,Watched,Unwatched,Resume)-->
+        <Color Name="RALSelectorColor" Color="235,235,235" />
+        <Color Name="RALSelectorCloudBGColor" Color="0,0,0" />
+              <!--Selected Item Details Colors-->
+              <Color Name="DetailsTitleColor" Color="255,255,255" />
+              <Color Name="TaglineColor" Color="255,255,190" />
+              <Color Name="DetailsInfoLabelColor" Color="240,240,240" />
+              <Color Name="DetailsInfoValueColor" Color="255,255,190" />
+              <Color Name="DetailsCloudBGColor" Color="0,0,0" />
+              <Color Name="StarsColor" Color="255,255,30" /> 
+  
+  <!-- FULL DETAILS AND MEDIA PAGE-->    
+    <Color Name="OverviewCloudBGColor" Color="0,0,0" />
+    <Color Name="OverviewColor" Color="230,230,230"/>
+    <Color Name="OptionsCloudBGColor" Color="0,0,0" />
+    <!--Actors Colors-->
+      <Color Name="ActorNameColor" Color="230,230,230" />
+      <Color Name="ActorRoleColor" Color="230,230,230" />
+      <!--Chapters Colors-->
+        <Color Name="ChapterItemColor" Color="230,230,230" />
+        <Color Name="ChapterNameColor" Color="230,230,230" />
+        <Color Name="ChapterTimeColor" Color="230,230,230" />
+        <Color Name="NoChaptersTextColor" Color="230,230,230" />
+            <!--Selected Item Details Colors-->
+                  <Color Name="FinalDetailsTitleColor" Color="255,255,255" />
+                  <Color Name="FinalTaglineColor" Color="255,255,190" />
+                  <Color Name="FinalDetailsInfoLabelColor" Color="240,240,240" />
+                  <Color Name="FinalDetailsInfoValueColor" Color="255,255,190" />
+  
+  <!--POSTER VIEW-->
+      <Color Name="PosterTitleColor" Color="255,255,255" />
+      <Color Name="PosterOverviewTextColor" Color="230,230,230" />
+      <Color Name="PosterOverviewCloudBGColor" Color="0,0,0" />
+      <Color Name="PosterTaglineColor" Color="255,255,190" />
+      <Color Name="PosterDetailsInfoLabelColor" Color="255,255,190" />  
+      <Color Name="PosterDetailsInfoValueColor" Color="240,240,240" />
+      <Color Name="StarsColor" Color="255,255,30" /> 
+  
+  
+  
+                  
+
+  <!-- NEW ITEM POPOUT COLOURS-->
+    <Color Name="NewItemColor" Color="255,255,255" />
+ 
+  
+  <Color Name="SupportColor" Color="200,200,200"/>
+  <Color Name="SupportColorTwo" Color="180,180,180"/>
+  <Color Name="OverviewColor" Color="230,230,230"/>
+
+  
+  <Color Name="OptionButton" Color="108,160,198"/>
+  <!--Color of selected RAL item-->
+  <Color Name="OptionButtonHighLight" Color="255,255,255"/>
+  <Color Name="OptionButtonSmallHighLight" Color="255,255,255"/>
+  <Color Name="Checked" Color="44,119,161"/>
+  <Color Name="CheckedHighlight" Color="255,255,255"/>
+
+  <Color Name="Blend" Color="8,60,98"/>
+
+  <Color Name="Light" Color="240,240,240"/>
+  <Color Name="Medium" Color="200,200,200"/>
+  <Color Name="Dark" Color="140,140,140"/>
+
+  <Color Name="BlueFilter" Color="255,255,255"/>
+  <Color Name="BlueFilter2" Color="70,170,240"/>
+
+  <Color Name="TitleColor" Color="255,255,255"/>
+  <Color Name="ListItemColor" Color="200,200,200"/>
+  
+  <!--SEARCH BOX COLORS-->
+  <!-- Search -->
+  <Color Name="SearchBackgroundColor" Color="200,0,0,0" />
+  <Color Name="Search_LineColor" Color="200,200,200" />
+  <Color Name="FilterByColor" Color="255,255,30"/>
+  
+
+
+
+</Mcml>

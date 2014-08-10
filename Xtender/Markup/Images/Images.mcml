@@ -1,0 +1,114 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:addin="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+      xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:me="Me">
+
+
+  <Image Name="BlankGraphic" Source="resx://MediaBrowser/MediaBrowser.Resources/BlankGraphic" />
+  <Image Name="rootBG" Source="resx://Xenon/Xenon.Resources/rootBG" />
+  <Image Name="rootBGGlass" Source="resx://Xenon/Xenon.Resources/rootBGGlass" />
+  <Image Name="rootBGglow" Source="resx://Xenon/Xenon.Resources/rootbg_glow" /> 
+  <Image Name="rootBGoverlay" Source="resx://Xenon/Xenon.Resources/rootbgoverlay" />
+  <Image Name="RootDownArrow" Source="resx://Xenon/Xenon.Resources/RootDownArrow" />
+  <Image Name="InfoPanel" Source="resx://Xenon/Xenon.Resources/InfoPanel" />
+  <Image Name="InfoPanelTime" Source="resx://Xenon/Xenon.Resources/InfoPanelTime" />
+  <Image Name="HRALPanel" Source="resx://Xenon/Xenon.Resources/RALSelectorPanel" />
+  <Image Name="RALBG" Source="resx://Xenon/Xenon.Resources/ralBG" />
+  <Image Name="RALBGShadow" Source="resx://Xenon/Xenon.Resources/ralBG_shadow" />
+
+  <Image Name="configfocuson" Source="resx://Xenon/Xenon.Resources/configfocuson" />
+  <Image Name="configfocus" Source="resx://Xenon/Xenon.Resources/configfocus" />
+  <Image Name="IconNowPlay" Source="resx://Xenon/Xenon.Resources/IconNowPlay" />
+  <Image Name="IconNowPlaySmall" Source="resx://Xenon/Xenon.Resources/IconNowPlaySmall" />
+  <Image Name="IconHome" Source="resx://Xenon/Xenon.Resources/IconHome" />
+  <Image Name="IconHomeSmall" Source="resx://Xenon/Xenon.Resources/IconHomeSmall" />
+  <Image Name="Gear" Source="resx://Xenon/Xenon.Resources/Gear" />
+  <Image Name="GearSmall" Source="resx://Xenon/Xenon.Resources/GearSmall" />
+  <Image Name="Lock" Source="resx://Xenon/Xenon.Resources/locked" />
+  <Image Name="Unlock" Source="resx://Xenon/Xenon.Resources/unlock" />
+  <Image Name="IconSearch" Source="resx://Xenon/Xenon.Resources/IconSearch" />
+  <Image Name="IconSearchSmall" Source="resx://Xenon/Xenon.Resources/IconSearchSmall" />
+  <Image Name="GlowLine" Source="resx://Xenon/Xenon.Resources/GlowLine" />
+  <Image Name="Tick" Source="resx://MediaBrowser/MediaBrowser.Resources/Tick"  />
+  <Image Name="BackgroundBlack"  Source="resx://Xenon/Xenon.Resources/BackgroundBlack" />
+  <Image Name="BackgroundDefault" Source="resx://MediaBrowser/MediaBrowser.Resources/BackgroundDefault" />
+  <Image Name="AddIcon" Source="resx://Xenon/Xenon.Resources/AddIcon"/>
+  <Image Name="AddIconSmall" Source="resx://Xenon/Xenon.Resources/AddIconSmall"/>
+
+  <Image Name="PrevBG"  Source="resx://Xenon/Xenon.Resources/PrevPanel" />
+  <Image Name="NextBG" Source="resx://Xenon/Xenon.Resources/NextPanel" />
+
+  <Image Name="ThumbsBG" Source="resx://Xenon/Xenon.Resources/ThumbPanelBlack" />
+  <Image Name="BottomBar" Source="resx://Xenon/Xenon.Resources/BottomInfoPane" />
+
+  <!--US RATING IMAGES-->
+  <Image Name="RatedG" Source="resx://Xenon/Xenon.Resources/rated_movie_G" />
+  <Image Name="RatedNC17" Source="resx://Xenon/Xenon.Resources/rated_movie_NC" />
+  <Image Name="RatedPG13" Source="resx://Xenon/Xenon.Resources/rated_movie_pg_13" />
+  <Image Name="RatedPG" Source="resx://Xenon/Xenon.Resources/rated_movie_PG" />
+  <Image Name="RatedR" Source="resx://Xenon/Xenon.Resources/rated_movie_R" />
+  <Image Name="RatedNR" Source="resx://Xenon/Xenon.Resources/rated_movie_NR" />
+  <Image Name="TV-14" Source="resx://Xenon/Xenon.Resources/rated_TV_14" />
+  <Image Name="TV-MA" Source="resx://Xenon/Xenon.Resources/rated_TV_MA" />
+  <Image Name="TV-PG" Source="resx://Xenon/Xenon.Resources/rated_TV_PG" />
+  <Image Name="TV-G" Source="resx://Xenon/Xenon.Resources/rated_TV_G" />
+  <Image Name="TV-Y" Source="resx://Xenon/Xenon.Resources/rated_TV_Y" />
+  <Image Name="TV-Y7" Source="resx://Xenon/Xenon.Resources/rated_TV_Y7" />
+  <Image Name="TV-Y7-FV" Source="resx://Xenon/Xenon.Resources/rated_TV_Y7_FV" />
+  
+  <Image Name="FullRatedG" Source="resx://Xenon/Xenon.Resources/rated_G_full" />
+  <Image Name="FullRatedNC17" Source="resx://Xenon/Xenon.Resources/rated_NC_full" />
+  <Image Name="FullRatedPG13" Source="resx://Xenon/Xenon.Resources/rated_PG_13_full" />
+  <Image Name="FullRatedPG" Source="resx://Xenon/Xenon.Resources/rated_PG_full" />
+  <Image Name="FullRatedR" Source="resx://Xenon/Xenon.Resources/rated_R_full" />
+  <Image Name="FullRatedNR" Source="resx://Xenon/Xenon.Resources/rated_NR_full" />
+  <Image Name="FullTV-14" Source="resx://Xenon/Xenon.Resources/rated_TV_14_full" />
+  <Image Name="FullTV-MA" Source="resx://Xenon/Xenon.Resources/rated_TV_MA_full" />
+  <Image Name="FullTV-PG" Source="resx://Xenon/Xenon.Resources/rated_TV_PG_full" />
+  <Image Name="FullTV-G" Source="resx://Xenon/Xenon.Resources/rated_TV_G_full" />
+  <Image Name="FullTV-Y" Source="resx://Xenon/Xenon.Resources/rated_TV_Y_full" />
+  <Image Name="FullTV-Y7" Source="resx://Xenon/Xenon.Resources/rated_TV_Y7_full" />
+  <Image Name="FullTV-Y7-FV" Source="resx://Xenon/Xenon.Resources/rated_TV_Y7_FV_full" />
+  
+  <!--UK RATING IMAGES-->
+  <Image Name="FullGB-U" Source="resx://Xenon/Xenon.Resources/rated_gb_U_full" />
+  <Image Name="FullGB-PG" Source="resx://Xenon/Xenon.Resources/rated_gb_PG_full" />
+  <Image Name="FullGB-12" Source="resx://Xenon/Xenon.Resources/rated_gb_12_full" />
+  <Image Name="FullGB-12A" Source="resx://Xenon/Xenon.Resources/rated_gb_12A_full" />
+  <Image Name="FullGB-15" Source="resx://Xenon/Xenon.Resources/rated_gb_15_full" />
+  <Image Name="FullGB-18" Source="resx://Xenon/Xenon.Resources/rated_gb_18_full" />
+  <Image Name="GB-U" Source="resx://Xenon/Xenon.Resources/rated_gb_U" />
+  <Image Name="GB-PG" Source="resx://Xenon/Xenon.Resources/rated_gb_PG" />
+  <Image Name="GB-12" Source="resx://Xenon/Xenon.Resources/rated_gb_12" />
+  <Image Name="GB-12A" Source="resx://Xenon/Xenon.Resources/rated_gb_12A" />
+  <Image Name="GB-15" Source="resx://Xenon/Xenon.Resources/rated_gb_15" />
+  <Image Name="GB-18" Source="resx://Xenon/Xenon.Resources/rated_gb_18" />
+  
+  <!--GAMING RATINGS-->
+  <Image Name="ESRB-EC" Source="resx://Xenon/Xenon.Resources/ESRB_EC" />
+  <Image Name="ESRB-E" Source="resx://Xenon/Xenon.Resources/ESRB_E" />
+  <Image Name="ESRB-E10" Source="resx://Xenon/Xenon.Resources/ESRB_E10" />
+  <Image Name="ESRB-T" Source="resx://Xenon/Xenon.Resources/ESRB_T" />
+  <Image Name="ESRB-M" Source="resx://Xenon/Xenon.Resources/ESRB_M" />
+  <Image Name="ESRB-AO" Source="resx://Xenon/Xenon.Resources/ESRB_AO" />
+  <Image Name="ESRB-RP" Source="resx://Xenon/Xenon.Resources/ESRB_RP" />
+  
+  <!--SPEAKER SETUP IMAGES-->
+  <Image Name="TwoSpeaker" Source="resx://Xenon/Xenon.Resources/TwoSpeaker" />
+  <Image Name="ThreeSpeaker" Source="resx://Xenon/Xenon.Resources/ThreeSpeaker" />
+  <Image Name="SixSpeaker" Source="resx://Xenon/Xenon.Resources/SixSpeaker" />
+  <Image Name="SevenSpeaker" Source="resx://Xenon/Xenon.Resources/SevenSpeaker" />
+  <Image Name="FiveSpeaker" Source="resx://Xenon/Xenon.Resources/FiveSpeaker" />
+  <Image Name="FourSpeaker" Source="resx://Xenon/Xenon.Resources/FourSpeaker" />
+  <Image Name="OneSpeaker" Source="resx://Xenon/Xenon.Resources/OneSpeaker" />
+
+  <Image Name="PBBack" Source="resx://Chocolate/Chocolate.Resources/PBBack" NineGrid="14,14,25,21"/>
+  <Image Name="PBFill" Source="resx://Chocolate/Chocolate.Resources/PBFill" NineGrid="6,6,6,6"/>
+
+</Mcml>

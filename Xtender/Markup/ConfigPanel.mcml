@@ -1,0 +1,111 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:cb="resx://MediaBrowser/MediaBrowser.Resources/CheckBox"
+	  xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"
+    xmlns:st="resx://MediaBrowser/MediaBrowser.Resources/SpinnerText"
+    xmlns:xh="assembly://Xenon/Xenon"
+    xmlns:ss="resx://MediaBrowser/MediaBrowser.Resources/SimpleSpinner">
+
+  <UI Name="ConfigPanel">
+
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <EditableText Name="FocusItem" />
+      <xh:XenonHelper Name="Helper" />
+    </Properties>
+    <Locals>
+
+      <!--Choice Name="SubTheme">
+        <Options>
+          <cor:String String="Default" />
+          <cor:String String="Black" />
+        </Options>
+      </Choice-->
+
+      <!--Choice Name="ThemeCustomFont">
+        <Options>
+          <cor:String String="Default" />
+          <cor:String String="Custom" />
+        </Options>
+      </Choice-->
+
+      <!--Choice Name="ThemeCustomColor">
+        <Options>
+          <cor:String String="Default" />
+          <cor:String String="Custom" />
+        </Options>
+      </Choice-->
+      
+      <Inset Name="CMargin" Inset="25,0,0,0" />
+
+      <RangedValue Name="TransitionTime" Value="[Helper.Config.BackdropTransitionTime]" MaxValue="2" MinValue="0" Step="0.1" />
+      <!--<RangedValue Name="BackdropAlpha" Value="[Helper.Config.BackdropOverlayAlpha]" MaxValue="1" MinValue="0" Step="0.1" />-->
+
+      <BooleanChoice Name="EnableVideoBackdrop" Value="[Helper.Config.EnableVideoBackdrop]" />
+      <BooleanChoice Name="Enable24HRTime" Value="[Helper.Config.Enable24hrTime]" />
+
+    </Locals>
+    <Rules>
+      <Binding Source="[Helper.Config.InstalledStyles.Chosen!cor:String]" Target="[Helper.Config.ThemeStyle]" />
+      <Binding Source="[Helper.Config.BackdropTransitionTime]" Target="[TransitionTime.Value]" />
+      <!--<Binding Source="[Helper.Config.BackdropOverlayAlpha]" Target="[BackdropAlpha.Value]" />-->
+      
+
+      <Changed Source="[TransitionTime.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.BackdropTransitionTime]" Value="[TransitionTime.Value]" />
+        </Actions>
+      </Changed>
+
+      <!--<Changed Source="[BackdropAlpha.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.BackdropOverlayAlpha]" Value="[BackdropAlpha.Value]" />
+        </Actions>
+      </Changed>-->
+
+      <!--Changed Source="[EnableNPVCB.Checked.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.EnableNPV]" Value="[EnableNPVCB.Checked.Value]" />
+        </Actions>
+      </Changed-->
+
+      <!--<Changed Source="[AskToQuitCB.Checked.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.AskToQuit]" Value="[AskToQuitCB.Checked.Value]" />
+        </Actions>
+      </Changed>-->
+      
+      <Changed Source="[EnableVideoBackdropCB.Checked.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.EnableVideoBackdrop]" Value="[EnableVideoBackdropCB.Checked.Value]" />
+        </Actions>
+      </Changed>
+      
+      <Changed Source="[Enable24HRTimeCB.Checked.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.Enable24hrTime]" Value="[Enable24HRTimeCB.Checked.Value]" />
+        </Actions>
+      </Changed>
+
+      <!--<Changed Source="[EnableRALWrapCB.Checked.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.EnableRALWrap]" Value="[EnableRALWrapCB.Checked.Value]" />
+        </Actions>
+      </Changed>-->
+
+    </Rules>
+    <Content>
+      <Panel Padding="0,40,0,0" Layout="VerticalFlow" MaximumSize="800,400">
+        <Children>
+          <st:SpinnerText Name="ThemeCustomStyleSpinner" Model="[Helper.Config.InstalledStyles]" FocusItem="[FocusItem]" Label="[Application.LocalStrings.#ThemeStyleLabel!cor:String]" Color="color://s:FontColorMedium" Font="font://f:CP_ConfigItemFont" ValueFont="font://f:CP_ConfigItemFont" Margins="[CMargin]" DefaultString="[Helper.Config.ThemeStyle]" />
+          <ss:SimpleSpinner Name="TransTime" Label="[Application.LocalStrings.#BackdropTransLabel!cor:String]" Color="color://s:FontColorMedium" Model="[TransitionTime]" FocusItem="[FocusItem]"  Font="font://f:CP_ConfigItemFont" ValueFont="font://f:CP_ConfigItemFont"  Margins="[CMargin]"  />
+          <!--<ss:SimpleSpinner Name="BDAlpha" Label="[Application.LocalStrings.#BackdropAlphaLabel!cor:String]" Color="color://s:FontColorMedium" Model="[BackdropAlpha]" FocusItem="[FocusItem]"  Font="font://f:CP_ConfigItemFont" ValueFont="font://f:CP_ConfigItemFont"  Margins="[CMargin]"  />-->
+          <cb:CheckBox Name="EnableVideoBackdropCB" Label="[Application.LocalStrings.#EnableNPVLabel!cor:String]" Checked="[EnableVideoBackdrop]" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont" Margins="[CMargin]" />
+          <cb:CheckBox Name="Enable24HRTimeCB" Label="[Application.LocalStrings.#Enable24hrLabel!cor:String]" Checked="[Enable24HRTime]" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont" Margins="[CMargin]" />
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

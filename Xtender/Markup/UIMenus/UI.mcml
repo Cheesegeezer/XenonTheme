@@ -1,0 +1,206 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MsCorLib/System"
+      xmlns:xh="assembly://Xenon/Xenon"
+	  xmlns:xs="file://Xenon_Styles.mcml"
+	  xmlns:me="Me">
+
+  <UI Name="PanelPrimary">
+    <Content>
+      <ColorFill Content="color://xs:XC_PanelPrimaryBG" />
+    </Content>
+  </UI>
+
+  <UI Name="RotatePanelPrimary">
+    <Content>
+      <Clip Orientation="Vertical" FadeAmount="1" FadeSize="2" Layout="Fill">
+        <Children>
+          <Clip Orientation="Horizontal" FadeAmount="1" FadeSize="2" Layout="Fill">
+            <Children>
+              <ColorFill Content="color://xs:XC_PanelPrimaryBG" />
+            </Children>
+          </Clip>
+        </Children>
+      </Clip>
+    </Content>
+  </UI>
+
+  <UI Name="PanelSecondary">
+    <Content>
+      <ColorFill Content="color://xs:XC_PanelSecondaryBG" />
+    </Content>
+  </UI>
+
+  <UI Name="RotatePanelSecondary">
+    <Content>
+      <Clip Orientation="Vertical" FadeAmount="1" FadeSize="2" Layout="Fill">
+        <Children>
+          <Clip Orientation="Horizontal" FadeAmount="1" FadeSize="2" Layout="Fill">
+            <Children>
+              <ColorFill Content="color://xs:XC_PanelSecondaryBG" />
+            </Children>
+          </Clip>
+        </Children>
+      </Clip>
+    </Content>
+  </UI>
+
+  <UI Name="PanelPopupList">
+    <Content>
+      <ColorFill Content="color://xs:XC_PopupMenuItemBG" />
+    </Content>
+  </UI>
+
+  <UI Name="PanelPopupTitle">
+    <Content>
+      <ColorFill Content="color://xs:XC_PopupMenuTitleBG" />
+    </Content>
+  </UI>
+
+  <UI Name="GlowTop">
+    <Properties>
+      <cor:Single Name="VFadeSize" Single="50" />
+      <cor:Single Name="HFadeSize" Single="50" />
+      <Color Name="Color" Color="color://xs:XC_PanelGlow" />
+    </Properties>
+
+    <Rules>
+      <Binding Source="[VFadeSize]" Target="[ClipV.FadeSize]" />
+      <Binding Source="[HFadeSize]" Target="[ClipH.FadeSize]" />
+    </Rules>
+
+    <Content>
+      <Clip Name="ClipV" Orientation="Vertical" FadeAmount="1" Layout="Fill" ShowNear="false">
+        <Children>
+          <Clip Name="ClipH" FadeAmount="1" Layout="Fill" Orientation="Horizontal">
+            <Children>
+              <ColorFill Content="[Color]" />
+            </Children>
+          </Clip>
+        </Children>
+      </Clip>
+    </Content>
+  </UI>
+
+  <UI Name="GlowBottom">
+    <Properties>
+      <cor:Single Name="VFadeSize" Single="50" />
+      <cor:Single Name="HFadeSize" Single="50" />
+      <Color Name="Color" Color="color://xs:XC_PanelGlow" />
+    </Properties>
+
+    <Rules>
+      <Binding Source="[VFadeSize]" Target="[ClipV.FadeSize]" />
+      <Binding Source="[HFadeSize]" Target="[ClipH.FadeSize]" />
+    </Rules>
+
+    <Content>
+      <Clip Name="ClipV" Orientation="Vertical" FadeAmount="1" Layout="Fill" ShowFar="false">
+        <Children>
+          <Clip Name="ClipH" FadeAmount="1" Layout="Fill" Orientation="Horizontal">
+            <Children>
+              <ColorFill Content="[Color]" />
+            </Children>
+          </Clip>
+        </Children>
+      </Clip>
+    </Content>
+  </UI>
+
+  <UI Name="GlowLeft">
+    <Properties>
+      <cor:Single Name="VFadeSize" Single="50" />
+      <cor:Single Name="HFadeSize" Single="50" />
+      <Color Name="Color" Color="color://xs:XC_PanelGlow" />
+    </Properties>
+
+    <Rules>
+      <Binding Source="[VFadeSize]" Target="[ClipV.FadeSize]" />
+      <Binding Source="[HFadeSize]" Target="[ClipH.FadeSize]" />
+    </Rules>
+
+    <Content>
+      <Clip Name="ClipH" FadeAmount="1" Layout="Fill" Orientation="Horizontal" ShowNear="false">
+        <Children>
+          <Clip Name="ClipV" FadeAmount="1" Layout="Fill" Orientation="Vertical">
+            <Children>
+              <ColorFill Content="[Color]" />
+            </Children>
+          </Clip>
+        </Children>
+      </Clip>
+    </Content>
+  </UI>
+
+  <UI Name="GlowRight">
+    <Properties>
+      <cor:Single Name="VFadeSize" Single="50" />
+      <cor:Single Name="HFadeSize" Single="50" />
+      <Color Name="Color" Color="color://xs:XC_PanelGlow" />
+    </Properties>
+
+    <Rules>
+      <Binding Source="[VFadeSize]" Target="[ClipV.FadeSize]" />
+      <Binding Source="[HFadeSize]" Target="[ClipH.FadeSize]" />
+    </Rules>
+
+    <Content>
+      <Clip Name="ClipH" FadeAmount="1" Layout="Fill" Orientation="Horizontal" ShowFar="false">
+        <Children>
+          <Clip Name="ClipV" FadeAmount="1" Layout="Fill" Orientation="Vertical">
+            <Children>
+              <ColorFill Content="[Color]" />
+            </Children>
+          </Clip>
+        </Children>
+      </Clip>
+    </Content>
+  </UI>
+
+  <UI Name="FocusFrame">
+    <Properties>
+      <cor:Int32 Name="Size" Int32="global://xs:UI_FocusFrameSize" />
+      <Color Name="Color" Color="color://xs:XC_FocusFrame" />
+      <xh:XenonHelper Name="Helper" />
+    </Properties>
+
+    <Locals>
+      <AnchorLayoutInput Name="GlowBottomLayoutInput" Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,0" />
+      <AnchorLayoutInput Name="GlowRightLayoutInput" Left="Parent,0" Right="Parent,0" Top="Parent,0" Bottom="Parent,1" />
+      <AnchorLayoutInput Name="GlowLeftLayoutInput" Left="Parent,1" Right="Parent,1" Top="Parent,0" Bottom="Parent,1" />
+      <AnchorLayoutInput Name="GlowTopLayoutInput" Left="Parent,0" Right="Parent,1" Top="Parent,1" Bottom="Parent,1" />
+    </Locals>
+
+    <Rules>
+      <Changed Source="[Size]" InitialEvaluate="true">
+        <Actions>
+          <Set Target="[GlowBottomLayoutInput.Bottom.Offset]" Value="[Size]" ExclusiveApply="false" />
+          <Set Target="[GlowRightLayoutInput.Right.Offset]" Value="[Size]" ExclusiveApply="false" />
+          <Set Target="[GlowRightLayoutInput.Top.Offset]" Value="[Size]" ExclusiveApply="false" />
+          <Set Target="[GlowLeftLayoutInput.Top.Offset]" Value="[Size]" ExclusiveApply="false" />
+          <Invoke Target="[Helper.Negate]" number="[Size]" ResultTarget="[GlowRightLayoutInput.Bottom.Offset]" InvokePolicy="Synchronous" ExclusiveApply="false" />
+          <Invoke Target="[Helper.Negate]" number="[Size]" ResultTarget="[GlowLeftLayoutInput.Left.Offset]" InvokePolicy="Synchronous" ExclusiveApply="false" />
+          <Invoke Target="[Helper.Negate]" number="[Size]" ResultTarget="[GlowLeftLayoutInput.Bottom.Offset]" InvokePolicy="Synchronous" ExclusiveApply="false" />
+          <Invoke Target="[Helper.Negate]" number="[Size]" ResultTarget="[GlowTopLayoutInput.Top.Offset]" InvokePolicy="Synchronous" ExclusiveApply="false" />
+          <Set Target="[GlowBottom.VFadeSize]" Value="[Size!cor:Single]" />
+          <Set Target="[GlowBottom.HFadeSize]" Value="[Size!cor:Single]" />
+          <Set Target="[GlowRight.HFadeSize]" Value="[Size!cor:Single]" />
+          <Set Target="[GlowLeft.HFadeSize]" Value="[Size!cor:Single]" />
+          <Set Target="[GlowTop.VFadeSize]" Value="[Size!cor:Single]" />
+          <Set Target="[GlowTop.HFadeSize]" Value="[Size!cor:Single]" />
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Name="PosterFocus" Layout="Anchor">
+        <Children>
+          <me:GlowBottom Name="GlowBottom" Color="[Color]" LayoutInput="[GlowBottomLayoutInput]" />
+          <me:GlowRight Name="GlowRight" VFadeSize="0" Color="[Color]" LayoutInput="[GlowRightLayoutInput]" />
+          <me:GlowLeft Name="GlowLeft" VFadeSize="0" Color="[Color]" LayoutInput="[GlowLeftLayoutInput]" />
+          <me:GlowTop Name="GlowTop" Color="[Color]" LayoutInput="[GlowTopLayoutInput]" />
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+</Mcml>

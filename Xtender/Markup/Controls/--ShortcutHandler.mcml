@@ -1,0 +1,186 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml">
+
+  <UI Name="ShortcutHandler">
+
+    <Properties>
+      <cor:String Name="Value" String=""/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+    </Properties>
+
+    <Locals >
+      <Timer Enabled="false" Interval="1000" Name="TriggerCommand"/>
+      <cor:String Name="ShortcutValue" String=""/>
+    </Locals>
+    <Rules>
+      <Changed Source="[Value]">
+        <Actions>
+          <Invoke Target="[TriggerCommand.Stop]"></Invoke>
+          <Invoke Target="[TriggerCommand.Start]"></Invoke>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[TriggerCommand.Tick]">
+        <Actions>
+          <Set Target="[ShortcutValue]" Value="[Value]"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortcutValue]">
+        <Conditions>
+          <Equality Source="[ShortcutValue]" Value="#i"></Equality>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Folder.DisplayPrefs.IncreaseThumbSize]"></Invoke>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortcutValue]">
+        <Conditions>
+          <Equality Source="[ShortcutValue]" Value="#c"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Folder.DisplayPrefs.ViewType.ChosenIndex]" Value="0"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortcutValue]">
+        <Conditions>
+          <Equality Source="[ShortcutValue]" Value="#l"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Folder.DisplayPrefs.ViewType.ChosenIndex]" Value="1"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortcutValue]">
+        <Conditions>
+          <Equality Source="[ShortcutValue]" Value="#p"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Folder.DisplayPrefs.ViewType.ChosenIndex]" Value="2"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortcutValue]">
+        <Conditions>
+          <Equality Source="[ShortcutValue]" Value="#d"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Folder.DisplayPrefs.ViewType.ChosenIndex]" Value="3"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortcutValue]">
+        <Conditions>
+          <Equality Source="[ShortcutValue]" Value="#s"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Folder.DisplayPrefs.ViewType.ChosenIndex]" Value="4"></Set>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Value]">
+        <Conditions>
+          <Equality Source="[Value]" Value="#"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[KeyMap.Visible]" Value="true"></Set>
+          <Set Target="[PanelImage.Visible]" Value="true"></Set>
+
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Layout="Form">
+        <Children>
+
+
+
+          <Graphic Visible="false" Name="KeyMap" Layout="Dock" Padding="30,30,120,15" MaximumSize="400,0" MinimumSize="400,0" Navigation="WrapHorizontal,ContainAll,RememberFocus">
+            <Animations>
+              <Animation Type="Show">
+                <Keyframes>
+                  <PositionKeyframe Value="-400,0,0" Time="0" Interpolation="EaseOut"/>
+                  <PositionKeyframe Value="0,0,0" Time="0.5"/>
+                </Keyframes>
+              </Animation>
+              <Animation Type="Hide">
+                <Keyframes>
+                  <PositionKeyframe Value="0,0,0" Time="0" Interpolation="EaseOut"/>
+                  <PositionKeyframe Value="-400,0,0" Time="0.3"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Vertical="Fill"/>
+            </LayoutInput>
+            <Children>
+
+              <Clip Margins="-5,-40,0,0" FadeSize="200" Orientation="Vertical" Layout="VerticalFlow">
+                <Children>
+                  <Text Content="Shortcuts" Font="font://xs:SubtleHeading" Color="255,255,255" Margins="0,20,0,0"/>
+                  <!--<Text Content="Play Menu" Font="font://cf:SubtleHeadingSmall" Color="180,180,180" Margins="15,-15,0,0" />-->
+
+                </Children>
+              </Clip>
+
+
+
+              <Panel Name="ScrollButton" Margins="0,100,0,0"  Layout="VerticalFlow">
+                <LayoutInput>
+                  <DockLayoutInput Position="Client"/>
+                </LayoutInput>
+                <Children>
+                  <Text Content="C - Coverflow View" Font="font://xs:OptionButtonSmall" Color="color://xs:OptionButton"></Text>
+                  <Text Content="L - List View" Font="font://xs:OptionButtonSmall" Color="color://xs:OptionButton"></Text>
+                  <Text Content="S - Strip View" Font="font://xs:OptionButtonSmall" Color="color://xs:OptionButton"></Text>
+                  <Text Content="D - Details View" Font="font://xs:OptionButtonSmall" Color="color://xs:OptionButton"></Text>
+                  <Text Content="P - Poster View" Font="font://xs:OptionButtonSmall" Color="color://xs:OptionButton"></Text>
+                  <Text Content="I - + Poster Size" Font="font://xs:OptionButtonSmall" Color="color://xs:OptionButton"></Text>
+
+
+
+                </Children>
+              </Panel>
+
+
+            </Children>
+          </Graphic>
+
+          <vi:Context Name="PanelImage" MaximumSize="400,0" MinimumSize="400,0" Visible="False">
+            <Animations>
+              <Animation Type="Show">
+                <Keyframes>
+                  <PositionKeyframe Value="-400,0,0" Time="0" Interpolation="EaseOut"/>
+                  <PositionKeyframe Value="0,0,0" Time="0.5"/>
+                </Keyframes>
+              </Animation>
+              <Animation Type="Hide">
+                <Keyframes>
+                  <PositionKeyframe Value="0,0,0" Time="0" Interpolation="EaseOut"/>
+                  <PositionKeyframe Value="-400,0,0" Time="0.3"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Vertical="Fill"/>
+            </LayoutInput>
+          </vi:Context>
+
+
+        </Children>
+      </Panel>
+
+
+    </Content>
+
+  </UI>
+
+</Mcml>

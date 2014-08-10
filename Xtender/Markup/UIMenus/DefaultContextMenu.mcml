@@ -1,0 +1,421 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+	  xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+	  xmlns:xs="file://Xenon_Styles.mcml"
+	  xmlns:ui="resx://Xenon/Xenon.Resources/UI"
+	  xmlns:cmd="resx://Xenon/Xenon.Resources/CommandButton"
+	  xmlns:me="Me">
+
+  <UI Name="ContextMenu">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <Command Name="CloseCommand" Command="$Required" />
+      <cor:String Name="MenuType" String="Context" />
+    </Properties>
+
+    <Locals>
+      <Command Name="PlayAllCommand" />
+      <Command Name="ShufflePlayCommand" />
+      <Command Name="NullCommand" />
+
+      <ShortcutHandler Name="BackHandler" Handle="true" Shortcut="Back" HandlerStage="Bubbled" Command="[CloseCommand]"/>
+      <cor:Int32 Name="ItemCount" Int32="0" />
+    </Locals>
+
+    <Rules>
+      <Default Target="[Input.MakeTopmostOnFocus]" Value="true"/>
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+      <Default Target="[Input.CreateInterestOnFocus]" Value="true" />
+
+
+      <Binding Source="[Application.ContextMenu]" Target="[OptionsRepeater.Source]" />
+
+      <Binding Source="[Application.CurrentItem.Name]" Target="[MenuTitle.Content]" />
+
+      <Changed Source="[Application.CurrentItem]" InitialEvaluate="true" ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Application.CurrentItem]" ConditionOp="NotEquals" Value="null" />
+          <Equality Source="[MenuType]" ConditionOp="Equals" Value="Play" />
+        </Conditions>
+        <Actions>
+          <Set Target="[OptionsRepeater.Source]" Value="[Application.PlayMenu]" />
+          <Set Target="[ItemCount]" Value="[Application.PlayMenu.Count]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Application.CurrentItem]" InitialEvaluate="true" ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Application.CurrentItem]" ConditionOp="NotEquals" Value="null" />
+          <Equality Source="[MenuType]" ConditionOp="NotEquals" Value="Play" />
+        </Conditions>
+        <Actions>
+          <Set Target="[OptionsRepeater.Source]" Value="[Application.ContextMenu]" />
+          <Set Target="[ItemCount]" Value="[Application.ContextMenu.Count]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Application.ContextMenu]" >
+        <Conditions>
+          <Equality Source="[MenuType]" Value="Context" />
+          <Equality Source="[Application.ContextMenu.Count]" ConditionOp="GreaterThan" Value="0" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[OptionsRepeater.NavigateIntoIndex]" index="0" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ItemCount]" ConditionLogicalOp="And" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[ItemCount]" ConditionOp="Equals" Value="0" />
+          <Equality Source="[Application.CurrentItem.ItemTypeString]" ConditionOp="NotEquals" Value="MusicPluginFolder" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NOP.Visible]" Value="true" />
+          <Set Target="[OptionsRepeater.Visible]" Value="false" />
+          <Set Target="[PlayAllButton.Visible]" Value="false" />
+          <Set Target="[ShufflePlayButton.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ItemCount]" ConditionLogicalOp="And" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[ItemCount]" ConditionOp="Equals" Value="0" />
+          <Equality Source="[Application.CurrentItem.ItemTypeString]" ConditionOp="Equals" Value="MusicPluginFolder" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NOP.Visible]" Value="false" />
+          <Set Target="[OptionsRepeater.Visible]" Value="false" />
+          <Set Target="[PlayAllButton.Visible]" Value="true" />
+          <Set Target="[ShufflePlayButton.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ItemCount]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[ItemCount]" ConditionOp="GreaterThan" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NOP.Visible]" Value="false" />
+          <Set Target="[OptionsRepeater.Visible]" Value="true" />
+          <Set Target="[PlayAllButton.Visible]" Value="false" />
+          <Set Target="[ShufflePlayButton.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[PlayAllCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.Play]" item="[Application.CurrentItem]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShufflePlayCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.Shuffle]" item="[Application.CurrentItem]" />
+        </Actions>
+      </Changed>
+    </Rules>
+
+
+
+    <Content>
+      <Panel Layout="Form">
+        <Children>
+          <Panel Layout="Anchor">
+            <Children>
+              <!-- Background Glow -->
+              <ui:GlowTop VFadeSize="35" HFadeSize="200">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="MenuTitleBG,0" Right="MenuTitleBG,1" Top="MenuTitleBG,0,1" Bottom="MenuTitleBG,0,35"/>
+                </LayoutInput>
+              </ui:GlowTop>
+
+              <ui:GlowBottom VFadeSize="35" HFadeSize="200" Visible="true">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="MenuBG,0" Right="MenuBG,1" Top="MenuBG,1,-35" Bottom="MenuBG,1,-1"/>
+                </LayoutInput>
+              </ui:GlowBottom>
+
+              <!-- Menu -->
+              <Text Name="MenuTitle" Color="color://xs:XC_PopupMenuTitle" Font="font://xs:XF_PopupMenuTitle">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="MenuTitleBG,0" Right="MenuTitleBG,1" Top="MenuTitleBG,0" Bottom="MenuTitleBG,1" Vertical="Center" Horizontal="Center" />
+                </LayoutInput>
+              </Text>
+
+              <Panel Name="MenuOptsPanel" Layout="VerticalFlow" Navigation="Column,ContainAll,RememberFocus">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0,20" Top="Parent,0,60" />
+                </LayoutInput>
+                <Children>
+                  <Repeater Name="OptionsRepeater" Layout="VerticalFlow">
+                    <Content>
+                      <me:MenuItem Option="[RepeatedItem!lib:MenuItem]" CloseCommand="[CloseCommand]" Application="[Application]" />
+                    </Content>
+                  </Repeater>
+
+                  <cmd:CommandButton Name="NOP"
+                                      Text="[Application.LocalStrings.#NoAvailOptions!cor:String]"
+                                      Command="[NullCommand]"
+                                      Font="font://xs:XF_PopupMenuItem"
+                                      SelFont="font://xs:XF_PopupMenuItem"
+                                      Color="color://xs:XC_PopupMenuItem"
+                                      SelColor="color://xs:XC_PopupMenuItemSel"
+                                      Enabled="false" />
+
+                  <cmd:CommandButton Name="PlayAllButton"
+                                     Text="[Application.LocalStrings.#PlayAllCMenu!cor:String]"
+                                     Command="[PlayAllCommand]"
+                                     Font="font://xs:XF_PopupMenuItem"
+                                     SelFont="font://xs:XF_PopupMenuItem"
+                                     Color="color://xs:XC_PopupMenuItem"
+                                     SelColor="color://xs:XC_PopupMenuItemSel"
+                                     Visible="false" />
+
+                  <cmd:CommandButton Name="ShufflePlayButton"
+                                     Text="[Application.LocalStrings.#ShufflePlayCMenu!cor:String]"
+                                     Command="[ShufflePlayCommand]"
+                                     Font="font://xs:XF_PopupMenuItem"
+                                     SelFont="font://xs:XF_PopupMenuItem"
+                                     Color="color://xs:XC_PopupMenuItem"
+                                     SelColor="color://xs:XC_PopupMenuItemSel"
+                                     Visible="false" />
+
+                  <cmd:CommandButton Name="CloseMenuButton"
+                                     Text="[Application.LocalStrings.#CloseCMenu!cor:String]"
+                                     Command="[CloseCommand]"
+                                     Font="font://xs:XF_PopupMenuItem"
+                                     SelFont="font://xs:XF_PopupMenuItem"
+                                     Color="color://xs:XC_PopupMenuItem"
+                                     SelColor="color://xs:XC_PopupMenuItemSel"
+                                     Margins="0,20,0,0" />
+                </Children>
+              </Panel>
+
+              <!-- Background Fill -->
+              <ui:PanelPopupTitle Name="MenuTitleBG">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Right="MenuOptsPanel,1,30" Top="Parent,0" Bottom="Parent,0,40"/>
+                </LayoutInput>
+              </ui:PanelPopupTitle>
+
+              <ui:PanelPopupList Name="MenuBG">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Right="MenuOptsPanel,1,30" Top="Parent,0,40" Bottom="MenuOptsPanel,1,20"/>
+                </LayoutInput>
+              </ui:PanelPopupList>
+            </Children>
+          </Panel>
+
+          <ColorFill Name="OverlayBG" Content="color://xs:XC_PopupMenuBG">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </ColorFill>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+
+  <UI Name="UserMenu">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <Command Name="CloseCommand" Command="$Required"/>
+      <cor:String Name="MenuType" String="User" />
+    </Properties>
+
+    <Locals>
+      <Command Name="SwitchUserCommand" />
+      <Command Name="NullCommand" />
+      <ShortcutHandler Name="BackHandler" Handle="true" Shortcut="Back" HandlerStage="Bubbled" Command="[CloseCommand]"/>
+      <cor:Int32 Name="ItemCount" Int32="0" />
+    </Locals>
+
+    <Rules>
+      <Default Target="[Input.MakeTopmostOnFocus]" Value="true"/>
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+      <Default Target="[Input.CreateInterestOnFocus]" Value="true" />
+
+
+      <Changed Source="[Application.DisplayUserMenu]"  InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[MenuType]" Value="User" />
+        </Conditions>
+        <Actions>
+          <Set Target="[OptionsRepeater.Source]" Value="[Application.UserMenu]" />
+          <Set Target="[ItemCount]" Value="[Application.UserMenu.Count]" />
+        </Actions>
+      </Changed>
+
+      <!--LIST IS EMPTY, SHOW NO USER AVAILABLE-->
+      <Changed Source="[ItemCount]"  InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[ItemCount]" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NOP.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+      <Changed Source="[ItemCount]"  InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[ItemCount]" Value="0" ConditionOp="NotEquals" />
+        </Conditions>
+        <Actions>
+          <Set Target="[NOP.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Default Target="[MenuTitle.Content]" Value="[Application.LocalStrings.#UserMenuCMenu!cor:String]" >
+        <Conditions>
+          <Equality Source="[MenuType]" Value="User" />
+        </Conditions>
+      </Default>
+    </Rules>
+
+    <Content>
+      <Panel Layout="Form">
+        <Children>
+          <Panel Layout="Anchor">
+            <Children>
+              <!-- Background Glow -->
+              <ui:GlowTop VFadeSize="35" HFadeSize="200">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="MenuTitleBG,0" Right="MenuTitleBG,1" Top="MenuTitleBG,0,1" Bottom="MenuTitleBG,0,35"/>
+                </LayoutInput>
+              </ui:GlowTop>
+
+              <ui:GlowBottom VFadeSize="35" HFadeSize="200" Visible="true">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="MenuBG,0" Right="MenuBG,1" Top="MenuBG,1,-35" Bottom="MenuBG,1,-1"/>
+                </LayoutInput>
+              </ui:GlowBottom>
+
+              <!-- Menu -->
+              <Text Name="MenuTitle" Color="color://xs:XC_PopupMenuTitle" Font="font://xs:XF_PopupMenuTitle">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="MenuTitleBG,0" Right="MenuTitleBG,1" Top="MenuTitleBG,0" Bottom="MenuTitleBG,1" Vertical="Center" Horizontal="Center" />
+                </LayoutInput>
+              </Text>
+
+              <Panel Name="MenuOptsPanel" Layout="VerticalFlow" Navigation="Column,ContainAll,RememberFocus">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0,20" Top="Parent,0,60" />
+                </LayoutInput>
+                <Children>
+                  <Repeater Name="OptionsRepeater" Layout="VerticalFlow">
+                    <Content>
+                      <me:MenuItem Option="[RepeatedItem!lib:MenuItem]" CloseCommand="[CloseCommand]" Application="[Application]" />
+                    </Content>
+                  </Repeater>
+
+                  <cmd:CommandButton Name="NOP"
+                                      Text="No Other Users"
+                                      Command="[NullCommand]"
+                                      Font="font://xs:XF_PopupMenuItem"
+                                      SelFont="font://xs:XF_PopupMenuItem"
+                                      Color="color://xs:XC_PopupMenuItem"
+                                      SelColor="color://xs:XC_PopupMenuItemSel"
+                                      Enabled="false" />
+
+                  <cmd:CommandButton  Name="SwitchUser"
+                                      Text="[Application.LocalStrings.#UserMenuCMenu!cor:String]"
+                                      Command="[SwitchUserCommand]"
+                                      Font="font://xs:XF_PopupMenuItem"
+                                      SelFont="font://xs:XF_PopupMenuItem"
+                                      Color="color://xs:XC_PopupMenuItem"
+                                      SelColor="color://xs:XC_PopupMenuItemSel"
+                                      Visible="false" />
+
+                  <cmd:CommandButton Name="CloseMenuButton"
+                                     Text="[Application.LocalStrings.#CloseCMenu!cor:String]"
+                                     Command="[CloseCommand]"
+                                     Font="font://xs:XF_PopupMenuItem"
+                                     SelFont="font://xs:XF_PopupMenuItem"
+                                     Color="color://xs:XC_PopupMenuItem"
+                                     SelColor="color://xs:XC_PopupMenuItemSel"
+                                     Margins="0,20,0,0" />
+                </Children>
+              </Panel>
+
+              <!-- Background Fill -->
+              <ui:PanelPopupTitle Name="MenuTitleBG">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Right="MenuOptsPanel,1,30" Top="Parent,0" Bottom="Parent,0,40"/>
+                </LayoutInput>
+              </ui:PanelPopupTitle>
+
+              <ui:PanelPopupList Name="MenuBG">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Right="MenuOptsPanel,1,30" Top="Parent,0,40" Bottom="MenuOptsPanel,1,20"/>
+                </LayoutInput>
+              </ui:PanelPopupList>
+            </Children>
+          </Panel>
+
+          <ColorFill Name="OverlayBG" Content="color://xs:XC_PopupMenuBG">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </ColorFill>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="MenuItem">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:MenuItem Name="Option" MenuItem="$Required" />
+      <Command Name="CloseCommand" Command="$Required"/>
+    </Properties>
+
+    <Locals>
+      <Command Name="DoAction"/>
+    </Locals>
+
+    <Rules>
+      <Changed Source="[DoAction.Invoked]">
+        <Conditions>
+          <Equality Source="[Option.ItemType]" Value="action" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[CloseCommand.Invoke]" />
+          <Invoke Target="[Option.DoCommand]" item="[Application.CurrentItem]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[DoAction.Invoked]">
+        <Conditions>
+          <Equality Source="[Option.ItemType]" Value="menu" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Option.DoCommand]" item="[Application.CurrentItem]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Application.CurrentItem]" InitialEvaluate="true">
+        <Actions>
+          <Set Target="[OptionButton.Text]" Value="[Option.Text]" />
+          <Set Target="[DoAction.Available]" Value="[Option.Enabled]" />
+        </Actions>
+      </Changed>
+
+      <Binding Target="[DoAction.Available]" Source="[Option.Enabled]" />
+      <Binding Target="[OptionButton.Text]" Source="[Option.Text]" />
+      <Binding Target="[OptionButton.Enabled]" Source="[Option.Enabled]" />
+
+    </Rules>
+
+    <Content>
+      <cmd:CommandButton Name="OptionButton"
+                         Text="[Option.Text]"
+                         Command="[DoAction]"
+                         Font="font://xs:XF_PopupMenuItem"
+                         SelFont="font://xs:XF_PopupMenuItem"
+                         Color="color://xs:XC_PopupMenuItem"
+                         SelColor="color://xs:XC_PopupMenuItemSel" />
+    </Content>
+  </UI>
+</Mcml>

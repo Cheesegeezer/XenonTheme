@@ -1,0 +1,82 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	    xmlns:cor="assembly://MSCorLib/System"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:me="Me"
+      >
+
+  <UI Name="OptionButton">
+    <Properties>
+      <ICommand Name="Command" ICommand="$Required"/>
+      <cor:String Name="Label" String="$Required"></cor:String>
+      <cor:Boolean Name="Close" Boolean="false"/>
+      <Image Name="Icon" Image="image://vi:BlankGraphic" />
+    </Properties>
+    <Locals>
+      <ClickHandler Name="Clicker" Command="[Command]"/>
+
+    </Locals>
+    <Rules>
+
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+
+      <Changed Source="[Clicker.Invoked]">
+        <Actions>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+        </Actions>
+      </Changed>
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Conditions>
+          <Equality Source="[Close]" ConditionOp="Equals" Value="false"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Text.Color]" Value="color://xs:OptionButtonHighLight"/>
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Conditions>
+          <Equality Source="[Close]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[Text.Color]" Value="color://xs:OptionButtonSmallHighLight"/>
+        </Actions>
+      </Condition>
+
+      <Binding Target="[Text.Content]" Source="[Label]"></Binding>
+      <Binding Target="[IconImage.Content]" Source="[Icon]"></Binding>
+      <Condition Source="[Icon]" ConditionOp="NotEquals" SourceValue="image://vi:BlankGraphic" Target="[IconImage.Visible]" Value="true"></Condition>
+
+      <Condition Source="[Close]" ConditionOp="Equals" SourceValue="true" Target="[Text.Font]" Value="font://xs:OptionButtonSmall"></Condition>
+
+
+
+    </Rules>
+    <Content>
+      <Graphic Name="BoxImage" SizingPolicy="SizeToChildren">
+        <Children>
+          <Panel Layout="HorizontalFlow" >
+            <Children>
+              <Graphic Visible="false" Name="IconImage" Content="image://vi:BlankGraphic" MaximumSize="25,25" Margins="0,5,5,0" MinimumSize="25,25"></Graphic>
+              <Text Name="Text" Font="font://xs:XF_PopupMenuItem" Content="[Label]" Color="color://xs:XC_PopupMenuItem"></Text>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+  <Animation Name="ButtonPress" Loop="0" CenterPointPercent="0.5,0.5,1.0">
+    <Keyframes>
+      <ScaleKeyframe Time="0.00" RelativeTo="Current" Interpolation="Log"/>
+      <ScaleKeyframe Time="0.08" Value="0.9,0.9,1.0"/>
+      <ScaleKeyframe Time="0.15" Value="1.0,1.0,1.0"/>
+    </Keyframes>
+  </Animation>
+</Mcml>
+

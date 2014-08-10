@@ -1,0 +1,83 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+	  xmlns:me="Me">
+
+  <UI Name="ImageButton">
+    <Properties>
+       <a:Application Name="Application" Application="$Required"/>
+      <ICommand Name="Command" ICommand="$Required"/>
+      <Image Name="Image" Image="null"/>
+      <cor:Boolean Name="Enabled" Boolean="true" />
+      <Size Name="Size" Size="25,25" />
+      <Color Name="OverlayColor" Color="White"/>
+      <Command Name="OnFocus"/>
+      <Command Name="OnLooseFocus"/>
+      <Image Name="FocusImage" Image="null" />
+      <Image Name="ImageNoFocus" Image="null" />
+    </Properties>
+
+    <Locals>
+      <ClickHandler Name="Clicker" Command="[Command]"/>
+    </Locals>
+
+    <Rules>
+      <Binding Source="[Enabled]" Target="[Input.KeyInteractive]" />
+
+      <Condition Source="[Enabled]" ConditionOp="Equals" SourceValue="false" Target="[BoxImage.Alpha]" Value="0.3" />
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[BoxImage.Content]" Value="[FocusImage]"/>
+        </Actions>
+      </Condition>
+    </Rules>
+
+    <Content>
+      <Graphic Name="BoxImage" Alpha="1" Content="[ImageNoFocus]" ColorFilter="[OverlayColor]" SizingPolicy="SizeToChildren" Padding="2,2,2,2" MinimumSize="[Size]" >
+        <Children>
+          <Graphic Content="[Image]" Margins="2,2,2,2" MaintainAspectRatio="true" />
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+  <UI Name="ImageButtonSelector">
+    <Properties>
+      <ICommand Name="Command" ICommand="$Required"/>
+      <Image Name="Image" Image="$Required"/>
+      <cor:Boolean Name="Enabled" Boolean="true" />
+      <Size Name="Size" Size="25,25" />
+      <Color Name="OverlayColor" Color="White"/>
+    </Properties>
+
+    <Locals>
+      <ClickHandler Name="Clicker" Command="[Command]"/>
+      <Image Name="FocusImage" Image="image://i:ButtonLeftFocus" />
+      <Image Name="BlankImage" Image="null" />
+    </Locals>
+
+    <Rules>
+      <Binding Source="[Enabled]" Target="[Input.KeyInteractive]" />
+
+      <Condition Source="[Enabled]" ConditionOp="Equals" SourceValue="false" Target="[BoxImage.Alpha]" Value="0.3" />
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[BoxImage.Content]" Value="[FocusImage]"/>
+        </Actions>
+      </Condition>
+    </Rules>
+
+    <Content>
+      <Graphic Name="BoxImage" Alpha="1" Content="[BlankImage]" ColorFilter="[OverlayColor]" SizingPolicy="SizeToChildren" Padding="2,2,2,2" MinimumSize="[Size]" >
+        <Children>
+          <Graphic Content="[Image]" Margins="6,6,6,6" MaintainAspectRatio="true" />
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+</Mcml>

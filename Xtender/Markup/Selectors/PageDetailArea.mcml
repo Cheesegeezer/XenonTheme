@@ -1,0 +1,251 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+	  xmlns:a="assembly://MediaBrowser/MediaBrowser"
+    xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+	  xmlns:lpo="resx://Xenon/Xenon.Resources/LayoutPoster"
+	  xmlns:lth="resx://Xenon/Xenon.Resources/LayoutThumb"
+	  xmlns:lde="resx://Xenon/Xenon.Resources/LayoutDetails"
+	  xmlns:lcf="resx://Xenon/Xenon.Resources/LayoutCoverflow"
+	  xmlns:lr="resx://Xenon/Xenon.Resources/LayoutRoot"
+	  xmlns:lts="resx://Xenon/Xenon.Resources/LayoutThumbStrip"
+    xmlns:lm="resx://Xenon/Xenon.Resources/LayoutMusic"
+    xmlns:lcf2="resx://Xenon/Xenon.Resources/LayoutCV2"
+    xmlns:lbv="resx://Xenon/Xenon.Resources/LayoutBannerView"
+    xmlns:ldql="resx://Xenon/Xenon.Resources/LayoutDetailsQuickList"
+    xmlns:xh="assembly://Xenon/Xenon">
+
+  <!--*****************************************************************************************************************
+  
+  This is an example of a page detail area selector.  To build your theme you must modify the individual mcml
+  files for your specific views OR change the references to existing/default views in MB.
+  
+  The project template should have generated references to and shell mcml for standard view UIs with the following naming convention:
+  
+    [projectname]LayoutPoster
+    [projectname]LayoutThumb
+    [projectname]LayoutDetails
+    [projectname]LayoutCoverflow
+    [projectname]LayoutThumbStrip
+    
+    
+  *********************************************************************************************************************-->
+
+  <UI Name="PageDetailAreaXenon">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required"/>
+      <cor:Boolean Name="Enabled" Boolean="true" />
+    </Properties>
+
+
+    <Rules>
+      <Binding Source="[Enabled]" Target="[Input.Enabled]" />
+      
+      <Rule ConditionLogicalOp ="And">
+        <Conditions >
+          <Equality Source="[Folder.IsRoot]" Value="true"/>
+          <Equality Source="[Application.Config.EnableRootPage]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[LayoutRoot.Visible]" Value="true"/>
+          <Set Target="[DetailsView.Visible]" Value="false"/>
+          <Set Target="[PosterView.Visible]" Value="false"/>
+          <Set Target="[ThumbView.Visible]" Value="false"/>
+          <Set Target="[ThumbStripView.Visible]" Value="false"/>
+          <Set Target="[CoverFlow.Visible]" Value="false"/>
+          <Set Target="[AlbumArtist.Visible]" Value="false"/>
+      <!--<Set Target="[CoverFlow2.Visible]" Value="false" />
+          <Set Target="[BannerView.Visible]" Value="false" />
+          <Set Target="[DetailsQuickList.Visible]" Value="false" />-->
+        </Actions>
+      </Rule>
+
+      <!--MUSIC FINAL DETAIL PAGE INSTEAD OF THE USUAL-->
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Folder.ItemTypeString]" Value="ArtistAlbum"/>
+          <Equality Source="[Folder.ItemTypeString]" Value="MusicAlbum"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[LayoutRoot.Visible]" Value="false"/>
+          <Set Target="[DetailsView.Visible]" Value="false"/>
+          <Set Target="[PosterView.Visible]" Value="false"/>
+          <Set Target="[ThumbView.Visible]" Value="false"/>
+          <Set Target="[ThumbStripView.Visible]" Value="false"/>
+          <Set Target="[CoverFlow.Visible]" Value="false"/>
+          <Set Target="[AlbumArtist.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Folder.ItemTypeString]" ConditionOp="NotEquals" Value="ArtistAlbum"/>
+          <Equality Source="[Folder.ItemTypeString]" ConditionOp="NotEquals" Value="MusicAlbum"/>
+          <Equality Source="[Folder.ItemTypeString]" ConditionOp="Equals" Value="MusicVideo"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[AlbumArtist.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <!--EXTRA VIEWS-->
+      <Rule ConditionLogicalOp ="And">
+        <Conditions >
+          <Equality Source="[ThemeHelper.Config.ExtraViewsList]" Value="Coverflow 2"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[DetailsView.Visible]" Value="false"/>
+          <Set Target="[PosterView.Visible]" Value="false"/>
+          <Set Target="[ThumbView.Visible]" Value="false"/>
+          <Set Target="[ThumbStripView.Visible]" Value="false"/>
+          <Set Target="[CoverFlow.Visible]" Value="false"/>
+      <!--<Set Target="[CoverFlow2.Visible]" Value="true" />
+          <Set Target="[BannerView.Visible]" Value="false" />
+          <Set Target="[DetailsQuickList.Visible]" Value="false" />-->
+        </Actions>
+      </Rule>
+      
+      <Rule ConditionLogicalOp ="And">
+        <Conditions >
+          <Equality Source="[ThemeHelper.Config.ExtraViewsList]" Value="BannerView"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[DetailsView.Visible]" Value="false"/>
+          <Set Target="[PosterView.Visible]" Value="false"/>
+          <Set Target="[ThumbView.Visible]" Value="false"/>
+          <Set Target="[ThumbStripView.Visible]" Value="false"/>
+          <Set Target="[CoverFlow.Visible]" Value="false"/>
+      <!--<Set Target="[CoverFlow2.Visible]" Value="false" />
+          <Set Target="[BannerView.Visible]" Value="true" />
+          <Set Target="[DetailsQuickList.Visible]" Value="false" />-->
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp ="And">
+        <Conditions >
+          <Equality Source="[ThemeHelper.Config.ExtraViewsList]" Value="QuickList View"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[DetailsView.Visible]" Value="false"/>
+          <Set Target="[PosterView.Visible]" Value="false"/>
+          <Set Target="[ThumbView.Visible]" Value="false"/>
+          <Set Target="[ThumbStripView.Visible]" Value="false"/>
+          <Set Target="[CoverFlow.Visible]" Value="false"/>
+      <!--<Set Target="[CoverFlow2.Visible]" Value="false" />
+          <Set Target="[BannerView.Visible]" Value="false" />
+          <Set Target="[DetailsQuickList.Visible]" Value="true" />-->
+        </Actions>
+      </Rule>
+
+      <Condition Source="[Input.DeepKeyFocus]" SourceValue="false" ConditionOp="Equals">
+        <Actions>
+          <Set Target="[MainPanel.Alpha]" Value="0.2" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Input.DeepKeyFocus]" SourceValue="true" ConditionOp="Equals">
+        <Actions>
+          <Set Target="[MainPanel.Alpha]" Value="1" />
+        </Actions>
+      </Condition>
+
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Detail" Target="[DetailsView.Visible]" Value="true" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="NotEquals" SourceValue="Detail" Target="[DetailsView.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Poster" Target="[PosterView.Visible]" Value="true" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="NotEquals" SourceValue="Poster" Target="[PosterView.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Thumb" Target="[ThumbView.Visible]" Value="true" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="NotEquals" SourceValue="Thumb" Target="[ThumbView.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="ThumbStrip" Target="[ThumbStripView.Visible]" Value="true" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="NotEquals" SourceValue="ThumbStrip" Target="[ThumbStripView.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="CoverFlow" Target="[CoverFlow.Visible]" Value="true" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="NotEquals" SourceValue="CoverFlow" Target="[CoverFlow.Visible]" Value="false" />
+  <!--<Condition Source="[ThemeHelper.Config.ExtraViewsList]" ConditionOp="Equals" SourceValue="CoverFlow 2" Target="[CoverFlow2.Visible]" Value="true" />
+      <Condition Source="[ThemeHelper.Config.ExtraViewsList]" ConditionOp="NotEquals" SourceValue="CoverFlow 2" Target="[CoverFlow2.Visible]" Value="false" />
+      <Condition Source="[ThemeHelper.Config.ExtraViewsList]" ConditionOp="Equals" SourceValue="Banner View" Target="[BannerView.Visible]" Value="true" />
+      <Condition Source="[ThemeHelper.Config.ExtraViewsList]" ConditionOp="NotEquals" SourceValue="Banner View" Target="[BannerView.Visible]" Value="false" />
+      <Condition Source="[ThemeHelper.Config.ExtraViewsList]" ConditionOp="Equals" SourceValue="QuickList View" Target="[DetailsQuickList.Visible]" Value="true" />
+      <Condition Source="[ThemeHelper.Config.ExtraViewsList]" ConditionOp="NotEquals" SourceValue="QuickList View" Target="[DetailsQuickList.Visible]" Value="false" />-->
+      
+    
+    </Rules>
+
+    <Content>
+      <Panel Name="MainPanel" Layout="Form">
+        <Animations>
+          <Animation Name="AlphaAnimation" Type="Alpha">
+            <Keyframes>
+              <AlphaKeyframe Time="0.0"  RelativeTo="Current" Interpolation="EaseIn"/>
+              <AlphaKeyframe Time="0.1"  RelativeTo="Final"/>
+            </Keyframes>
+          </Animation>
+        </Animations>
+        <Children>
+
+          <!--  View Details-->
+          <lr:LayoutRoot ThemeHelper="[ThemeHelper]" Name="LayoutRoot" Folder="[Folder]" Application="[Application]"  Visible="false" >
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Top="Parent,0" Bottom="Parent,1" Right="Parent,1"/>
+            </LayoutInput>
+          </lr:LayoutRoot>
+
+          <lde:XenonLayoutDetails Name="DetailsView" Visible="false" Folder="[Folder]" ThemeHelper="[ThemeHelper]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lde:XenonLayoutDetails>
+
+          <lpo:XenonLayoutPoster ThemeHelper="[ThemeHelper]" Name="PosterView" Visible="false" Application="[Application]" Folder="[Folder]"  >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1" />
+            </LayoutInput>
+          </lpo:XenonLayoutPoster>
+
+          <lth:XenonLayoutThumb  Name="ThumbView" ThemeHelper="[ThemeHelper]" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lth:XenonLayoutThumb>
+
+          <lcf:XenonLayoutCoverflow ThemeHelper="[ThemeHelper]" Name="CoverFlow" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lcf:XenonLayoutCoverflow>
+
+          <lts:XenonLayoutThumbStrip Name="ThumbStripView" ThemeHelper="[ThemeHelper]" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lts:XenonLayoutThumbStrip>
+
+          <lm:XenonLayoutMusic Name="AlbumArtist" ThemeHelper="[ThemeHelper]" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lm:XenonLayoutMusic>
+          
+      <!--<lcf2:XenonLayoutCV2 ThemeHelper="[ThemeHelper]" Name="CoverFlow2" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lcf2:XenonLayoutCV2>
+          
+          <lbv:XenonLayoutBannerView ThemeHelper="[ThemeHelper]" Name="BannerView" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </lbv:XenonLayoutBannerView>
+
+          <ldql:XenonLayoutDetailsQuickList ThemeHelper="[ThemeHelper]" Name="DetailsQuickList" Visible="false" Folder="[Folder]" Application="[Application]" >
+            <LayoutInput>
+              <FormLayoutInput Horizontal="Fill" Top="Parent,0" Bottom="Parent,1"/>
+            </LayoutInput>
+          </ldql:XenonLayoutDetailsQuickList>-->
+
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+</Mcml>

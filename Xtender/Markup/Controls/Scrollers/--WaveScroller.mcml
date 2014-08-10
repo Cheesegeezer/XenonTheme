@@ -1,0 +1,115 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+    xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"
+    xmlns:xs="file://Xenon_Styles.mcml"
+    xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+    xmlns:xh="assembly://Xenon/Xenon"
+    xmlns:ib="resx://Xenon/Xenon.Resources/ItemButton"    
+    xmlns:me="Me">
+
+  <UI Name="WaveScroller" >
+
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required"></xh:XenonHelper>
+      <cor:Boolean Name="SmallFont" Boolean="false"></cor:Boolean>
+    </Properties>
+    <Locals>
+      <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
+      <ScrollingData Name="ScrollingData" LockedPosition="0.2" LockedAlignment="0.2" BeginPadding="0" EndPadding="0" />
+      <ShortcutHandler Name="JumpForward" Shortcut="SkipForward" HandlerStage="Bubbled" Handle="true" />
+      <ShortcutHandler Name="JumpBack" Shortcut="SkipBack" HandlerStage="Bubbled" Handle="true"/>
+    </Locals>
+    <Rules>
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+      <Default Target="[ScrollingData.Repeater]" Value="[FolderItems]"/>
+
+      <!--Scrolling Commands-->
+      <Changed Source="[Folder.JILShift]">
+        <Actions>
+          <Invoke Target="[ScrollingData.Scroll]"  amount="[Folder.JILShift]"/>
+        </Actions>
+      </Changed>
+      <Rule>
+        <Conditions>
+          <Modified Source="[JumpForward.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.PageDown]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Modified Source="[JumpBack.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.PageUp]"/>
+        </Actions>
+      </Rule>
+      <!--Scrolling Commands-->
+    </Rules>
+
+
+    <Content>
+      <Scroller  FadeSize="10" Orientation="Horizontal" ScrollingData="[ScrollingData]">
+
+        <Children>
+          <Repeater Name="FolderItems" ContentName="ScrollerItem" DiscardOffscreenVisuals="false" Layout="HorizontalFlow" Navigation="RememberFocus, ContainHorizontal" Source="[Folder.Children]">
+            <Layout>
+              <FlowLayout Orientation="Horizontal" Spacing="0,0" ItemAlignment="Far"/>
+            </Layout>
+            <Animations>
+              <Animation Type="Move">
+                <Keyframes>
+                  <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="EaseIn, 1.0, 0.25"/>
+                  <PositionKeyframe Time="0.5" RelativeTo="Final"/>
+
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Repeater>
+        </Children>
+      </Scroller>
+    </Content>
+    <Content Name="ScrollerItem">
+
+      <me:WaveItem SmallFont="[SmallFont]" Application="[Application]" Item="[RepeatedItem!lib:Item]" ParentFolder="[Folder]" Index="[RepeatedItemIndex]"></me:WaveItem>
+    </Content>
+  </UI>
+  
+  <UI Name="WaveItem" BaseUI="ib:ItemButton">
+    <Properties>
+      <lib:FolderModel Name="ParentFolder"></lib:FolderModel>
+      <Index Name="Index" Index="$Required"/>
+      <a:Application Name="Application" Application="$Required"/>
+      <cor:Boolean Name="SmallFont" Boolean="false"></cor:Boolean>
+    </Properties>
+    <Locals>
+      <Font Name="WaveSelected" Font="font://xs:WaveSelected" />
+      <Font Name="WaveNotSelected" Font="font://xs:WaveNotSelected" />
+    </Locals>
+    <Rules>
+      <Condition Source="[SmallFont]" SourceValue="true">
+        <Actions>
+          <Set Target="[WaveSelected]" Value="font://xs:WaveSelectedSmall"></Set>
+          <Set Target="[WaveNotSelected]" Value="font://xs:WaveNotSelectedSmall"></Set>
+        </Actions>
+      </Condition>
+      <Default Target="[Input.KeyInteractive]" Value="true"></Default>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Label.Color]" Value="White">
+        <Actions>
+          <Set Target="[Label.Font]" Value="[WaveSelected]"></Set>
+          <Set Target="[ParentFolder.SelectedChildIndex]" Value="[Index.Value]"></Set>
+        </Actions>
+      </Condition>
+    </Rules>
+    <Content>
+      <Text Margins="30,0,30,0" FadeSize="20" MaximumSize="800,0" CenterPointPercent="0.5,1,0" Scale="1,1,1" Name="Label" Content="[Item.Name]" Font="[WaveNotSelected]" Color="color://xs:SupportColorTwo" />
+    </Content>
+  </UI>
+
+</Mcml>

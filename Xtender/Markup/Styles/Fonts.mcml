@@ -1,0 +1,103 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml">
+
+  <!--FONTS-->
+  
+  <!--EHS CONTENT-->
+  <Font Name="EHSTitleFont" Font="Segeo UI,28,Bold" />
+  <Font Name="EHSTitleUnselectedFont" Font="Segeo UI,24" />
+  <Font Name="ClockFont" Font="Segeo UI, 22" />
+      <!--RAL ITEMS-->
+      <!--RAL Items List Font-->
+      <Font Name="RALUnselectedFont" Font="Segeo UI, 20,Bold" />
+      <Font Name="RALSelectedFont" Font="Segeo UI, 20,Bold" />
+      <!--RAL Selector Font (Watched, Unwatched, Recently Added, Resume)-->
+      <Font Name="RALSelectorFont" Font="Segeo UI, 18,Bold" />
+          <!--Items Details Colors-->
+          <Font Name="DetailsTitle" Font="Segeo UI,22" />
+          <Font Name="TagLineFont" Font="Segeo UI,18" />
+          <Font Name="DetailsInfoLabelFont" Font="Segeo UI,18" />
+          <Font Name="DetailsInfoValueFont" Font="Segeo UI,18" />
+  
+  
+  <!-- FULL DETAILS AND MEDIA PAGE-->
+    <Font Name="OverviewFont" Font="Segeo UI, 20"/>
+    <!--Options Scroller List Fonts-->
+    <Font Name="WaveSelected" FontName="Segeo UI" FontSize="32" />
+    <Font Name="WaveNotSelected" FontName="Segeo UI" FontSize="24" />
+      <!--Actors Fonts-->
+        <Font Name="ActorNameFont" FontName="Segeo UI" FontSize="20" />
+        <Font Name="ActorRoleFont" FontName="Segeo UI" FontSize="16" />
+          <!--Chapters Fonts-->
+            <Font Name="ChapterNameFont" FontName="Segeo UI" FontSize="20" />
+            <Font Name="ChapterTimeFont" FontName="Segeo UI" FontSize="16" />
+            <Font Name="NoChaptersFont" Font="Segeo UI,36" />
+              <!--Final Page Items Details Colors-->
+                  <Font Name="FinalDetailsTitle" Font="Segeo UI,22,Bold" />
+                  <Font Name="FinalTagLineFont" Font="Segeo UI,18" />
+                  <Font Name="FinalDetailsInfoLabelFont" Font="Segeo UI,16" />
+                  <Font Name="FinalDetailsInfoValueFont" Font="Segeo UI,14" />
+  
+  <!--POSTER VIEW-->
+  <Font Name="PosterTitleFont" Font="Segeo UI,28" />
+  <Font Name="PosterOverviewFont" Font="Segeo UI,22" />
+  <Font Name="PosterTagLineFont" Font="Segeo UI,18" />
+  <Font Name="PosterDetailsInfoLabelFont" Font="Segeo UI,18" />
+  <Font Name="PosterDetailsInfoValueFont" Font="Segeo UI,18" />
+  
+  <!--GENERAL/MISCELLANEOUS-->
+    <Font Name="UnwatchedCountFont" Font="Segeo UI, 12" />
+    
+  
+
+  <!--??????-->
+  <Font Name="FontLarge" FontName="Segoe UI Light" FontSize="16" />
+  <Font Name="TitleFontLarge" Font="Segoe UI Semibold, 28" />
+  <!--?????-->
+  <Font Name="TitleFont" FontName="Neutra Text" FontSize="26" />
+  
+  
+
+  
+  <!--DetailInfoPanel SmallInfo Text-->      
+  <Font Name="TitleFontSmall" Font="Segoe UI Light,26" />
+  
+  <!--LabelValue Font-->
+  <Font Name="SupportFont" FontName="Segoe UI Light" FontSize="16" />
+  
+  <!--Popout menu options font-->
+  <Font Name="OptionButton" FontName="Segoe UI Light" FontSize="24" />
+  
+  <!-- ????? Can't find this being used anywhere-->
+  <Font Name="OptionButtonBold" FontName="Segoe UI Light" FontSize="24" />
+
+  <!--Popout Menu "Close" Text-->
+  <Font Name="OptionButtonSmall" FontName="Segoe UI Light" FontSize="20" />
+
+  <!--Context Popout Menu "Menu" Font-->
+  <!--ShortcutHandler "Shortcuts" Font-->  
+  <Font Name="SubtleHeading" FontName="Neutra Text" FontSize="36" />
+  
+  <!--Context Popout Menu "ViewMenu" Font, -->
+  <Font Name="SubtleHeadingSmall" FontName="Neutra Text" FontStyle="Bold" FontSize="18" />
+
+  
+  <!--NOT SURE WHAT THESE DO, BUT THEY ARE REQUIRED-->
+  
+  <Font Name="LightMedium" Font="Neutra Text,27"/>
+  <Font Name="LightMediumMinus" Font="Neutra Text,18"/>
+  <Font Name="LightSmall" Font="Neutra Text,16"/>
+  
+  <Font Name="BoldMedium" Font="Neutra Text Bold,26"/>
+  <Font Name="BoldMediumMinus" Font="Neutra Text Bold,18"/>
+  <Font Name="BoldSmall" Font="Neutra Text Bold,16"/> 
+  
+  <Font Name="SmallDetailsFont" Font="Neutra Text Light,16"/>
+  
+  
+  <Font Name="WaveSelectedSmall" FontName="Neutra Text" FontSize="50" />
+  <Font Name="WaveNotSelectedSmall" Font="Neutra Text,50" />
+  
+  <!--SEARCH BOX FONTS-->
+  
+
+</Mcml>

@@ -1,0 +1,131 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:cor="assembly://MSCorLib/System"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	    xmlns:an="resx://MediaBrowser/MediaBrowser.Resources/Animations"
+	    xmlns:sd="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:xh="assembly://Xenon/Xenon"
+      
+      xmlns:me="Me">
+
+  <UI Name="PersonButton">
+
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <cor:Boolean Name="IsNavigatingCommand" Boolean="false" />
+      <lib:ActorItemWrapper Name="PersonItem" ActorItemWrapper="$Required" />
+      <xh:XenonHelper Name="ThemeHelper" />
+      <xh:ActorInfo Name="Person" />
+      <Index Name="Index" Index="$Required"/>
+      <IntRangedValue Name="CurrentIndex" IntRangedValue="$Required"/>
+      
+      <Image Name="PersonImage" Image="image://me:ButtonDormant" />
+      <cor:String Name="PersonName" String="" />
+      <cor:String Name="PersonRole" String="" />
+
+      <Size Name="Size" Size="330,140" />
+      <Size Name="MinSize" Size="50,50" />
+
+      <Image Name="ImageFocus" Image="image://me:ButtonLeftFocus" />
+      <Image Name="ImageNoFocus" Image="image://me:ButtonNoFocus" />
+      <Image Name="ImageDormant" Image="image://me:ButtonDormant" />
+
+    </Properties>
+
+    <Locals>
+      <Timer Name="InfoTimer" Enabled="false" AutoRepeat="false" Interval="500"/>
+      <ClickHandler Name="Clicker" />
+      <Command Name="ShowActorPopup"/>  
+    </Locals>
+
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true" />
+
+      <Binding Source="[PersonItem.Actor.DisplayName]" Target="[PName.Content]" />
+      <Binding Source="[PersonItem.Actor.DisplayRole]" Target="[PRole.Content]" />
+      <Binding Source="[PersonItem.Item.PrimaryImage]" Target="[PImage.Content]" />
+
+
+      <Changed Source="[Clicker.Invoked]">
+        <Actions>
+          <Invoke Target="[ThemeHelper.OpenActorPage]" item="[PersonItem.Item]" />
+        </Actions>
+      </Changed>
+
+      <Rule>
+          <Conditions>
+            <Modified Source="[Clicker.Invoked]"/>
+            <Equality Source="[IsNavigatingCommand]" Value="true" />
+          </Conditions>
+          <Actions>
+            <PlaySound Sound="sound://sd:Select" />
+          </Actions>
+        </Rule>
+
+        <Rule>
+          <Conditions>
+            <Modified Source="[Clicker.Invoked]"/>
+            <Equality Source="[IsNavigatingCommand]" Value="false"/>
+          </Conditions>
+          <Actions>
+            <PlaySound Sound="sound://sd:Miniselect" />
+          </Actions>
+        </Rule>
+
+        <Condition Source="[Input.KeyFocus]" SourceValue="true">
+          <Actions>
+            <Set Target="[CurrentIndex.Value]" Value="[Index.Value]"/>
+            <Set Target="[imgButton.Content]" Value="[ImageFocus]"/>
+            <PlaySound Sound="sound://sd:Focus" />
+          </Actions>
+        </Condition>
+      
+      <Condition Source="[Input.MouseFocus]" SourceValue="true">
+        <Actions>
+            <Set Target="[CurrentIndex.Value]" Value="[Index.Value]"/>
+            <Set Target="[imgButton.Content]" Value="[ImageFocus]"/>
+            <PlaySound Sound="sound://sd:Focus" />
+        </Actions>
+      </Condition>
+
+      
+    </Rules>
+
+    <Content>
+
+      <Graphic Name="imgButton" Content="[ImageNoFocus]" MinimumSize="[Size]" MaximumSize="[Size]" Padding="5,5,5,5">
+        <Layout>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+        </Layout>
+        <Children>
+          <Graphic Name="PImage" Content="resx://MediaBrowser/MediaBrowser.Resources/MissingPerson"
+                   SizingPolicy="SizeToConstraint" MaximumSize="180,180" MaintainAspectRatio="true"/>
+          <Panel Margins="5,0,0,0">
+            <Layout>
+              <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+            </Layout>
+            <Children>
+              <Text Name="PName" Font="font://xs:ActorNameFont" Color="color://xs:ActorNameColor" />
+              <Text Name="PRole" Font="font://xs:ActorRoleFont" Color="color://xs:ActorRoleColor" />
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+
+    </Content>
+  </UI>
+
+  <Image Name="ButtonDisabled"          Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonDisabled"          NineGrid="7,7,7,7" />
+  <Image Name="ButtonDormant"           Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonDormant"           NineGrid="7,7,7,7" />
+  <Image Name="ButtonLeftFocus"         Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonLeftFocus"         NineGrid="7,7,7,7" />
+  <Image Name="ButtonLeftFocusOverlay"  Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonLeftFocusOverlay"  NineGrid="7,7,7,7" />
+  <Image Name="ButtonNoFocus"           Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonNoFocus"           NineGrid="7,7,7,7" />
+  <Image Name="ButtonPressedAfterGlow"  Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonPressedAfterGlow"  NineGrid="7,7,7,7" />
+  <Image Name="ButtonPressedHighlight"  Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonPressedHighlight"  NineGrid="7,7,7,7" />
+
+
+
+</Mcml>

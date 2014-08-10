@@ -1,0 +1,961 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:addin="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+      xmlns:cor="assembly://MsCorLib/System"
+	    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+	    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:ib="resx://Xenon/Xenon.Resources/ImageButton"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:it="resx://Xenon/Xenon.Resources/Images"
+      xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
+	    xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
+	    xmlns:sr="resx://Xenon/Xenon.Resources/StarRating"
+	    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
+	    xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
+      xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
+      xmlns:mi="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel"
+      xmlns:pda="resx://Xenon/Xenon.Resources/PageDetailArea"
+      xmlns:vmpaa="resx://Xenon/Xenon.Resources/MPAARating"
+      xmlns:vs="resx://Xenon/Xenon.Resources/Studio"     
+      xmlns:fip="resx://Xenon/Xenon.Resources/FullInfoPanel"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:pci="resx://Xenon/Xenon.Resources/PCIndicatorButton"
+      xmlns:dcm="resx://Xenon/Xenon.Resources/DefaultContextMenu"
+      xmlns:dob="resx://Xenon/Xenon.Resources/DetailsOptionButton"
+      xmlns:actp="resx://Xenon/Xenon.Resources/ActorPopup"
+      xmlns:me="Me"
+    >
+
+  <!-- Movie Details Page -->
+  <UI Name="XenonMovieView">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+      <FormLayoutInput Name="FullScreen" Bottom="Parent,1" Left="Parent,0" Right="Parent,1" Top="Parent,0"/>
+      <Command Name="NextItemCommand" />
+      <Command Name="PreviousItemCommand" />
+     
+    </Properties>
+
+    <Locals>
+      <a:Config Name="Config" Config="[Application.Config]"/>
+      <addin:AddInHost Name="AddInHost" />
+      <xh:XenonHelper Name="ThemeHelper" CurrentItem="[Item]" />
+      <cor:String Name="MediaPath" String="" />
+      <lib:FolderModel Name="Folder"/>
+      <cor:Int32 Name="Startup" />
+      <Timer Name="MediaPlaying" Interval="300" AutoRepeat="true"/>
+
+      <Command Name="Resume" />
+      <Command Name="QuickPlay" />
+      <Command Name="Play" />
+      <Command Name="Refresh" />
+      <Command Name="PlayTrailer" />
+      <Command Name="ShowActors" />
+      <Command Name="ShowReviews" />
+      <Command Name="Delete" />
+      <Command Name="ShowInfo" />
+      <Command Name="ShowChapters" />
+      <Command Name="ShowSpecials" />
+
+      
+
+      <!--CONFIG PANEL COMMANDS-->
+      <Command Name="NPVFocus" />
+      <Command Name="NPVFocusLost" />
+      <Command Name="GoToNowPlaying" />
+
+      <Command Name="HomeFocus" />
+      <Command Name="HomeFocusLost" />
+      <Command Name="HomeButtonCommand" />
+
+      <Command Name="UserFocus" />
+      <Command Name="UserFocusLost" />
+      <Command Name="CloseUserMenuCommand" />
+      <Command Name="SwitchUserCommand" />
+      <!--END CONFIG PANEL COMMANDS-->
+
+      <ShortcutHandler Name="ChannelDown" Shortcut="ChannelDown" Handle="true" HandlerStage="Bubbled" Command="[PreviousItemCommand]"/>
+      <ShortcutHandler Name="ChannelUp" Shortcut="ChannelUp" Handle="true" HandlerStage="Bubbled" Command="[NextItemCommand]"/>
+      
+      <TransformByAttributeAnimation Name="ShowSlideRight" Attribute="Width" Magnitude="1.0" Source="animation://anim:ShowSlideRight"/>
+      <TransformByAttributeAnimation Name="ShowSlideLeft" Attribute="Width" Magnitude="1.0" Source="animation://anim:ShowSlideLeft"/>
+      <TransformByAttributeAnimation Name="HideSlideRight" Attribute="Width" Magnitude="1.0" Source="animation://anim:HideSlideRight"/>
+      <TransformByAttributeAnimation Name="HideSlideLeft" Attribute="Width" Magnitude="1.0" Source="animation://anim:HideSlideLeft"/>
+
+      <BooleanChoice Name="OptionsScrollerHasFocus" Value="false"/>
+      <KeyHandler Key="Up" Name="UpNav" Handle="false" HandlerStage="Bubbled"/>
+      <Command Name="NavigateIntoCommand"/>
+    </Locals>
+    
+    <Rules>
+
+      <Binding Source="[Item.IsPlayable]" Target="[NextPanel.Visible]" />
+      <Binding Source="[Item.IsPlayable]" Target="[PrevPanel.Visible]" />
+      <Binding Source="[Item.IsPlayable]" Target="[NextBG.Visible]" />
+      <Binding Source="[Item.IsPlayable]" Target="[PrevBG.Visible]" />
+      
+      <Changed Source="[Item]" InitialEvaluate="true">
+        <Actions>
+          <Set Target="[ThemeHelper.CurrentItem]" Value="[Item]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Resume.Invoked]">
+        <Actions>
+          <Invoke Target="[Item.Resume]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Play.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.Play]" item="[Item]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[QuickPlay.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.Play]" item="[Item]" resume="false" queue="false" shuffle="false" playIntros="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Refresh.Invoked]">
+        <Actions>
+          <Invoke Target="[Item.RefreshMetadata]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[PlayTrailer.Invoked]">
+        <Actions>
+          <Invoke Target="[Item.PlayTrailers]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Delete.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.DeleteMediaItem]">
+            <Item>
+              <lib:Item Item="[Item]"/>
+            </Item>
+          </Invoke>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[UpNav.Invoked]">
+        <Conditions>
+          <Equality Source="[OptionsScrollerHasFocus.Value]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[NextItemButton.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[NextItemCommand.Invoked]">
+        <Conditions>
+          <Equality Source="[Item.PhysicalParent.Children.Count]" ConditionOp="GreaterThan" Value="1"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[MainPanel.AttachAnimation]" animation="[ShowSlideRight]" ExclusiveApply="false"/>
+          <Invoke Target="[MainPanel.AttachAnimation]" animation="[HideSlideRight]" ExclusiveApply="false"/>
+          <Set Target="[Item]" Value="[Item.PhysicalParent.NextChild]"/>
+          <Set Target="[InfoPanel.Item]" Value="[Item]"/>
+          <Set Target="[OptionsScroller.Item]" Value="[Item]"/>
+          <Invoke Target="[MainPanel.ForceContentChange]"/>
+        </Actions>
+      </Changed>
+      <Changed Source="[PreviousItemCommand.Invoked]">
+        <Conditions>
+          <Equality Source="[Item.PhysicalParent.Children.Count]" ConditionOp="GreaterThan" Value="1"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[MainPanel.AttachAnimation]" animation="[ShowSlideLeft]" ExclusiveApply="false"/>
+          <Invoke Target="[MainPanel.AttachAnimation]" animation="[HideSlideLeft]" ExclusiveApply="false"/>
+          <Set Target="[Item]" Value="[Item.PhysicalParent.PrevChild]" />
+          <Set Target="[InfoPanel.Item]" Value="[Item]"/>
+          <Set Target="[OptionsScroller.Item]" Value="[Item]"/>
+          <Invoke Target="[MainPanel.ForceContentChange]"/>
+        </Actions>
+      </Changed>
+      
+      <Changed Source="[GoToNowPlaying.Invoked]">
+        <Actions>
+            <Invoke Target="[Application.PlaybackController.GoToFullScreen]"/> 
+        </Actions>
+      </Changed>
+      
+      <Changed Source="[ShowInfo.Invoked]">
+        <Actions>
+          <Set Target="[InfoPanel.Tab]" Value="Info"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShowActors.Invoked]">
+        <Actions>
+          <Set Target="[InfoPanel.Tab]" Value="Actors"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShowReviews.Invoked]">
+        <Actions>
+          <Set Target="[InfoPanel.Tab]" Value="Reviews"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShowChapters.Invoked]">
+        <Actions>
+          <Set Target="[InfoPanel.Tab]" Value="Chapters"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShowSpecials.Invoked]">
+        <Actions>
+          <Set Target="[InfoPanel.Tab]" Value="Specials"/>
+        </Actions>
+      </Changed>
+      
+      <!--Conditions for displaying the Now Playing Icon-->
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Application.PlaybackController.IsStopped]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[NowPlayKey.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Application.PlaybackController.IsPlaying]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[NowPlayKey.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Equality Source="[Application.PlaybackController.IsPaused]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Set Target="[NowPlayKey.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Actions>
+          <Invoke Target="[MediaPlaying.Start]" />
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Modified Source="[GoToNowPlaying.Invoked]" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Application.PlaybackController.GoToFullScreen]"/>
+        </Actions>
+      </Rule>
+      
+      
+      <!--CONFIG PANEL ICONS FOCUS/FOCUSLOST ACTIONS-->
+      <Changed Source="[NPVFocus.Invoked]">
+        <Actions>
+          <Set Target="[NowPlayKey.Alpha]" Value="1" />
+          <Set Target="[NowPlayKey.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[NPVFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[NowPlayKey.Alpha]" Value="0.5" />
+          <Set Target="[NowPlayKey.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+    </Rules>
+
+
+    <Content>
+      <Panel Layout="Form"  >
+        <Children>
+          
+          <me:OptionsScroller FocusOrder="0" Name="OptionsScroller" InFocus="[OptionsScrollerHasFocus]" Application="[Application]" Item="[Item]" Refresh="[Refresh]" QuickPlay="[QuickPlay]" Resume="[Resume]" Delete="[Delete]" ShowInfo="[ShowInfo]" PlayTrailer="[PlayTrailer]" ShowReviews="[ShowReviews]" ShowChapters="[ShowChapters]" ShowSpecials="[ShowSpecials]" Play="[Play]" ShowActors="[ShowActors]">
+            <LayoutInput>
+              <FormLayoutInput Right="Parent,1" Bottom="Parent,1,25" />
+            </LayoutInput>
+          </me:OptionsScroller>
+
+          <Panel Name="MainPanel"  Layout="Form" >
+            <LayoutInput>
+              <FormLayoutInput Bottom="Parent,1,-50" Top="Parent,1,-350" Left="Parent,0,100" Right="Parent,1,-100"/>
+            </LayoutInput>
+            <Children>
+              <fip:InfoPanelSelector Name="InfoPanel" Application="[Application]" Item="[Item]" ThemeHelper="[ThemeHelper]" />
+            </Children>
+          </Panel>
+
+          <Panel Name="NextPanel" FocusOrder="10">
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,1,-390" Right="Parent,1,-25" />
+            </LayoutInput>
+            <Children>
+              <dob:OptionButton Name="NextItemButton" Label="[Application.LocalStrings.#NextBtnStr!cor:String]" Command="[NextItemCommand]" Visible="true" />
+            </Children>
+          </Panel>
+
+          <Panel Name="PrevPanel" FocusOrder="20" >
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,1,-390" Left="Parent,0,25" />
+            </LayoutInput>
+            <Children>
+              <dob:OptionButton Name="PreviousItemButton" Label="[Application.LocalStrings.#PrevBtnStr!cor:String]" Command="[PreviousItemCommand]" Visible="true" />
+            </Children>
+          </Panel>
+
+          <!--Options buttons, Search, Settings and NPV button-->
+          <Panel Name="ButtonPanel" Visible="true" Layout="Form" FocusOrder="400" >
+            <Layout>
+              <FlowLayout Orientation="Horizontal"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0,10" Right="Parent,1,-10"/>
+            </LayoutInput>
+            <Children>
+              <Panel Name="NowPlayKey" Visible="false" FocusOrder="602">
+                <Children>
+                  <vsb:SimpleButton OnFocus="[NPVFocus]" Size="50,50" OnLooseFocus="[NPVFocusLost]" Name="NowPlayButton" Application="[Application]" FocusImage="image://it:IconNowPlay" ImageNoFocus="image://it:IconNowPlaySmall" Command="[GoToNowPlaying]" />
+                </Children>
+              </Panel>
+              <Panel Name="PCBtn" Margins="0,0,0,0" Visible="true" FocusOrder="607">
+                <Children>
+                  <pci:PCIndicatorButton Application="[Application]" Size="50,50"/>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+          <!--USER SWITCHING MENU-->
+          
+
+          <Graphic Name="PrevBG" Navigation="None" Content="image://it:PrevBG" MinimumSize="0,50" MaximumSize="0,80" ColorFilter="color://xs:RootHorizontalBGoverlayColor" >
+              <LayoutInput>
+                <AnchorLayoutInput Left="Parent,0,-500" Top="Parent,1,-430" Right="Parent,0,200" Bottom="Parent,1,-350"/>
+              </LayoutInput>
+            </Graphic>
+
+          <Graphic Name="NextBG" Navigation="None" Content="image://it:NextBG" MinimumSize="0,50" MaximumSize="0,80" ColorFilter="color://xs:RootHorizontalBGoverlayColor" >
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,1,-200" Top="Parent,1,-430" Right="Parent,1,500" Bottom="Parent,1,-350"/>
+            </LayoutInput>
+          </Graphic>
+
+          <bd:Backdrop4 Name="Backdrop"  Application="[Application]" Image="[Item.BackdropImage]" Item="[Item]"/>
+         
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="OptionsScroller" >
+    <Properties>
+      <Command Name="Resume" Command="$Required"/>
+      <Command Name="QuickPlay" Command="$Required" />
+      <Command Name="Play" Command="$Required"/>
+      <Command Name="PlayTrailer" Command="$Required"/>
+      <Command Name="ShowActors" Command="$Required"/>
+      <Command Name="ShowSpecials" Command="$Required"/>
+      <Command Name="ShowReviews" Command="$Required"/>
+      <Command Name="ShowChapters" Command="$Required" />
+      <Command Name="Delete" Command="$Required"/>
+      <Command Name="ShowInfo" Command="$Required"/>
+      <Command Name="Refresh" Command="$Required"/>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" />
+
+      <BooleanChoice Name="InFocus" BooleanChoice="$Required"/>
+    </Properties>
+
+    <Locals>
+      <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
+      <ScrollingData Name="ScrollingData" BeginPadding="20" EndPadding="20" />
+    </Locals>
+    
+    <Rules>
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[InFocus.Value]" Value="true" />
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[InFocus.Value]" Value="false" />
+        </Actions>
+      </Rule>
+      
+      <!-- Commands -->
+        <Binding Source="[Item.CanResume]" Target="[ResumeButton.Visible]" />
+        <Binding Source="[Item.ContainsTrailers]" Target="[TrailerButton.Visible]" />
+        <Binding Source="[Item.IsPlayable]" Target="[PlayButton.Visible]" />
+        <Binding Source="[Item.IsPlayable]" Target="[PlayDivider.Visible]" />
+      <Binding Source="[Item.IsPlayable]" Target="[QuickPlayButton.Visible]" />
+      <Binding Source="[Item.IsPlayable]" Target="[QPDivider.Visible]" />
+      <Binding Source="[Item.HasChapterInfo]" Target="[ChapterButton.Visible]" />
+      <Binding Source="[Item.HasChapterInfo]" Target="[ChaptersDivider.Visible]" />
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="false"/>
+          <Set Target="[QPDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[ThemeHelper.IsIntrosInstalled]" ConditionOp="NotEquals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="false"/>
+          <Set Target="[QPDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+      
+        <Rule>
+          <Conditions >
+            <Equality Source="[Item.ContainsTrailers]" ConditionOp="Equals" Value="true" />
+          </Conditions>
+          <Actions>
+            <Set Target="[TrailerDivider.Visible]" Value="true"/>
+          </Actions>
+        </Rule>
+            
+        <Rule>
+            <Conditions>
+                <Equality Source="[Item.Actors.Count]" ConditionOp="GreaterThan" Value="0" />
+            </Conditions>
+            <Actions>
+                <Set Target="[CastButton.Visible]" Value="true" />
+            </Actions>
+        </Rule>
+
+        <Rule>
+          <Conditions>
+            <Equality Source="[Item.Chapters.Count]" ConditionOp="GreaterThan" Value="0" />
+          </Conditions>
+          <Actions>
+            <Set Target="[ChapterButton.Visible]" Value="true" />
+          </Actions>
+        </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ChapterButton.Visible]" Value="false" />
+          <Set Target="[ChaptersDivider.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.SpecialFeatures.Count]" ConditionOp="GreaterThan" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="false" />
+          <Set Target="[SpecialsDivider.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Application.Config.Advanced_EnableDelete]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Application.Config.EnableAdvancedCmds]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[DeleteButton.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.Config.Advanced_EnableDelete]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[DeleteButton.Visible]" Value="false"/>
+          <Set Target="[RefreshDivider.Visible]" Value="false"/>
+          <Set Target="[RefreshButton.Margins]" Value="0,0,10,0"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.Config.Advanced_EnableDelete]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[DeleteButton.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.CanResume]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ResumeButton.Visible]" Value="false"/>
+          <Set Target="[ResumeDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.ContainsTrailers]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TrailerButton.Visible]" Value="false"/>
+          <Set Target="[TrailerDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.HasSpecialFeatures]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="true"/>
+          <Set Target="[SpecialsDivider.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.HasSpecialFeatures]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="false"/>
+          <Set Target="[SpecialsDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[ThemeHelper.IsIntrosInstalled]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="true"/>
+          <Set Target="[QPDivider.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[CastButton.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.CriticRating]" ConditionOp="Equals" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ReviewsButton.Visible]" Value="false"/>
+          <Set Target="[ReviewsDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+    </Rules>
+
+    <Content>
+      <Panel Layout="Form">
+        <Children>
+          <Panel Name="RALButtonPanel" >
+                <LayoutInput>
+                  <AnchorLayoutInput Right="Parent,1" Bottom="Parent,1,-20" />
+                </LayoutInput>
+                <Children>
+                  <Clip MaximumSize="0,112" FadeSize="20" FadeAmount="0.7" FarOffset="1" Orientation="Vertical" ColorMask="0,0,0" CenterPointOffset="0.5,1,0">
+                    <Layout>
+                        <FlowLayout Orientation="Horizontal" Spacing="10,0" />
+                      </Layout>
+                          <Children>
+                            <dob:OptionButton Name="ResumeButton"
+                                              Label="[Application.LocalStrings.#ResumeStr!cor:String]"
+                                              Command="[Resume]"
+                                              Visible="true"/>
+                            <Text Content="|" Name="ResumeDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+
+                            <dob:OptionButton Name="PlayButton"
+                                              Label="[Application.LocalStrings.#PlayStr!cor:String]"  
+                                              Command="[Play]" />
+                            <Text Content="|" Name="PlayDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+
+                            <dob:OptionButton Name="QuickPlayButton"
+                                              Label="[Application.LocalStrings.#QuickPlayStr!cor:String]"
+                                              Command="[QuickPlay]"/>
+                            <Text Content="|" Name="QPDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+
+                            <dob:OptionButton Name="TrailerButton"
+                                              Label="[Application.LocalStrings.#TrailersStr!cor:String]"
+                                              Command="[PlayTrailer]"
+                                              Visible="true"/>
+                            <Text Content="|" Name="TrailerDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                                                    
+                            <dob:OptionButton Name="OverviewButton"
+                                              Label="[Application.LocalStrings.#OverviewStr!cor:String]"
+                                              Command="[ShowInfo]" />
+                            <Text Content="|" Name="OverviewDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+
+                            <dob:OptionButton Name="CastButton"
+                                              Label="[Application.LocalStrings.#CastStr!cor:String]"
+                                              Command="[ShowActors]" />
+                            <Text Content="|" Name="CastDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+
+                            <dob:OptionButton Name="ChapterButton"
+                                              Label="[Application.LocalStrings.#ChapterStr!cor:String]"
+                                              Command="[ShowChapters]" />
+                            <Text Content="|" Name="ChaptersDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+
+                          <dob:OptionButton Name="SpecialsButton"
+                                              Label="[Application.LocalStrings.#SpecialsStr!cor:String]"
+                                              Command="[ShowSpecials]"
+                                              Visible="true" />
+                            <Text Content="|" Name="SpecialsDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                                                    
+                            <dob:OptionButton Name="ReviewsButton"
+                                              Label="[Application.LocalStrings.#ReviewStr!cor:String]"
+                                              Command="[ShowReviews]" />
+                            <Text Content="|" Name="ReviewsDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                                                    
+                            <dob:OptionButton Name="RefreshButton"
+                                              Label="[Application.LocalStrings.#RefreshStr!cor:String]"
+                                              Command="[Refresh]" />
+                            <Text Content="|" Name="RefreshDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                                                    
+                            <dob:OptionButton Name="DeleteButton"
+                                              Label="[Application.LocalStrings.#DeleteStr!cor:String]"
+                                              Command="[Delete]"
+                                              Visible="true"
+                                              Margins="0,0,10,0"/>
+                            
+                          </Children>
+                  </Clip>
+                </Children>
+              </Panel>
+            <Graphic Name="InfoGraphic" Content="image://it:InfoPanelTime" MinimumSize="0,50" MaximumSize="0,80" ColorFilter="color://xs:RootHorizontalBGoverlayColor" >
+              <LayoutInput>
+                <AnchorLayoutInput Left="RALButtonPanel,0,-150" Top="RALButtonPanel,0,2" Right="Parent,1" Bottom="RALButtonPanel,1,30"/>
+              </LayoutInput>
+            </Graphic>
+                 
+          </Children>
+      </Panel>
+    </Content>
+  </UI>
+  
+   <!--<UI Name="Options2Scroller" >
+    <Properties>
+      <Command Name="Resume" Command="$Required"/>
+      <Command Name="QuickPlay" Command="$Required" />
+      <Command Name="Play" Command="$Required"/>
+      <Command Name="PlayTrailer" Command="$Required"/>
+      <Command Name="ShowActors" Command="$Required"/>
+      <Command Name="ShowSpecials" Command="$Required"/>
+      <Command Name="ShowReviews" Command="$Required"/>
+      <Command Name="ShowChapters" Command="$Required" />
+      <Command Name="Delete" Command="$Required"/>
+      <Command Name="ShowInfo" Command="$Required"/>
+      <Command Name="Refresh" Command="$Required"/>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:Item Name="Item" Item="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper" />
+
+      <BooleanChoice Name="InFocus" BooleanChoice="$Required"/>
+    </Properties>
+
+    <Locals>
+      <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
+      <ScrollingData Name="ScrollingData" BeginPadding="20" EndPadding="20" />
+    </Locals>
+    <Rules>
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+      <Binding Source="[Input.DeepKeyFocus]"  Target="[InFocus.Value]"/>
+      
+      
+        <Binding Source="[Item.CanResume]" Target="[ResumeButton.Visible]" />
+        <Binding Source="[Item.ContainsTrailers]" Target="[TrailerButton.Visible]" />
+      
+        <Rule>
+          <Conditions >
+            <Equality Source="[Item.ContainsTrailers]" ConditionOp="Equals" Value="true" />
+          </Conditions>
+          <Actions>
+            <Set Target="[TrailerDivider.Visible]" Value="true"/>
+          </Actions>
+        </Rule>
+            
+        <Rule>
+            <Conditions>
+                <Equality Source="[Item.Actors.Count]" ConditionOp="GreaterThan" Value="0" />
+            </Conditions>
+            <Actions>
+                <Set Target="[CastButton.Visible]" Value="true" />
+            </Actions>
+        </Rule>
+
+        <Rule>
+          <Conditions>
+            <Equality Source="[Item.Chapters.Count]" ConditionOp="GreaterThan" Value="0" />
+          </Conditions>
+          <Actions>
+            <Set Target="[ChapterButton.Visible]" Value="true" />
+          </Actions>
+        </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ChapterButton.Visible]" Value="false" />
+          <Set Target="[ChaptersDivider.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.SpecialFeatures.Count]" ConditionOp="GreaterThan" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="false" />
+          <Set Target="[SpecialsDivider.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Application.Config.Advanced_EnableDelete]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Application.Config.EnableAdvancedCmds]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[DeleteButton.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.Config.Advanced_EnableDelete]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[DeleteButton.Visible]" Value="false"/>
+          <Set Target="[RefreshDivider.Visible]" Value="false"/>
+          <Set Target="[RefreshButton.Margins]" Value="0,0,10,0"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.Config.Advanced_EnableDelete]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[DeleteButton.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.CanResume]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ResumeButton.Visible]" Value="false"/>
+          <Set Target="[ResumeDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.ContainsTrailers]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TrailerButton.Visible]" Value="false"/>
+          <Set Target="[TrailerDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.HasSpecialFeatures]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="true"/>
+          <Set Target="[SpecialsDivider.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.HasSpecialFeatures]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[SpecialsButton.Visible]" Value="false"/>
+          <Set Target="[SpecialsDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[ThemeHelper.IsIntrosInstalled]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="true"/>
+          <Set Target="[QPDivider.Visible]" Value="true"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="false"/>
+          <Set Target="[QPDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+      
+      <Rule>
+        <Conditions >
+          <Equality Source="[ThemeHelper.IsIntrosInstalled]" ConditionOp="NotEquals" Value="true" />
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="false"/>
+          <Set Target="[QPDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+        </Conditions>
+        <Actions>
+          <Set Target="[CastButton.Visible]" Value="false"/>
+          <Set Target="[CastDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[Item.CriticRating]" ConditionOp="Equals" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ReviewsButton.Visible]" Value="false"/>
+          <Set Target="[ReviewsDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+      
+    </Rules>
+
+
+    <Content>
+      <Scroller Navigation="RememberFocus, ContainHorizontal" Orientation="Horizontal" ScrollingData="[ScrollingData]">
+        <Children>
+          <Panel>
+            <Layout>
+              <FlowLayout Orientation="Horizontal" ItemAlignment="Near" />
+            </Layout>
+              <Children>
+                <me:WaveItem Click="[Resume]"           Description="RESUME"   Name="ResumeButton" />
+                <Text Content="|" Name="ResumeDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[Play]"             Description="PLAY"     Name="PlayButton"/>  
+                <Text Content="|" Name="PlayDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[QuickPlay]"        Description="RESUME"   Name="QuickPlayButton" />
+                <Text Content="|" Name="QPDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[PlayTrailer]"      Description="TRAILERS" Name="TrailerButton" />
+                <Text Content="|" Name="TrailerDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[ShowInfo]"         Description="OVERVIEW" Name="OverviewButton"/>
+                <Text Content="|" Name="OverviewDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[ShowActors]"       Description="ACTORS"   Name="CastButton"/>
+                <Text Content="|" Name="CastDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[ShowChapters]"     Description="CHAPTERS" Name="ChapterButton"/>
+                <Text Content="|" Name="ChaptersDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[ShowSpecials]"     Description="SPECIALS" Name="SpecialsButton"/>
+                <Text Content="|" Name="SpecialsDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[ShowReviews]"      Description="REVIEWS"  Name="ReviewsButton"/>
+                <Text Content="|" Name="ReviewsDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[Refresh]"          Description="REFRESH"  Name="RefreshButton" />
+                <Text Content="|" Name="RefreshDivider" Font="font://xs:DetailOptionFont" Color="color://xs:DetailOptionColor" />
+                <me:WaveItem Click="[Delete]"           Description="Delete"   Name="DeleteButton" />
+              </Children>
+          </Panel>
+        </Children>  
+      </Scroller>
+    </Content>
+  </UI>
+
+  <UI Name="WaveItem" >
+    <Properties>
+      <cor:String Name="Description" String="$Required"></cor:String>
+      <Command Name="Click" Command="$Required"/>
+    </Properties>
+    
+    <Locals>
+      <Font Name="OptionSelected" Font="font://xs:DetailOptionFont" />
+      <Font Name="OptionNotSelected" Font="font://xs:DetailOptionFont" />
+      <ClickHandler Name="Clicker"/>
+    </Locals>
+    
+    <Rules>
+      <Changed Source="[Clicker.Invoked]" >
+        <Actions>
+          <Invoke Target="[Click.Invoke]"></Invoke>
+        </Actions>
+      </Changed>
+
+      <Default Target="[Input.KeyInteractive]" Value="true"></Default>
+
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Label.Color]" Value="White">
+        <Actions>
+          <Set Target="[Label.Font]" Value="[OptionSelected]"></Set>
+        </Actions>
+      </Condition>
+    </Rules>
+    <Content>
+      <Text Margins="0,0,0,0" MaximumSize="800,0" CenterPointPercent="0.5,1,0" Scale="1,1,1" Name="Label" Content="[Description]" Font="[OptionNotSelected]" Color="color://xs:DetailOptionColor" />
+    </Content>
+  </UI>-->
+</Mcml>
