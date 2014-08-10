@@ -304,3 +304,11 @@ D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\
 D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
 D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.dll
 D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.4 - Fix EHS RAL options\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\bin\Debug\Xenon.dll
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\bin\Debug\Xenon.pdb
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\bin\Debug\MediaBrowser.Model.dll
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.dll
+D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.pdb

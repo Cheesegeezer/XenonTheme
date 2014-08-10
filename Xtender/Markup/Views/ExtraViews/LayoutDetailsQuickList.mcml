@@ -7,7 +7,9 @@
     xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
     xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
     xmlns:sr="resx://MediaBrowser/MediaBrowser.Resources/StarRating"
+    xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
     xmlns:mpaa="resx://Xenon/Xenon.Resources/MPAARating"
+    xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
     xmlns:xs="file://Xenon_Styles.mcml"
     xmlns:s="file://Styles_DoNotEdit.mcml"
     xmlns:me="Me"
@@ -25,11 +27,34 @@
       <Timer Name="InfoTimer" AutoRepeat="false" Enabled="false" Interval="1000"  />
       <IntRangedValue Name="SelectedIndex" Value="0"/>
       <IntRangedValue Name="SelectedChildIndex" Value="-1"/>
+
+      <ShortcutHandler Name="Blue" Shortcut="Blue" HandlerStage="Bubbled" Handle="true"/>
+      <KeyHandler Name="JilKey" Key="J" Handle="true" Modifiers="Control" HandlerStage="Bubbled"/>
+      <Command Name="HideJil"/>
     </Locals>
 
     <Rules>
       <Binding Target="[ThemeHelper.CurrentItem]" Source="[Folder.SelectedChild]" />
       <Binding Target="[Application.CurrentItem]" Source="[Folder.SelectedChild]" />
+
+      <!-- JIL Command -->
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Modified Source="[JilKey.Invoked]"/>
+          <Modified Source="[Blue.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+          <Set Target="[JilPanel.Visible]" Value="true" />
+          <Invoke Target="[JilPanel.NavigateInto]" />
+        </Actions>
+      </Rule>
+
+      <Changed Source="[HideJil.Invoked]" >
+        <Actions>
+          <Set Target="[JilPanel.Visible]" Value="false" />
+        </Actions>
+      </Changed>
       
       <Default Target="[Input.KeyInteractive]" Value="true"/>
 
@@ -91,6 +116,27 @@
     <Content>
       <Panel Layout="Form">
         <Children>
+
+          <!--Jil Selector-->
+          <Panel Name="JilPanel" Visible="false" Layout="Scale" Margins="150,0,150,20">
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0,100" />
+            </LayoutInput>
+            <Animations>
+              <Animation Type="Show" >
+                <Keyframes>
+                  <AlphaKeyframe Time="0.0" Value="0" />
+                  <AlphaKeyframe Time="0.4" Value="1" Interpolation="SCurve" />
+                  <PositionKeyframe Time="0.0" Value="0,-50,0" />
+                  <PositionKeyframe Time="0.4" Value="0,0,0" Interpolation="SCurve" />
+                </Keyframes>
+              </Animation>
+            </Animations>
+            <Children>
+              <jil:JilSelector Name="JIL" Application="[Application]" Folder="[Folder]" LostFocus="[HideJil]" Margins="0,0,4,0"/>
+            </Children>
+          </Panel>
+          
 
           <Panel Name="CounterPanel">
             <LayoutInput>
@@ -256,6 +302,12 @@
       <ClickHandler Name="Clicker"/>
       <Timer Name="AnimTimer" Interval="[InfoTimer]" Enabled="false" AutoRepeat="false"/>
       <BooleanChoice Name="InFocus" Value="false" />
+
+      <KeyHandler Name="WatchedShortcut" Handle="true" Key="W" Modifiers="Control" HandlerStage="Bubbled"/>
+      <ShortcutHandler Name="ClearBtn" Handle="true" Shortcut="Clear" HandlerStage="Bubbled" />
+      <ShortcutHandler Name="PlayBtn" Handle="true" Shortcut="Play" HandlerStage="Bubbled"/>
+      <KeyHandler Name="PlayShortcut" Handle="true" Key="P" Modifiers="Control" HandlerStage="Bubbled"/>
+      <KeyHandler Name="InfoBtn" Key="D8" Handle="false" Modifiers="Shift" HandlerStage="Bubbled"/>
     </Locals>
 
 
@@ -263,6 +315,29 @@
 
       <Default Target="[Input.KeyInteractive]" Value="true"/>
       <Default Target="[Input.MakeTopmostOnFocus]" Value="true"/>
+
+      <!-- Watched Toggle Commands -->
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Modified Source="[ClearBtn.Invoked]"/>
+          <Modified Source="[WatchedShortcut.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+          <Invoke Target="[Item.ToggleWatched]"/>
+        </Actions>
+      </Rule>
+
+      <Rule ConditionLogicalOp="Or">
+        <Conditions>
+          <Modified Source="[PlayBtn.Invoked]"/>
+          <Modified Source="[PlayShortcut.Invoked]"/>
+        </Conditions>
+        <Actions>
+          <PlaySound Sound="sound://sounds:Miniselect" />
+          <Invoke Target="[Item.Play]"/>
+        </Actions>
+      </Rule>
 
       <Condition Source="[ParentItem.SelectedChildIndex]" ConditionOp="NotEquals" SourceValue="[Index.SourceValue]">
         <Actions>
