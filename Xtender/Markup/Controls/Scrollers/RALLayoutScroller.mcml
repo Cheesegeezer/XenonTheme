@@ -310,13 +310,14 @@
           <Set Target="[Title.Visible]" Value="true" />
           <Set Target="[ProdYear.Visible]" Value="true" />
           <Set Target="[ItemThumb.ColorFilter]" Value="White" />
+          <Set Target="[Logo.ColorFilter]" Value="White" />
         </Actions>
       </Changed>
 
       <Changed Source="[Clicker.Invoked]">
         <Actions>
           <PlaySound Sound="sound://sounds:Miniselect" />
-          <Invoke Target="[Application.Navigate]" item="[Item]"/>
+          <Invoke Target="[Application.Navigate]" item="[Item]"/> 
         </Actions>
       </Changed>
 

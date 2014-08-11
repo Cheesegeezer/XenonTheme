@@ -394,7 +394,7 @@
           </Panel>
 
           <ColorFill Name="Overlay" Layout="Fill" Visible="[ThemeHelper.Config.FolderShowBackdropOverlay]" Alpha="[ThemeHelper.Config.FolderBackdropOverlayAlpha]" Content="Black" />
-          <!-- Backdrop -->
+          <bd:NowPlayingBackdrop Name="NowPlayingBackdrop" Application="[Application]"/>
           <bd:Backdrop4 LoadDelay="280" FadeTime="[ThemeHelper.Config.BackdropTransitionTime]"  Application="[Application]" Name="Backdrop" Visible="[ThemeHelper.Config.FolderShowBackdrop]" Image="[Folder.SelectedChild.BackdropImage]" Item="[Folder.SelectedChild]"/>
 
         </Children>

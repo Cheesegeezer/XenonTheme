@@ -205,6 +205,50 @@ namespace Xenon
             }
         }
 
+        public string GameDetailPosterLayout
+        {
+            get
+            {
+                string position = "Prefer Poster";
+
+                if (_data != null)
+                    position = _data.GameDetailPosterLayout;
+
+                return position;
+            }
+            set
+            {
+                if ((_data != null) && (_data.GameDetailPosterLayout != value))
+                {
+                    _data.GameDetailPosterLayout = value;
+                    Save();
+                    FirePropertyChanged("GameDetailPosterLayout");
+                }
+            }
+        }
+
+        public string CustomDetailPosterLayout
+        {
+            get
+            {
+                string position = "Normal";
+
+                if (_data != null)
+                    position = _data.CustomDetailPosterLayout;
+
+                return position;
+            }
+            set
+            {
+                if ((_data != null) && (_data.CustomDetailPosterLayout != value))
+                {
+                    _data.CustomDetailPosterLayout = value;
+                    Save();
+                    FirePropertyChanged("CustomDetailPosterLayout");
+                }
+            }
+        }
+
         #region Styles
 
         public Choice InstalledStyles

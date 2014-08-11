@@ -23,6 +23,7 @@
     xmlns:act="assembly://Xenon/Xenon.Actors"
     xmlns:actp="resx://Xenon/Xenon.Resources/ActorPopup"
     xmlns:als="resx://Xenon/Xenon.Resources/ActorScroller"
+    xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
     xmlns:me = "Me">
   
   <UI Name="InfoPanelSelector">
@@ -224,9 +225,24 @@
       <Rule>
         <Conditions>
           <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem"/>
+          <Equality Source="[ThemeHelper.Config.GameDetailPosterLayout]" ConditionOp="Equals" Value="Prefer Thumb"/>
         </Conditions>
         <Actions>
-          <Set Target="[ItemImage.Margins]" Value="-100,25,0,0" />
+          <Set Target="[ItemImage.Margins]" Value="-100,15,0,0" />
+          <Set Target="[Summary.Margins]" Value="25,0,0,0" />
+          <Set Target="[Title.Margins]" Value="175,10,0,0" />
+          <Set Target="[LogoImage.Margins]" Value="175,0,0,0" />
+          <Set Target="[MediaInfoPanel.Margins]" Value="25,0,0,0" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="GameItem"/>
+          <Equality Source="[ThemeHelper.Config.CustomDetailPosterLayout]" ConditionOp="Equals" Value="Custom"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ItemImage.Margins]" Value="-50,10,0,0" />
           <Set Target="[Summary.Margins]" Value="25,0,0,0" />
           <Set Target="[Title.Margins]" Value="175,10,0,0" />
           <Set Target="[LogoImage.Margins]" Value="175,0,0,0" />
@@ -375,9 +391,15 @@
             </Layout>
             <Children>
               <lv:FinalLabelValue Name="TitleSupportlv"></lv:FinalLabelValue>
+              <Panel Layout="HorizontalFlow">
+                <Children>
+                  <Text Name="GenreLabel" Content="Genres: " Font="font://xs:FinalDetailsInfoLabelFont" Color="color://xs:FinalDetailsInfoLabelColor" />
+                  <gl:GenreList Name="Genres" SourceData="[Item.Genres]" Font="font://xs:FinalDetailsInfoValueFont" Color="color://xs:FinalDetailsInfoValueColor"/>
+                </Children>
+              </Panel>
               <lv:FinalLabelValue Name="TitleSupportlv1"></lv:FinalLabelValue>
               <lv:FinalLabelValue Name="TitleSupportlv2"></lv:FinalLabelValue>
-              <lv:FinalLabelValue Name="TitleSupportlv3"></lv:FinalLabelValue>
+              <lv:FinalLabelValue Name="TitleSupportlv3"></lv:FinalLabelValue> 
 
               <Panel Layout="HorizontalFlow" Name="RuntimeInfo" Visible="true">
                 <Children>
@@ -409,8 +431,9 @@
       <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#WritersStr!cor:String]"></Default>
       <Binding Target="[TitleSupportlv1.Value]" Source="[Item.WritersString]"/>
 
-      <Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
-      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+      <Binding Target="[Genres.SourceData]" Source="[Item.Genres]"/>
+      <!--<Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.GenreString]"></Binding>-->
 
       <Default Target="[TitleSupportlv3.Label]" Value="[Application.LocalStrings.#YearStr!cor:String]"></Default>
       <Binding Target="[TitleSupportlv3.Value]" Source="[Item.ProductionYear.ToString]"></Binding>
@@ -429,8 +452,9 @@
       </Condition>
       <Default Target="[TitleSupportlv.Label]" Value="Seasons: "></Default>
 
-      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
-      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+      <Binding Target="[Genres.SourceData]" Source="[Item.Genres]"/>
+      <!--<Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.GenreString]"></Binding>-->
 
       <Default Target="[TitleSupportlv3.Label]" Value="[Application.LocalStrings.#StatusStr!cor:String]"></Default>
       <Binding Target="[TitleSupportlv3.Value]" Source="[Item.PhysicalParent.Status]" />
@@ -526,10 +550,11 @@
   <UI Name="GameInfoPanel" BaseUI="me:InfoPanel">
 
     <Rules>
-      <Default Target="[TitleSupportlv.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
-      <Binding Target="[TitleSupportlv.Value]" Source="[ThemeHelper.GenreString]"></Binding>
-      <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#PlayersStr!cor:String]"></Default>
-      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.Players]"></Binding>
+      <Binding Target="[Genres.SourceData]" Source="[Item.Genres]"/>
+      <!--<Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv1.Value]" Source="[ThemeHelper.GenreString]"></Binding>-->
+      <Default Target="[TitleSupportlv.Label]" Value="[Application.LocalStrings.#PlayersStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv.Value]" Source="[ThemeHelper.Players]"></Binding>
       <Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#YearStr!cor:String]"/>
       <Binding Target="[TitleSupportlv2.Value]" Source="[Item.ProductionYearString]"/>
       <Binding Source="[ThemeHelper.TgdbRating]" Target="[StarRating.Value]"></Binding>

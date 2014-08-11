@@ -18,6 +18,7 @@
     xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
     xmlns:dls="resx://Xenon/Xenon.Resources/LayoutDetailsQuickList"
     xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
+    xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
     xmlns:xh="assembly://Xenon/Xenon"
     xmlns:me="me" >
 
@@ -209,8 +210,9 @@
       <Default Target="[TitleSupportlv1.Label]" Value="[Application.LocalStrings.#WritersStr!cor:String]"></Default>
       <Binding Target="[TitleSupportlv1.Value]" Source="[Folder.SelectedChild.WritersString]"/>
 
-      <Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
-      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.GenreString]"></Binding>
+      <Binding Target="[Genres.SourceData]" Source="[Folder.SelectedChild.Genres]"/>
+      <!--<Default Target="[TitleSupportlv2.Label]" Value="[Application.LocalStrings.#GenresStr!cor:String]"></Default>
+      <Binding Target="[TitleSupportlv2.Value]" Source="[ThemeHelper.GenreString]"></Binding>-->
 
       <Default Target="[TitleSupportlv3.Label]" Value="[Application.LocalStrings.#AiredStr!cor:String]">
         <Conditions>
@@ -534,7 +536,13 @@
                     <Children>
                       <lv:FinalLabelValue Name="TitleSupportlv"></lv:FinalLabelValue>
                       <lv:FinalLabelValue Name="TitleSupportlv1"></lv:FinalLabelValue>
-                      <lv:FinalLabelValue Name="TitleSupportlv2"></lv:FinalLabelValue>
+                      <Panel Layout="HorizontalFlow">
+                        <Children>
+                          <Text Name="GenreLabel" Content="Genres: " Font="font://xs:FinalDetailsInfoLabelFont" Color="color://xs:FinalDetailsInfoLabelColor" />
+                          <gl:GenreList Name="Genres" SourceData="[Folder.SelectedChild.Genres]" Font="font://xs:FinalDetailsInfoValueFont" Color="color://xs:FinalDetailsInfoValueColor"/>
+                        </Children>
+                      </Panel>
+                        <!--<lv:FinalLabelValue Name="TitleSupportlv2"></lv:FinalLabelValue> Genres -->
                       <lv:FinalLabelValue Name="TitleSupportlv3"></lv:FinalLabelValue>
 
                       <Panel Layout="HorizontalFlow" Name="RuntimeInfo" Visible="true">
@@ -567,7 +575,7 @@
           
           
           <ColorFill Name="Overlay" Layout="Fill" Visible="[ThemeHelper.Config.FolderShowBackdropOverlay]" Alpha="[ThemeHelper.Config.FolderBackdropOverlayAlpha]" Content="Black" />
-          <!-- Backdrop -->
+          <bd:NowPlayingBackdrop Name="NowPlayingBackdrop" Application="[Application]"/>
           <bd:Backdrop4 LoadDelay="280" FadeTime="[ThemeHelper.Config.BackdropTransitionTime]"  Application="[Application]" Name="Backdrop" Visible="[ThemeHelper.Config.FolderShowBackdrop]" Image="[Folder.SelectedChild.BackdropImage]" Item="[Folder.SelectedChild]"/>
 
         </Children>

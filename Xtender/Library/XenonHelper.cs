@@ -318,6 +318,18 @@ namespace Xenon
 
         public int SelectedIndex { get; set; }
 
+        public bool IsSongBackdropPlaying
+        {
+            get
+            {
+                if (Application.CurrentInstance.IsPlayingVideo)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
         public bool VideoBackdropApplicable
         {
             get
@@ -346,7 +358,7 @@ namespace Xenon
         //string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, @"\Roaming\MediaBrowser-Server\plugins);
         //string filePath = Path.Combine(appDataFolder, @"\Roaming\MediaBrowser-Server\plugins\MBIntros.dll");
         
-        public bool? IsIntrosInstalled() 
+        public bool IsIntrosInstalled() 
         {
             string appDataFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
             string pluginPath = Path.Combine(appDataFolder, @"MediaBrowser-Server\plugins\");
@@ -363,7 +375,7 @@ namespace Xenon
                 Logger.ReportInfo("Intros is NOT installed and Returned is False");
                 return false;
             }
-            return null;
+            return false;
         }
         #endregion
         
@@ -1042,12 +1054,14 @@ namespace Xenon
             }
         }*/
 
-        public ArrayListDataSet LastPlayedGames(FolderModel folder)
+        protected FolderModel gameFolder;
+        private  Item _lastPlayedGame;
+        public ArrayListDataSet GetLastPlayedGames()
         {
-           ArrayListDataSet set = new ArrayListDataSet();
+            ArrayListDataSet set = new ArrayListDataSet();
             if (IsGameFolder && Application.CurrentInstance.Config.TreatWatchedAsInProgress)
             {
-                Item item = folder.LastWatchedItem;
+                Item item = gameFolder.LastWatchedItem;
                 set.Add(item);
                 return set;
             }

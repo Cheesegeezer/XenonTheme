@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using MediaBrowser.Library;
 using MediaBrowser.Library.Entities;
 using MediaBrowser.Library.Logging;
 using MediaBrowser.Library.Util;
 using MediaBrowser.Model.Dto;
+using MediaBrowser.Model.Plugins;
 using Microsoft.MediaCenter.UI;
 
 namespace Xenon.APICalls
@@ -71,9 +73,35 @@ namespace Xenon.APICalls
             {
                 //Deserialize the Json stream and put in local variable
                 dto = Kernel.ApiClient.DeserializeFromStream<BaseItemDto>(stream);
+                if (dto == null)
+                    Logger.ReportInfo("***** XENON ***** Unable to get Actor Info for {0}", item.Name);
             }
             //return the dto
             return SaveActorInfo(dto);
+        }
+
+        public static bool IsMBIntrosInstalled()
+        { 
+            Logger.ReportInfo("XENON - Getting List of Plugins installed");
+            //Use the standard API Prefix
+            string apiUrl = Kernel.ApiClient.DashboardUrl.Split(new[] { "dashboard" }, StringSplitOptions.None)[0];
+            //Query Format taken from Swagger
+            string queryUrl = string.Format("{0}Plugins", apiUrl);
+            //get the Json Stream
+            using (Stream stream = Kernel.ApiClient.GetSerializedStream(queryUrl))
+            {
+                if (stream == null)
+                {
+                    Logger.ReportInfo("****** Xenon ****** Plugin Retreival Failed");
+                }
+                //Deserialize the Json stream and put in local variable
+                string MBIntros = "MBIntros.dll";
+                PluginInfo info = Kernel.ApiClient.DeserializeFromStream<PluginInfo>(stream);
+                if (info == null)
+                Logger.ReportInfo("******* XENON ******* Plugin list installed is {0}", info);
+                
+            }
+            return false;
         }
 
 

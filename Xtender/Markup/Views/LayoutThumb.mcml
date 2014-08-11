@@ -139,6 +139,7 @@
             </Children>
           </Panel>
 
+          <bd:NowPlayingBackdrop Name="NowPlayingBackdrop" Application="[Application]"/>
           <bd:Backdrop4 Name="Backdrop"  Application="[Application]" LoadDelay="90" FadeTime="[ThemeHelper.Config.BackdropTransitionTime]" Visible="[ThemeHelper.Config.FolderShowBackdrop]" Image="[Folder.SelectedChild.BackdropImage]" Item="[Folder.SelectedChild]"/>
 
         </Children>

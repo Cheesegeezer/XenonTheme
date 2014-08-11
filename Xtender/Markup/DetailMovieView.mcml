@@ -350,6 +350,7 @@
             </LayoutInput>
           </Graphic>
 
+          <bd:NowPlayingBackdrop Name="NowPlayingBackdrop" Application="[Application]"/>
           <bd:Backdrop4 Name="Backdrop"  Application="[Application]" Image="[Item.BackdropImage]" Item="[Item]"/>
          
         </Children>
@@ -419,6 +420,7 @@
         <Actions>
           <Set Target="[QuickPlayButton.Visible]" Value="false"/>
           <Set Target="[QPDivider.Visible]" Value="false"/>
+          <Set Target="[OverviewDivider.Visible]" Value="false"/>
         </Actions>
       </Rule>
 

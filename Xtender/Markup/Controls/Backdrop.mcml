@@ -87,20 +87,63 @@
     </Content>
   </UI>
 
+  <!--Video Backdrop-->
+  <UI Name="NowPlayingBackdrop">
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <xh:XenonHelper Name="ThemeHelper"/>
+    </Properties>
+
+    <Locals>
+      <FormLayoutInput Name="FullLayout" Vertical="Near" Horizontal="Fill" />
+
+    </Locals>
+    
+    <Rules>
+
+      <Changed Source="[Application.ShowNowPlaying]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[ThemeHelper.VideoBackdropApplicable]" Value="true" />
+          <Equality Source="[Application.ShowNowPlaying]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[VideoBackdrop.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+      <Default Target="[VideoBackdrop.Visible]" Value="false"/>
+    </Rules>
+    
+    <Content>
+      <Panel Layout="Form">
+        <Children>
+          <Clip Name="Clip" Orientation="Vertical" ShowNear="false" ShowFar="false" FadeSize="75" LayoutInput="[FullLayout]">
+            <Children>
+              <Clip Name="Clip2" Orientation="Vertical" ShowNear="false" ShowFar="false" FadeSize="30" Layout="Fill">
+                <Children>
+                  <Video Name="VideoBackdrop" Layout="Fill" />
+                </Children>
+              </Clip>
+            </Children>
+          </Clip>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
 
   <UI Name="Backdrop4">
     <Properties>
       <a:Application Name="Application" Application="$Required"/>
       <Image Name="Image" Image="$Required"/>
       <lib:Item Name="Item" Item="$Required"/>
+      <Image Name="LoadBackdropImage" Image="null"/>
       <cor:Int32 Name="LoadDelay" Int32="0" />
       <cor:Single Name="FadeTime" Single="1.5" />
     </Properties>
 
     <Locals>
       <a:MultiBackdrop Name="MultiBackdrop"/>
-      <Timer Name="StartupTimer" Interval="[LoadDelay]" AutoRepeat="false" Enabled="true"/>
-      <Timer Name="ChangeDelay" Interval="[LoadDelay]" AutoRepeat="false" Enabled="true"/>
+      <Timer Name="StartupTimer" Interval="50" AutoRepeat="false" Enabled="true"/>
+      <Timer Name="ChangeDelay" Interval="[Application.Config.BackdropLoadDelay]" AutoRepeat="false" Enabled="true"/>
       <xh:XenonHelper Name="ThemeHelper"></xh:XenonHelper>
       <Timer Name="MediaPlaying" Interval="300" AutoRepeat="true" Enabled="true"/>
     </Locals>
@@ -110,26 +153,27 @@
 
       <Changed Source="[Item]">
         <Actions>
-          <Invoke Target="[ChangeDelay.Stop]"></Invoke>
           <Invoke Target="[ChangeDelay.Start]"></Invoke>
-          <Invoke Target="[StartupTimer.Stop]"/>
-          <Invoke Target="[StartupTimer.Start]"/>
+          <Set Target="[StartupTimer.Enabled]" Value="true" />
         </Actions>
       </Changed>
 
       <Changed Source="[Item.BackdropImage]">
         <Actions>
-          <Invoke Target="[ChangeDelay.Stop]"></Invoke>
           <Invoke Target="[ChangeDelay.Start]"></Invoke>
         </Actions>
       </Changed>
 
       <Changed Source="[ChangeDelay.Tick]">
+        <Conditions>
+          <Equality Source="[Application.Config.ShowRootBackground]" Value="true"/>
+        </Conditions>
         <Actions>
           <Set Target="[Backdrop.Content]" Value="[Item.BackdropImage]"></Set>
         </Actions>
       </Changed>
-
+      
+      <!--Show ThemeBackground-->
       <Changed Source="[StartupTimer.Tick]">
         <Actions>
           <Invoke Target="[MultiBackdrop.BeginRotation]" InvokePolicy="AsynchronousLowPri" >
@@ -140,11 +184,17 @@
         </Actions>
       </Changed>
 
-      <Changed Source="[MediaPlaying.Tick]" >
+      <!--<Changed Source="[MediaPlaying.Tick]" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.IsSongBackdropPlaying]" ConditionOp="Equals" Value="false" />
+        </Conditions>
         <Actions>
           <Set Target="[VideoBackdrop.Visible]" Value="[ThemeHelper.VideoBackdropApplicable]" ></Set>
         </Actions>
       </Changed>
+      <Default Target="[VideoBackdrop.Visible]" Value="false" />-->
+    
+    
     </Rules>
 
     <Content>
@@ -152,7 +202,7 @@
       <Panel Layout="Fill">
 
         <Children>
-          <ColorFill Name="VideoBackdrop" Content="Black" Layout="Fill" Visible="false">
+          <!--<ColorFill Name="VideoBackdrop" Content="Black" Layout="Fill" Visible="false">
             <Animations>
               <Animation Type="Hide">
                 <Keyframes>
@@ -175,7 +225,7 @@
                 </LayoutInput>
               </Video>
             </Children>
-          </ColorFill>
+          </ColorFill>-->
 
           <Clip Name="Clip" Orientation="Vertical" FadeSize="0" ShowNear="false" Alpha="1" FadeAmount="0.5" Layout="Anchor"  >
             <LayoutInput>

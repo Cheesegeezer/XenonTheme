@@ -89,6 +89,8 @@ namespace Xenon
         public bool askToQuit;
         public bool enable24hrTime;
         public string ThemeStyle = "Metro";
+        public string GameDetailPosterLayout = "Prefer Poster";
+        public string CustomDetailPosterLayout = "Normal";
 
         public ConfigData()
         {
@@ -100,7 +102,8 @@ namespace Xenon
             //backdropOverlayAlpha = 0.3f;
             enable24hrTime = true;
             ThemeStyle = "Metro";
-
+            GameDetailPosterLayout = "Prefer Poster";
+            CustomDetailPosterLayout = "Normal";
         }
 
         public ConfigData(string file)
@@ -112,6 +115,8 @@ namespace Xenon
             //backdropOverlayAlpha = 0.3f;
             enable24hrTime = true;
             ThemeStyle = "Metro";
+            GameDetailPosterLayout = "Prefer Poster";
+            CustomDetailPosterLayout = "Normal";
             this.file = file;
             XenonSettings = XmlSettings<ConfigData>.Bind(this, file);
         }

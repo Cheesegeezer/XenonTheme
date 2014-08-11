@@ -15,7 +15,7 @@ namespace Xenon
     [Serializable]
     public class MyStrings : LocalizedStringData
     {
-        const string VERSION = "1.017"; //this is used to see if we have changed and need to re-save
+        const string VERSION = "1.018"; //this is used to see if we have changed and need to re-save
 
         // MCML: [Application.LocalStrings.#StringName!cor:String] 
 
@@ -97,6 +97,10 @@ namespace Xenon
         public string EnableNPVLabelDesc = "Allow Video Backdrop to play in the background";
         public string Enable24hrLabel = "Enable 24hr Time *";
         public string Enable24hrLabelDesc = "Toggle 12/24hr Time Format - REQUIRES RESTART";
+        public string GameDetailPosterLayoutLabel = "Game Poster Layout";
+        public string GameDetailPosterLayoutLabelDesc = "Will reposition the Game Poster Image on Details Page,depending if you use Thumbs or Poster images";
+        public string CustomDetailPosterLayoutLabel = "Custom Poster Layout";
+        public string CustomDetailPosterLayoutLabelDesc = "Will reposition the Poster Image on the Details Page,depending if you use Custom images or not";
 
         //UI CONFIG MENU
         public string UserUIHeader = "<---------------------USER UI CONFIG LABELS--------------------->";
