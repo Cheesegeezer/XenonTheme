@@ -70,6 +70,9 @@ namespace Xenon
                     
                     //CustomStrings Editable by user - need to implement
                     kernel.StringData.AddStringData(MyStrings.FromFile(LocalizedStringData.GetFileName("Xenon-")));
+
+                    //Add Shortlist menu item
+                    kernel.AddMenuItem(new MenuItem(GetText, "path to an icon", AddOrRemove));
                 }
                 else Logger.ReportInfo("Not creating menus for Xenon.  Appear to not be in MediaCenter.  AppDomain is: " + AppDomain.CurrentDomain.FriendlyName);
                 
@@ -93,6 +96,19 @@ namespace Xenon
         {
             //provide a longer description of your theme - this will display when the user selects the theme in the plug-in section
             get { return "A Basic Theme with rich content, perfect for XBox Extenders"; }
+        }
+
+        protected MenuItem.aResource GetText = GetShortlistMenuText;
+        protected MenuItem.anAction AddOrRemove = AddOrRemoveShortlist;
+        protected static string GetShortlistMenuText(Item item)
+        {
+            //check if the given item is in the shortlist if it is return "Remove from.." else return "Add to..."
+            return "";
+        }
+
+        protected static void AddOrRemoveShortlist(Item item)
+        {
+            //remove the given item if it is in the shortlist, otherwise add it
         }
 
         //Only un-comment this if you have a rich description resource
