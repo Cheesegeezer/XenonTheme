@@ -88,6 +88,7 @@ namespace Xenon
         public object Style;
         public bool askToQuit;
         public bool enable24hrTime;
+        public bool enableQuickPlay;
         public string ThemeStyle = "Metro";
         public string GameDetailPosterLayout = "Prefer Poster";
         public string CustomDetailPosterLayout = "Normal";
@@ -101,6 +102,7 @@ namespace Xenon
             BackdropTransitionTime = 0.5f;
             //backdropOverlayAlpha = 0.3f;
             enable24hrTime = true;
+            enableQuickPlay = true;
             ThemeStyle = "Metro";
             GameDetailPosterLayout = "Prefer Poster";
             CustomDetailPosterLayout = "Normal";
@@ -114,6 +116,7 @@ namespace Xenon
             BackdropTransitionTime = 0.5f;
             //backdropOverlayAlpha = 0.3f;
             enable24hrTime = true;
+            enableQuickPlay = true;
             ThemeStyle = "Metro";
             GameDetailPosterLayout = "Prefer Poster";
             CustomDetailPosterLayout = "Normal";

@@ -201,7 +201,11 @@
         </Actions>
       </Changed>
 
-      <Binding Source="[Folder.SelectedChild.Name]" Target="[FolderName.Content]" />
+      <Binding Source="[Folder.SelectedChild.Name]" Target="[FolderName.Content]" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowRALAlways]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
 
       <!-- COMMANDS -->
       <Changed Source="[Configure.Invoked]">
@@ -312,6 +316,49 @@
           <Set Target ="[UpcomingTVPopup.Visible]" Value="false" />
           <Set Target="[NextUpPopup.Visible]" Value="false" />
           <Set Target="[RecentItemsPopup.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowRALAlways]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[ThemeHelper.IsTVShowFolder]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[ThemeHelper.Config.TvRalOption]" ConditionOp="Equals" Value="NextUp"/>
+        </Conditions>
+        <Actions>
+          <Set Target ="[UpcomingTVPopup.Visible]" Value="false" />
+          <Set Target="[NextUpPopup.Visible]" Value="true" />
+          <Set Target="[RecentItemsPopup.Visible]" Value="false" />
+          <Set Target="[FolderName.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowRALAlways]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[ThemeHelper.IsTVShowFolder]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[ThemeHelper.Config.TvRalOption]" ConditionOp="Equals" Value="UpcomingTV"/>
+        </Conditions>
+        <Actions>
+          <Set Target ="[UpcomingTVPopup.Visible]" Value="true" />
+          <Set Target="[NextUpPopup.Visible]" Value="false" />
+          <Set Target="[RecentItemsPopup.Visible]" Value="false" />
+          <Set Target="[FolderName.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowRALAlways]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[ThemeHelper.IsTVShowFolder]" ConditionOp="Equals" Value="true" />
+          <Equality Source="[ThemeHelper.Config.TvRalOption]" ConditionOp="NotEquals" Value="UpcomingTV"/>
+          <Equality Source="[ThemeHelper.Config.TvRalOption]" ConditionOp="NotEquals" Value="NextUp"/>
+        </Conditions>
+        <Actions>
+          <Set Target ="[UpcomingTVPopup.Visible]" Value="false" />
+          <Set Target="[NextUpPopup.Visible]" Value="false" />
+          <Set Target="[RecentItemsPopup.Visible]" Value="true" />
+          <Set Target="[FolderName.Visible]" Value="true" />
         </Actions>
       </Rule>
 

@@ -205,6 +205,20 @@ namespace Xenon
             }
         }
 
+        public bool EnableQuickPlay
+        {
+            get { return this._data.enableQuickPlay; }
+            set
+            {
+                if (this._data.enableQuickPlay != value)
+                {
+                    this._data.enableQuickPlay = value;
+                    FirePropertyChanged("enableQuickPlay");
+                    this.Save();
+                }
+            }
+        }
+
         public string GameDetailPosterLayout
         {
             get

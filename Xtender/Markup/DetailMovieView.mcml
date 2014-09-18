@@ -280,6 +280,46 @@
     <Content>
       <Panel Layout="Form"  >
         <Children>
+
+          <!--Options buttons, Search, Settings and NPV button-->
+          <Panel Name="ButtonPanel" Visible="true" Layout="Form" FocusOrder="400" >
+            <Layout>
+              <FlowLayout Orientation="Horizontal"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0,10" Right="Parent,1,-10"/>
+            </LayoutInput>
+            <Children>
+              <Panel Name="NowPlayKey" Visible="false" FocusOrder="602" MouseInteractive="true">
+                <Children>
+                  <vsb:SimpleButton OnFocus="[NPVFocus]" Size="50,50" OnLooseFocus="[NPVFocusLost]" Name="NowPlayButton" Application="[Application]" FocusImage="image://it:IconNowPlay" ImageNoFocus="image://it:IconNowPlaySmall" Command="[GoToNowPlaying]" />
+                </Children>
+              </Panel>
+              <Panel Name="PCBtn" Margins="0,0,0,0" Visible="true" FocusOrder="607">
+                <Children>
+                  <pci:PCIndicatorButton Application="[Application]" Size="50,50"/>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+
+          <Panel Name="NextPanel" FocusOrder="10">
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,1,-390" Right="Parent,1,-25" />
+            </LayoutInput>
+            <Children>
+              <dob:OptionButton Name="NextItemButton" Label="[Application.LocalStrings.#NextBtnStr!cor:String]" Command="[NextItemCommand]" Visible="true" />
+            </Children>
+          </Panel>
+            
+          <Panel Name="PrevPanel" FocusOrder="20" MouseInteractive="true" >
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,1,-390" Left="Parent,0,25" />
+            </LayoutInput>
+            <Children>
+              <dob:OptionButton Name="PreviousItemButton" Label="[Application.LocalStrings.#PrevBtnStr!cor:String]" Command="[PreviousItemCommand]" Visible="true" />
+            </Children>
+          </Panel>
           
           <me:OptionsScroller FocusOrder="0" Name="OptionsScroller" InFocus="[OptionsScrollerHasFocus]" Application="[Application]" Item="[Item]" Refresh="[Refresh]" QuickPlay="[QuickPlay]" Resume="[Resume]" Delete="[Delete]" ShowInfo="[ShowInfo]" PlayTrailer="[PlayTrailer]" ShowReviews="[ShowReviews]" ShowChapters="[ShowChapters]" ShowSpecials="[ShowSpecials]" Play="[Play]" ShowActors="[ShowActors]">
             <LayoutInput>
@@ -295,48 +335,6 @@
               <fip:InfoPanelSelector Name="InfoPanel" Application="[Application]" Item="[Item]" ThemeHelper="[ThemeHelper]" />
             </Children>
           </Panel>
-
-          <Panel Name="NextPanel" FocusOrder="10">
-            <LayoutInput>
-              <FormLayoutInput Top="Parent,1,-390" Right="Parent,1,-25" />
-            </LayoutInput>
-            <Children>
-              <dob:OptionButton Name="NextItemButton" Label="[Application.LocalStrings.#NextBtnStr!cor:String]" Command="[NextItemCommand]" Visible="true" />
-            </Children>
-          </Panel>
-
-          <Panel Name="PrevPanel" FocusOrder="20" >
-            <LayoutInput>
-              <FormLayoutInput Top="Parent,1,-390" Left="Parent,0,25" />
-            </LayoutInput>
-            <Children>
-              <dob:OptionButton Name="PreviousItemButton" Label="[Application.LocalStrings.#PrevBtnStr!cor:String]" Command="[PreviousItemCommand]" Visible="true" />
-            </Children>
-          </Panel>
-
-          <!--Options buttons, Search, Settings and NPV button-->
-          <Panel Name="ButtonPanel" Visible="true" Layout="Form" FocusOrder="400" >
-            <Layout>
-              <FlowLayout Orientation="Horizontal"/>
-            </Layout>
-            <LayoutInput>
-              <FormLayoutInput Top="Parent,0,10" Right="Parent,1,-10"/>
-            </LayoutInput>
-            <Children>
-              <Panel Name="NowPlayKey" Visible="false" FocusOrder="602">
-                <Children>
-                  <vsb:SimpleButton OnFocus="[NPVFocus]" Size="50,50" OnLooseFocus="[NPVFocusLost]" Name="NowPlayButton" Application="[Application]" FocusImage="image://it:IconNowPlay" ImageNoFocus="image://it:IconNowPlaySmall" Command="[GoToNowPlaying]" />
-                </Children>
-              </Panel>
-              <Panel Name="PCBtn" Margins="0,0,0,0" Visible="true" FocusOrder="607">
-                <Children>
-                  <pci:PCIndicatorButton Application="[Application]" Size="50,50"/>
-                </Children>
-              </Panel>
-            </Children>
-          </Panel>
-          <!--USER SWITCHING MENU-->
-          
 
           <Graphic Name="PrevBG" Navigation="None" Content="image://it:PrevBG" MinimumSize="0,50" MaximumSize="0,80" ColorFilter="color://xs:RootHorizontalBGoverlayColor" >
               <LayoutInput>
@@ -408,8 +406,8 @@
         <Binding Source="[Item.ContainsTrailers]" Target="[TrailerButton.Visible]" />
         <Binding Source="[Item.IsPlayable]" Target="[PlayButton.Visible]" />
         <Binding Source="[Item.IsPlayable]" Target="[PlayDivider.Visible]" />
-      <Binding Source="[Item.IsPlayable]" Target="[QuickPlayButton.Visible]" />
-      <Binding Source="[Item.IsPlayable]" Target="[QPDivider.Visible]" />
+      <Binding Source="[ThemeHelper.Config.EnableQuickPlay]" Target="[QuickPlayButton.Visible]" />
+      <Binding Source="[ThemeHelper.Config.EnableQuickPlay]" Target="[QPDivider.Visible]" />
       <Binding Source="[Item.HasChapterInfo]" Target="[ChapterButton.Visible]" />
       <Binding Source="[Item.HasChapterInfo]" Target="[ChaptersDivider.Visible]" />
       
@@ -423,15 +421,24 @@
           <Set Target="[OverviewDivider.Visible]" Value="false"/>
         </Actions>
       </Rule>
-
+      
       <Rule>
         <Conditions >
-          <Equality Source="[ThemeHelper.IsIntrosInstalled]" ConditionOp="NotEquals" Value="true" />
-          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />
+          <Equality Source="[ThemeHelper.Config.EnableQuickPlay]" ConditionOp="Equals" Value="false" />
         </Conditions>
         <Actions>
           <Set Target="[QuickPlayButton.Visible]" Value="false"/>
           <Set Target="[QPDivider.Visible]" Value="false"/>
+        </Actions>
+      </Rule>
+
+      <Rule>
+        <Conditions >
+          <Equality Source="[ThemeHelper.Config.EnableQuickPlay]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[QuickPlayButton.Visible]" Value="true"/>
+          <Set Target="[QPDivider.Visible]" Value="true"/>
         </Actions>
       </Rule>
       
@@ -561,17 +568,6 @@
         </Actions>
       </Rule>
 
-      <Rule>
-        <Conditions >
-          <Equality Source="[ThemeHelper.IsIntrosInstalled]" ConditionOp="Equals" Value="true" />
-          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="GameItem" />
-        </Conditions>
-        <Actions>
-          <Set Target="[QuickPlayButton.Visible]" Value="true"/>
-          <Set Target="[QPDivider.Visible]" Value="true"/>
-        </Actions>
-      </Rule>
-      
       <Rule>
         <Conditions >
           <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="GameItem" />

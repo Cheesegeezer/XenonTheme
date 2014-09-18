@@ -97,6 +97,8 @@ namespace Xenon
         public string EnableNPVLabelDesc = "Allow Video Backdrop to play in the background";
         public string Enable24hrLabel = "Enable 24hr Time *";
         public string Enable24hrLabelDesc = "Toggle 12/24hr Time Format - REQUIRES RESTART";
+        public string EnableQuickPlayLabel = "Enable QuickPlay Button";
+        public string EnableQuickPlayLabelDesc = "Ideal when MB Intros is installed, it allows you to skip all Intros and go straight to the Movie.";
         public string GameDetailPosterLayoutLabel = "Game Poster Layout";
         public string GameDetailPosterLayoutLabelDesc = "Will reposition the Game Poster Image on Details Page,depending if you use Thumbs or Poster images";
         public string CustomDetailPosterLayoutLabel = "Custom Poster Layout";

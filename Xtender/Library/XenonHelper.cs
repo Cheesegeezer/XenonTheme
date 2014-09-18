@@ -352,33 +352,6 @@ namespace Xenon
             }
         }
 
-        #region Intros Plugin Installed???
-
-        //private static readonly string IntrospluginPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Roaming\MediaBrowser-Server\plugins\MBIntros.dll");
-        //string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, @"\Roaming\MediaBrowser-Server\plugins);
-        //string filePath = Path.Combine(appDataFolder, @"\Roaming\MediaBrowser-Server\plugins\MBIntros.dll");
-        
-        public bool IsIntrosInstalled() 
-        {
-            string appDataFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
-            string pluginPath = Path.Combine(appDataFolder, @"MediaBrowser-Server\plugins\");
-            string fileName = "MBIntros.dll";
-            string introsFile = Path.Combine(pluginPath, fileName);
-            if (File.Exists(introsFile))
-            {
-                Logger.ReportInfo("Intros is installed and Returned is True");
-                return true;
-            }
-            if (!File.Exists(introsFile))
-            {
-                Logger.ReportInfo("Path Provided is {0}", pluginPath);
-                Logger.ReportInfo("Intros is NOT installed and Returned is False");
-                return false;
-            }
-            return false;
-        }
-        #endregion
-        
         #region New Item Notification
 
         private string _dateStr;

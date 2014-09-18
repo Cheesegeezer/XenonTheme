@@ -52,6 +52,7 @@
 
       <BooleanChoice Name="EnableVideoBackdrop" Value="[Helper.Config.EnableVideoBackdrop]" />
       <BooleanChoice Name="Enable24HRTime" Value="[Helper.Config.Enable24hrTime]" />
+      <BooleanChoice Name="EnableQuickPlay" Value="[Helper.Config.EnableQuickPlay]" />
 
     </Locals>
     <Rules>
@@ -98,6 +99,12 @@
         </Actions>
       </Changed>
 
+      <Changed Source="[EnableQuickPlayCB.Checked.Value]">
+        <Actions>
+          <Set Target="[Helper.Config.EnableQuickPlay]" Value="[EnableQuickPlayCB.Checked.Value]" />
+        </Actions>
+      </Changed>
+
       <!--<Changed Source="[EnableRALWrapCB.Checked.Value]">
         <Actions>
           <Set Target="[Helper.Config.EnableRALWrap]" Value="[EnableRALWrapCB.Checked.Value]" />
@@ -115,6 +122,7 @@
           <!--<ss:SimpleSpinner Name="BDAlpha" Label="[Application.LocalStrings.#BackdropAlphaLabel!cor:String]" Color="color://s:FontColorMedium" Model="[BackdropAlpha]" FocusItem="[FocusItem]"  Font="font://f:CP_ConfigItemFont" ValueFont="font://f:CP_ConfigItemFont"  Margins="[CMargin]"  />-->
           <cb:CheckBox Name="EnableVideoBackdropCB" Label="[Application.LocalStrings.#EnableNPVLabel!cor:String]" Checked="[EnableVideoBackdrop]" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont" Margins="[CMargin]" />
           <cb:CheckBox Name="Enable24HRTimeCB" Label="[Application.LocalStrings.#Enable24hrLabel!cor:String]" Checked="[Enable24HRTime]" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont" Margins="[CMargin]" />
+          <cb:CheckBox Name="EnableQuickPlayCB" Label="[Application.LocalStrings.#EnableQuickPlayLabel!cor:String]" Checked="[EnableQuickPlay]" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont" Margins="[CMargin]" />
         </Children>
       </Panel>
     </Content>

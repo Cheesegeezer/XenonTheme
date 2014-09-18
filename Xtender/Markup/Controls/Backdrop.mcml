@@ -3,6 +3,7 @@
     xmlns:a="assembly://MediaBrowser/MediaBrowser"
 	  xmlns:s="file://Styles_DoNotEdit.mcml"
 	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+    xmlns:xi="resx://Xenon/Xenon.Resources/Images"
       xmlns:xh="assembly://Xenon/Xenon"
     
 	  >
@@ -151,6 +152,20 @@
     <Rules>
       <!--<Binding Source="[Item.BackdropImage]" Target="[Backdrop.Content]" />-->
 
+      <Default Target="[Backdrop.Content]" Value="[Item.BackdropImage]">
+        <Conditions>
+          <Equality Source="[Application.Config.ShowBackdrop]" Value="true"/>
+        </Conditions>
+      </Default>
+      <Changed Source="[ChangeDelay.Tick]">
+        <Conditions>
+          <Equality Source="[Application.Config.ShowBackdrop]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Backdrop.Content]" Value="[Item.BackdropImage]"/>
+        </Actions>
+      </Changed>
+      
       <Changed Source="[Item]">
         <Actions>
           <Invoke Target="[ChangeDelay.Start]"></Invoke>
@@ -164,16 +179,25 @@
         </Actions>
       </Changed>
 
-      <Changed Source="[ChangeDelay.Tick]">
+      <!--<Changed Source="[ChangeDelay.Tick]">
         <Conditions>
           <Equality Source="[Application.Config.ShowRootBackground]" Value="true"/>
         </Conditions>
         <Actions>
           <Set Target="[Backdrop.Content]" Value="[Item.BackdropImage]"></Set>
         </Actions>
+      </Changed>-->
+
+      <!--Initial Folder Tier-->
+      <Changed Source="[ChangeDelay.Tick]">
+        <Conditions>
+          <Equality Source="[Application.Config.ShowRootBackground]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Backdrop.Content]" Value="[Application.MainBackdrop!Image]"/>
+        </Actions>
       </Changed>
       
-      <!--Show ThemeBackground-->
       <Changed Source="[StartupTimer.Tick]">
         <Actions>
           <Invoke Target="[MultiBackdrop.BeginRotation]" InvokePolicy="AsynchronousLowPri" >
@@ -183,18 +207,9 @@
           </Invoke>
         </Actions>
       </Changed>
-
-      <!--<Changed Source="[MediaPlaying.Tick]" >
-        <Conditions>
-          <Equality Source="[ThemeHelper.IsSongBackdropPlaying]" ConditionOp="Equals" Value="false" />
-        </Conditions>
-        <Actions>
-          <Set Target="[VideoBackdrop.Visible]" Value="[ThemeHelper.VideoBackdropApplicable]" ></Set>
-        </Actions>
-      </Changed>
-      <Default Target="[VideoBackdrop.Visible]" Value="false" />-->
-    
-    
+      
+      <!--Show ThemeBackground-->
+      <Binding Source="[Application.Config.ShowThemeBackground]" Target="[ThemeBackground.Visible]" />
     </Rules>
 
     <Content>
@@ -251,6 +266,13 @@
               </Graphic>
             </Children>
           </Clip>
+
+          <Graphic Name="ThemeBackground" Content="image://xi:Concrete" MaintainAspectRatio="true" SizingPolicy="SizeToConstraint" Visible="false">
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1" />
+            </LayoutInput>
+          </Graphic>
+
         </Children>
       </Panel>
     </Content>

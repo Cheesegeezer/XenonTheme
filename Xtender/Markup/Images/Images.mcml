@@ -9,7 +9,7 @@
       xmlns:xs="file://Xenon_Styles.mcml"
       xmlns:me="Me">
 
-
+  <Image Name="Concrete" Source="resx://Xenon/Xenon.Resources/Concrete" />
   <Image Name="BlankGraphic" Source="resx://MediaBrowser/MediaBrowser.Resources/BlankGraphic" />
   <Image Name="rootBG" Source="resx://Xenon/Xenon.Resources/rootBG" />
   <Image Name="rootBGGlass" Source="resx://Xenon/Xenon.Resources/rootBGGlass" />
