@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MediaBrowser;
 using MediaBrowser.Library;
 using MediaBrowser.Library.Entities;
 using MediaBrowser.Library.Extensions;
 using MediaBrowser.Library.Localization;
 using MediaBrowser.Library.Logging;
+using MediaBrowser.Library.Persistance;
+using MediaBrowser.Library.Threading;
+using MediaBrowser.Model.Querying;
 using Microsoft.MediaCenter;
 using Microsoft.MediaCenter.Hosting;
 using Microsoft.MediaCenter.UI;
@@ -44,10 +48,7 @@ namespace Xenon
 
         public MediaBrowser.Library.Item CurrentItem
         {
-            get
-            {
-                return this._currentItem;
-            }
+            get { return this._currentItem; }
             set
             {
                 this._currentItem = value;
@@ -83,46 +84,28 @@ namespace Xenon
 
         public bool IsTVShowFolder
         {
-            get
-            {
-                return SelectedChild != null && SelectedChild.CollectionType == "tvshows";
-            }
+            get { return SelectedChild != null && SelectedChild.CollectionType == "tvshows"; }
         }
 
         public bool IsMusicFolder
         {
-            get
-            {
-                return SelectedChild != null && SelectedChild.CollectionType == "music";
-            }
+            get { return SelectedChild != null && SelectedChild.CollectionType == "music"; }
         }
 
         public bool IsMovieFolder
         {
-            get
-            {
-                return SelectedChild != null && SelectedChild.CollectionType == "movie";
-            }
+            get { return SelectedChild != null && SelectedChild.CollectionType == "movie"; }
         }
 
         public bool IsGameFolder
         {
-            get
-            {
-                return SelectedChild != null && SelectedChild.CollectionType == "game";
-            }
+            get { return SelectedChild != null && SelectedChild.CollectionType == "game"; }
         }
 
         public string CurrentPage
         {
-            get
-            {
-                return currentPage;
-            }
-            set
-            {
-                currentPage = value;
-            }
+            get { return currentPage; }
+            set { currentPage = value; }
         }
 
         public string EndTime
@@ -133,7 +116,8 @@ namespace Xenon
 
                 if (!string.IsNullOrEmpty(_currentItem.EndTimeString))
                 {
-                    endTime = _currentItem.EndTimeString.Replace(LocalizedStrings.Instance.GetString("EndsStr") + " ","");
+                    endTime = _currentItem.EndTimeString.Replace(LocalizedStrings.Instance.GetString("EndsStr") + " ",
+                        "");
                 }
 
                 return endTime;
@@ -210,12 +194,10 @@ namespace Xenon
         //}
 
         private static bool navigatingForward = true;
+
         public bool NavigatingForward
         {
-            get
-            {
-                return navigatingForward;
-            }
+            get { return navigatingForward; }
             set
             {
                 navigatingForward = value;
@@ -225,26 +207,14 @@ namespace Xenon
 
         public Image DefaultBackdrop
         {
-            get
-            {
-                return defaultBackdrop;
-            }
-            set
-            {
-                defaultBackdrop = value;
-            }
+            get { return defaultBackdrop; }
+            set { defaultBackdrop = value; }
         }
 
         public Image CurrentBackdrop
         {
-            get
-            {
-                return currentBackdrop;
-            }
-            set
-            {
-                currentBackdrop = value;
-            }
+            get { return currentBackdrop; }
+            set { currentBackdrop = value; }
         }
 
         public bool IsMenuOpen
@@ -303,12 +273,10 @@ namespace Xenon
         }
 
         private bool _ralHasFocus;
+
         public bool RALHasFocus
         {
-            get
-            {
-                return this._ralHasFocus;
-            }
+            get { return this._ralHasFocus; }
             set
             {
                 this._ralHasFocus = value;
@@ -358,7 +326,7 @@ namespace Xenon
         private Item _newItem;
         private bool _showNewItemPopout;
         private bool isMenuOpen;
-                
+
 
         public bool ShowNewItemPopout
         {
@@ -612,12 +580,12 @@ namespace Xenon
             OverviewTimer.Interval = 1000;
             OverviewTimer.Tick += delegate
             {
-                if ((((this.CurrentItem.Overview != "") && !this.ShowOverview) && 
-                    ((this.CurrentItem.ItemTypeString != "Season") && 
-                    (this.CurrentItem.ItemTypeString != "Album"))) && 
-                    (((this.CurrentItem.ItemTypeString != "ArtistAlbum") && 
-                    (this.CurrentItem.ItemTypeString != "Folder")) && 
-                    (this.CurrentItem.ItemTypeString != "MusicFolder")))
+                if ((((this.CurrentItem.Overview != "") && !this.ShowOverview) &&
+                     ((this.CurrentItem.ItemTypeString != "Season") &&
+                      (this.CurrentItem.ItemTypeString != "Album"))) &&
+                    (((this.CurrentItem.ItemTypeString != "ArtistAlbum") &&
+                      (this.CurrentItem.ItemTypeString != "Folder")) &&
+                     (this.CurrentItem.ItemTypeString != "MusicFolder")))
 
                     ShowOverview = true;
                 NavCount = 0;
@@ -825,8 +793,9 @@ namespace Xenon
                 Guid id = folder.DisplayPrefs.Id;
             }
         }
+
         #endregion
-        
+
         #region MediaInfo
 
         public string Resolution
@@ -872,6 +841,7 @@ namespace Xenon
         #endregion
 
         #region Custom Views
+
         public string LayoutRoot
         {
             get { return "resx://Xenon/Xenon.Resources/LayoutRoot#LayoutRoot"; }
@@ -935,12 +905,12 @@ namespace Xenon
         {
             ArrayListDataSet itemSet = new ArrayListDataSet();
             ActorItemWrapper aiw = GetAPIItems.GetPersonDtoStream(item).Item;
-            
+
             Item credItem = aiw.Item;
             itemSet.Add(credItem);
             return itemSet;
         }
-        
+
         #region Oh Yeah
 
         public ArrayListDataSet GetNextUpEpisodes()
@@ -952,6 +922,12 @@ namespace Xenon
         {
             return GetAPIItems.GetUpcomingItemsSet();
         }
+
+        #endregion
+
+        #region Actor Bio Page and Collection Scroller
+
+        public static ArrayListDataSet ActorCollection = new ArrayListDataSet();
 
         public ActorItemWrapper GetActor(Item item, int index)
         {
@@ -966,80 +942,87 @@ namespace Xenon
         public void OpenActorPage(Item item)
         {
             ActorInfo pInfo = GetAPIItems.GetPersonDtoStream(item);
-            Dictionary<string, object> properties = new Dictionary<string, object>();
+            var properties = new Dictionary<string, object>();
             properties.Add("Application", Application.CurrentInstance);
             properties.Add("Item", item);
             properties.Add("Person", pInfo);
             Application.CurrentInstance.OpenMCMLPage("resx://Xenon/Xenon.Resources/ActorPopup#ActorPopup", properties);
         }
 
-        /*public ArrayListDataSet GetTVFolderQuickListOption
+        public ArrayListDataSet GetActorCollection()
         {
-            get
-            {
-                FolderConfigData config = null;
-                if (config.TvRalOption == "UpcomingTV")
-                {
-                    return GetUpcomingTV();
-                }
-                else if (config.TvRalOption == "NextUp")
-                {
-                    return GetNextUpEpisodes();
-                }
-                else if (config.TvRalOption == "added")
-                {
-                    return new ArrayListDataSet {CurrentFolder.NewestItems};
-                }
-                else if (config.TvRalOption == "watched")
-                {
-                    return new ArrayListDataSet {CurrentFolder.LastWatchedItem};
-                }
-                else if (config.TvRalOption == "unwatched")
-                {
-                    return new ArrayListDataSet {CurrentFolder.UnwatchedItems};
-                }
-                return new ArrayListDataSet {CurrentFolder.NewestItems};
+            return ActorCollection;
+        }
 
+
+        public void NavigateToActorCollection(Item item)
+        {
+            ActorCollection.Clear();
+            if (item.BaseItem is Person)
+            {
+                NavigateToActor(item);
+            }
+            else
+            {
+                Logger.ReportInfo("**XENON** - Unable to Navigate to Actor Collection");
             }
         }
 
-        public ArrayListDataSet GetNonTVFolderQuickListOption
+        private void NavigateToActor(Item item)
         {
-            get
+            var person = item.BaseItem as Person;
+            if (person != null)
             {
-                FolderModel folder = CurrentFolder;
-                FolderConfigData config = null;
-                
-                if (config.NonTVRalOption == "added")
-                {
-                    return new ArrayListDataSet { folder.NewestItems };
-                }
-                if (config.NonTVRalOption == "watched")
-                {
-                    return new ArrayListDataSet { folder.LastWatchedItem };
-                }
-                if (config.NonTVRalOption == "unwatched")
-                {
-                    return new ArrayListDataSet { folder.UnwatchedItems};
-                }
-                return new ArrayListDataSet { folder.NewestItems };
-
+                GetCollectionItems(person.Name, new[] {"Actor"});
             }
-        }*/
-
-        protected FolderModel gameFolder;
-        private  Item _lastPlayedGame;
-        public ArrayListDataSet GetLastPlayedGames()
-        {
-            ArrayListDataSet set = new ArrayListDataSet();
-            if (IsGameFolder && Application.CurrentInstance.Config.TreatWatchedAsInProgress)
-            {
-                Item item = gameFolder.LastWatchedItem;
-                set.Add(item);
-                return set;
-            }
-            return null;
         }
+
+        private static void GetCollectionItems(string name, string[] personTypes)
+        {
+            Async.Queue("Person navigation", () =>
+            {
+                var query = new ItemQuery
+                {
+                    UserId = Kernel.CurrentUser.Id.ToString(),
+                    Fields = MB3ApiRepository.StandardFields,
+                    Person = name,
+                    PersonTypes = personTypes,
+                    Recursive = true
+                };
+                Person person = Kernel.Instance.MB3ApiRepository.RetrievePerson(name) ?? new Person();
+                var index = new SearchResultFolder(Kernel.Instance.MB3ApiRepository.RetrieveItems(query).ToList())
+                {
+                    Name = person.Name,
+                    Overview = person.Overview
+                };
+                foreach (BaseItem collectionItem in index.Children)
+                {
+                    if (collectionItem == null)
+                    {
+                        return;
+                    }
+                    Item item = GetActorCollectionItem(collectionItem);
+                    Logger.ReportInfo("*************ACTOR COLLECTION ************** ITEM ADDED = {0}",
+                        collectionItem.Name);
+                    ActorCollection.Add(item);
+                }
+
+                //Microsoft.MediaCenter.UI.Application.DeferredInvoke(_ => Navigate(ItemFactory.Instance.Create(index)));
+            });
+        }
+
+        private static Item GetActorCollectionItem(BaseItem collectionItem)
+        {
+            BaseItem baseItem = Kernel.Instance.MB3ApiRepository.RetrieveItem(new Guid(collectionItem.Id.ToString()));
+            if (baseItem == null)
+            {
+                return null;
+            }
+            Item item = ItemFactory.Instance.Create(baseItem);
+            return item;
+        }
+
         #endregion
+
     }
 }

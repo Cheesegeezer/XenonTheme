@@ -425,6 +425,27 @@ namespace Xenon
             }
         }
 
+        public Single FolderDetailsThumbAlpha
+        {
+            get
+            {
+                Single alpha = 0.3f;
+                if (folderData != null)
+                    alpha = folderData.FolderDetailsThumbAlpha;
+
+                return alpha;
+            }
+            set
+            {
+                if ((folderData != null) && (folderData.FolderDetailsThumbAlpha != value))
+                {
+                    folderData.FolderDetailsThumbAlpha = (float)Math.Round(value, 1, MidpointRounding.ToEven);
+                    SaveFolder();
+                    FirePropertyChanged("FolderDetailsThumbAlpha");
+                }
+            }
+        }
+
         public string FolderFlatCFPosition
         {
             get

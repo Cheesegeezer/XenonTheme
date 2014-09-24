@@ -5,3 +5,19 @@ D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Release\Xenon.Resources.resou
 D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Release\Xenon.csproj.GenerateResource.Cache
 D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Release\Xenon.dll
 D:\VS 2012 Projects\Xenon Working Copy\Xtender\obj\Release\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Release\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Release\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Release\Xenon.csproj.GenerateResource.Cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Release\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Release\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\bin\Release\Xenon.dll
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\bin\Release\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\bin\Release\MediaBrowser.Model.dll
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\bin\Release\Xenon.dll
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\bin\Release\Xenon.pdb
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\bin\Release\MediaBrowser.Model.dll
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\obj\Release\Xenon.csprojResolveAssemblyReference.cache
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\obj\Release\Xenon.Resources.resources
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\obj\Release\Xenon.csproj.GenerateResource.Cache
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\obj\Release\Xenon.dll
+G:\VS 2013 Projects\Xenon 1.0.0.10\Xtender\obj\Release\Xenon.pdb

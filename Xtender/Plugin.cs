@@ -18,8 +18,6 @@ namespace Xenon
         public static List<string> AvailableStyles = new List<string>();
         public static MyConfig config = null;
         public static List <string>ExtraViewsList = new List<string>();
-        //private ActorInfo _actorInfo;
-
         public Plugin()
         {
             Logger.ReportInfo("Xenon - Creating Theme");
@@ -49,33 +47,35 @@ namespace Xenon
             {
                 _fontManager = new FontManager();
                 _fontManager.FontCollection();
-                kernel.AddTheme("Xenon", "resx://Xenon/Xenon.Resources/Page#PageXenon", "resx://Xenon/Xenon.Resources/DetailMovieView#XenonMovieView", config);
+                kernel.AddTheme("Xenon", "resx://Xenon/Xenon.Resources/Page#PageXenon", "resx://Xenon/Xenon.Resources/DetailMovieView#XenonMovieView");
                 
                 bool isMC = AppDomain.CurrentDomain.FriendlyName.Contains("ehExtHost");
                 if (isMC)
-                {       
-                        if(config == null)
+                {
+                    if (config == null)
                         config = new MyConfig();
-                        //_actorInfo = new ActorInfo();
-                        //_actorInfo.Init();
+                    //_actorInfo = new ActorInfo();
+                    //_actorInfo.Init();
 
                     //If you want to add any context menus they need to be inside this logic as well.
-                    kernel.AddConfigPanel("Xenon Options", "resx://Xenon/Xenon.Resources/ConfigPanel#ConfigPanel", config);
+                    kernel.AddConfigPanel("Xenon Options", "resx://Xenon/Xenon.Resources/ConfigPanel#ConfigPanel",
+                        config);
                     //Check the current active style applied
                     config.CheckActiveStyle();
                     //Append styles with custom fonts
                     CustomResourceManager.AppendFonts("Xenon", Resources.Fonts, Resources.Fonts);
                     CustomResourceManager.AppendStyles("Xenon", Resources.Colors, Resources.Colors);
-                    
-                    
+
+
                     //CustomStrings Editable by user - need to implement
                     kernel.StringData.AddStringData(MyStrings.FromFile(LocalizedStringData.GetFileName("Xenon-")));
 
-                    //Add Shortlist menu item
-                    kernel.AddMenuItem(new MenuItem(GetText, "path to an icon", AddOrRemove));
                 }
-                else Logger.ReportInfo("Not creating menus for Xenon.  Appear to not be in MediaCenter.  AppDomain is: " + AppDomain.CurrentDomain.FriendlyName);
-                
+                else
+                    Logger.ReportInfo(
+                        "Not creating menus for Xenon.  Appear to not be in MediaCenter.  AppDomain is: " +
+                        AppDomain.CurrentDomain.FriendlyName);
+
                 //Tell the log we loaded.
                 Logger.ReportInfo("Xenon Theme Loaded.");
             }
@@ -98,18 +98,7 @@ namespace Xenon
             get { return "A Basic Theme with rich content, perfect for XBox Extenders"; }
         }
 
-        protected MenuItem.aResource GetText = GetShortlistMenuText;
-        protected MenuItem.anAction AddOrRemove = AddOrRemoveShortlist;
-        protected static string GetShortlistMenuText(Item item)
-        {
-            //check if the given item is in the shortlist if it is return "Remove from.." else return "Add to..."
-            return "";
-        }
-
-        protected static void AddOrRemoveShortlist(Item item)
-        {
-            //remove the given item if it is in the shortlist, otherwise add it
-        }
+        
 
         //Only un-comment this if you have a rich description resource
         //public override string RichDescURL

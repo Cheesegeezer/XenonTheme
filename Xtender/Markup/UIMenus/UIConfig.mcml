@@ -123,6 +123,7 @@ xmlns:me="Me">
 
       <Choice Name="FolderClearLogosList">
         <Options>
+          <cor:String String="Poster"/>
           <cor:String String="Logo"/>
           <cor:String String="ClearArt" />
           <cor:String String="ThumbArt" />
@@ -156,6 +157,7 @@ xmlns:me="Me">
       </Choice>-->
 
       <RangedValue Name="BackdropAlpha" Value="[Config.FolderBackdropOverlayAlpha]" MaxValue="1" MinValue="0" Step="0.1" />
+      <RangedValue Name="DetailsThumbAlpha" Value="[Config.FolderDetailsThumbAlpha]" MaxValue="1" MinValue="0" Step="0.1" />
 
     </Locals>
 
@@ -486,6 +488,7 @@ xmlns:me="Me">
       <Binding Source="[FolderShowFullMPAAIcons.Value]" Target="[Config.FolderShowFullMPAAIcons]" />
 
       <Binding Source="[BackdropAlpha.Value]" Target="[Config.FolderBackdropOverlayAlpha]" />
+      <Binding Source="[DetailsThumbAlpha.Value]" Target="[Config.FolderDetailsThumbAlpha]" />
 
       <Changed Source="[Folder.DisplayPrefs.SortOrders.Chosen]" >
         <Actions>
@@ -586,6 +589,12 @@ xmlns:me="Me">
       <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="ThumbStrip" Target="[ShowFlatCoverflow.Visible]" Value="false" />
       <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="CoverFlow" Target="[ShowFlatCoverflow.Visible]" Value="true" />
       <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Detail" Target="[ShowFlatCoverflow.Visible]" Value="false" />
+      
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Poster" Target="[ThumbAlpha.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Thumb" Target="[ThumbAlpha.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="ThumbStrip" Target="[ThumbAlpha.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="CoverFlow" Target="[ThumbAlpha.Visible]" Value="false" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Detail" Target="[ThumbAlpha.Visible]" Value="true" />
       
       <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Poster" Target="[UseBanner.Visible]" Value="true" />
       <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Thumb" Target="[UseBanner.Visible]" Value="false" />
@@ -975,6 +984,7 @@ xmlns:me="Me">
                   <me:CheckBox Name="ShowFlatCoverflow" Label="[Application.LocalStrings.#ShowFlatCoverflowLabel!cor:String]" Checked="[FolderShowFlatCoverflow]" Visible="true" Enabled="true" />
                   <me:SpinnerText Name="CFPosition" Model="[FolderFlatCFPosition]" Label="[Application.LocalStrings.#FlatCFPositionLabel!cor:String]" DefaultString="[Config.FolderFlatCFPosition]" Visible="true"/>
                   <me:SimpleSpinner Name="BDAlpha" Model="[BackdropAlpha]" Label="[Application.LocalStrings.#BackdropAlphaLabel!cor:String]" Visible="true" />
+                  <me:SimpleSpinner Name="ThumbAlpha" Model="[DetailsThumbAlpha]" Label="[Application.LocalStrings.#DetailsThumbAlphaLabel!cor:String]" Visible="true" />
                   <me:SpinnerText Name="WrapItemList" Model="[FolderWrapItemList]" Label="[Application.LocalStrings.#WrapItemListLabel!cor:String]" DefaultString="[Config.FolderWrapItemList]" Visible="true" />
                   <!--<me:SpinnerText Name="BDAlpha" Model="[FolderInfoDisplay]" Label="[Application.LocalStrings.#FolderDisplayLabel!cor:String]" DefaultString="[Config.FolderInfoDisplay]" Visible="true" />-->
                   <me:SpinnerText Name="FanartDisplay" Model="[FolderClearLogosList]" Label="[Application.LocalStrings.#FanartItemListLabel!cor:String]" DefaultString="[Config.FolderClearLogosList]" Visible="true"/>
@@ -1049,6 +1059,8 @@ xmlns:me="Me">
                 <Children>
                   <!--<me:SpinnerText Name="EHSOrientation" Model="[FolderOrientation]" Label="[Application.LocalStrings.#OrientationStr!cor:String]" DefaultString="[Config.FolderOrientation]" Visible="true" /> -->
                   <me:CheckBox Name="EHSShowBackdrop" Label="[Application.LocalStrings.#ShowEHSBackdropLabel!cor:String]" Checked="[FolderShowBackdrop]" Visible="true" Enabled="true" />
+                  <me:CheckBox Name="EHSShowBackdropOverlay" Label="[Application.LocalStrings.#ShowBackdropOverlayLabel!cor:String]" Checked="[FolderShowBackdropOverlay]" Visible="true" Enabled="true" />
+                  <me:SimpleSpinner Name="EHSBDAlpha" Model="[BackdropAlpha]" Label="[Application.LocalStrings.#BackdropAlphaLabel!cor:String]" Visible="true" />
                   <!--<me:CheckBox Name="EHSShowBackdropOverlay" Label="[Application.LocalStrings.#ShowBackdropOverlayLabel!cor:String]" Checked="[FolderShowBackdropOverlay]" Visible="true" Enabled="true" />-->
                   <!--<me:CheckBox Name="EHSRotateBackdrops" Label="[Application.LocalStrings.#RotateBackdropsLabel!cor:String]" Checked="[FolderRotateBackdrops]" Visible="true" Enabled="true" />-->
                   <me:CheckBox Name="EHSShowFullRAL" Label="[Application.LocalStrings.#ShowFullRALLabel!cor:String]" Checked="[FolderShowFullRAL]" Visible="true" Enabled="true" />
@@ -1508,6 +1520,27 @@ xmlns:me="Me">
       <Binding Source="[Model.Value]" Target="[Value.Content]" Transformer="[LabelTransformer]" />
       <Binding Source="[Model.HasNextValue]" Target="[Next.Available]"/>
       <Binding Source="[Model.HasPreviousValue]" Target="[Previous.Available]"/>
+      
+      <Condition Source="[Model.HasPreviousValue]" ConditionOp="Equals" SourceValue="false">
+        <Conditions>
+          <Equality Source="[Input.DeepKeyFocus]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[btnNext.NavigateInto]" />
+        </Actions>
+      </Condition>
+
+      <Binding Source="[Model.HasNextValue]" Target="[Next.Available]" />
+      <Binding Source="[Model.HasPreviousValue]" Target="[Previous.Available]" />
+
+      <Condition Source="[Model.HasNextValue]" ConditionOp="Equals" SourceValue="false">
+        <Conditions>
+          <Equality Source="[Input.DeepKeyFocus]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[btnPrevious.NavigateInto]" />
+        </Actions>
+      </Condition>
 
       <Condition Source="[Input.DeepKeyFocus]" SourceValue="true">
         <Actions>

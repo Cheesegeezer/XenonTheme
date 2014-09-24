@@ -2,7 +2,7 @@
 using System.IO;
 using MediaBrowser.Library.Localization;
 using MediaBrowser.Library.Logging;
-using MediaBrowser.Library.Persistance;
+using MediaBrowser.Library.Persistance; 
 
 //***************************************************************************************************
 //  This class is used to extend the string data used by MB.  It is localizable.
@@ -15,7 +15,7 @@ namespace Xenon
     [Serializable]
     public class MyStrings : LocalizedStringData
     {
-        const string VERSION = "1.018"; //this is used to see if we have changed and need to re-save
+        const string VERSION = "1.019"; //this is used to see if we have changed and need to re-save
 
         // MCML: [Application.LocalStrings.#StringName!cor:String] 
 
@@ -129,6 +129,7 @@ namespace Xenon
         public string ViewOptionsUIHeader = "<---------------------VIEW OPTIONS UI CONFIG LABELS--------------------->";
         public string ShowBackdropLabel = "Show Backdrop";
         public string ShowBackdropOverlayLabel = "Show Backdrop Overlay";
+        public string DetailsThumbAlphaLabel = "Thumb Art Alpha";
         public string ShowDetailsQuickListLabel = "Show QuickList View";
         public string ShowFlatCoverflowLabel = "Show Flat Coverflow View";
         public string FlatCFPositionLabel = "Flat Coverflow Position";

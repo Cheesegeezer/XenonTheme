@@ -18,23 +18,19 @@
   <UI Name="CollectionScroller">
 
     <Properties>
-      
       <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
       <a:Application      Name="Application"    Application="$Required"/>
     </Properties>
 
     <Locals>
-      <xh:ActorInfo Name="Person" />
-      <ArrayListDataSet Name="SourceData" />
-      <lib:ActorItemWrapper Name="aiw" />
       <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
-      <ScrollingData Name="ScrollingData" LockedAlignment="0.2" LockedPosition="0.2" EndPaddingRelativeTo="Far" BeginPaddingRelativeTo="Near" EndPadding="30" />
-
+      <ScrollingData Name="ScrollingData" LockedAlignment="0.1" EndPaddingRelativeTo="Far" BeginPaddingRelativeTo="Near" EndPadding="30" />
       
       <ShortcutHandler Name="JumpForward" Shortcut="SkipForward" HandlerStage="Bubbled" Handle="true" />
       <ShortcutHandler Name="JumpBack"    Shortcut="SkipBack"    HandlerStage="Bubbled" Handle="true"/>
 
-      <IntRangedValue Name="SelectedIndex" Value="0"/>
+      <FlowLayout Name="HorizontalFlowLayout" Orientation="Horizontal" AllowWrap="true" RepeatGap="50,0" Spacing="50,50" ItemAlignment="Center" />
+      
     </Locals>
 
     <Rules>
@@ -54,34 +50,28 @@
         </Actions>
       </Changed>
       
-      <!--<Changed Source="[Person.HasLoaded]" InitialEvaluate="true" >
-        <Actions>
-          <Invoke Target="[ThemeHelper.GetActorLocalCredits]" item="[aiw.Item]" ResultTarget="[SourceData]" />
-        </Actions>
-      </Changed>-->
-
-      <Binding Target="[ScrollingHandler.ScrollingData]" Source="[ScrollingData]"/>
-      <Binding Target="[Scroller.ScrollingData]"         Source="[ScrollingData]"/>
+     <Binding Target="[ScrollingHandler.ScrollingData]" Source="[ScrollingData]"/>
+     <Binding Target="[Scroller.ScrollingData]"         Source="[ScrollingData]"/>
 
       <Default Target="[ScrollingData.Repeater]" Value="[MyRepeater]"/>
-      <Binding Source="[SourceData]" Target="[MyRepeater.Source]"/>
+      <Binding Source="[ThemeHelper.GetActorCollection]" Target="[MyRepeater.Source]"/>
 
     </Rules>
 
     <Content>
-      <Panel FocusOrder="0" Layout="Form">
+      <Panel FocusOrder="0" Layout="Anchor">
         <Children>
-          <Scroller Orientation="Vertical" FadeSize="5"  Name="Scroller" Navigation="RememberFocus" ScrollingData="[ScrollingData]">
+          <Scroller Orientation="Horizontal" FadeSize="5"  Name="Scroller" Navigation="RememberFocus" ScrollingData="[ScrollingData]">
             <LayoutInput>
-              <FormLayoutInput Vertical="Fill" Horizontal="Near"/>
+              <AnchorLayoutInput Left="Parent,0" Right="Parent, 1"/>
             </LayoutInput>
             <Children>
-              <Repeater Source="[SourceData]" Name="MyRepeater">
+              <Repeater Name="MyRepeater" Layout="[HorizontalFlowLayout]" Navigation="Row, RememberFocus" >
                 <Layout>
-                  <GridLayout Orientation="Horizontal" Columns="1" Repeat="Never" AllowWrap="true" Spacing="0,0"/>
+                  <FlowLayout Orientation="Horizontal" FillStrip="true" ItemAlignment="Center" Spacing="10,10"/>
                 </Layout>
                 <Content>
-                  <me:CollectionItem Application="[Application]" Item="[RepeatedItem!lib:ActorItemWrapper.Item]" Index="[RepeatedItemIndex]" />
+                  <me:CollectionItem Application="[Application]" Item="[RepeatedItem!lib:Item]" Index="[RepeatedItemIndex]" />
                 </Content>
                 <Animations>
                   <Animation Type="Move">
@@ -102,7 +92,7 @@
 
   <UI Name="CollectionItem">
     <Properties>
-      <a:Application     Name="Application" Application="$Required"/>
+      <a:Application Name="Application" Application="$Required"/>
       <lib:Item Name="Item" Item="$Required" />
       <Index Name="Index" Index="$Required"/>
       <Size Name="Size" Size="0,40"/>
@@ -117,29 +107,49 @@
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true" />
 
+      <Changed Source="[Application.Config.ShowWatchedTickOnFolders]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Item.IsPlayable]" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TickIndicatorPanel.Visible]" Value="[Application.Config.ShowWatchedTickOnFolders]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Application.Config.ShowWatchTickInPosterView]" InitialEvaluate="true">
+        <Conditions>
+          <Equality Source="[Item.IsPlayable]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[TickIndicatorPanel.Visible]" Value="[Application.Config.ShowWatchTickInPosterView]" />
+        </Actions>
+      </Changed>
+      
       <Changed Source="[Input.KeyFocus]" ConditionLogicalOp="And" >
         <Conditions>
           <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="true" />
-          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
         </Conditions>
         <Actions>
           <Set Target="[Application.CurrentItem]" Value="[Item]" />
           <Set Target="[MainArt.Scale]" Value="1.1,1.1,1.1" />
+          <Set Target="[TickIndicatorPanel.Scale]" Value="1.1,1.1,1.1" />
+          <Set Target="[TickIndicatorPanel.Margins]" Value="-5,-2,0,0" />
           <Set Target="[Title.Visible]" Value="true" />
+          <Set Target="[TickIndicatorPanel.Alpha]" Value="1" />
           <Set Target="[MainArt.ColorFilter]" Value="White" />
         </Actions>
       </Changed>
 
-      <Changed Source="[Input.KeyFocus]" ConditionLogicalOp="And" >
+      <Changed Source="[Input.KeyFocus]" >
         <Conditions>
-          <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="true" />
-          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="Episode"/>
+          <Equality Source="[Input.KeyFocus]" ConditionOp="Equals" Value="false" />
         </Conditions>
         <Actions>
           <Set Target="[Application.CurrentItem]" Value="[Item]" />
-          <Set Target="[MainArt.Scale]" Value="1.1,1.1,1.1" />
-          <Set Target="[Title.Visible]" Value="true" />
-          <Set Target="[MainArt.ColorFilter]" Value="White" />
+          <Set Target="[TickIndicatorPanel.Alpha]" Value="0.7" />
+          <Set Target="[TickIndicatorPanel.Scale]" Value="0.9,0.9,0.9" />
+          <Set Target="[TickIndicatorPanel.Margins]" Value="6,10,0,0" />
+          <Set Target="[Title.Visible]" Value="false" />
         </Actions>
       </Changed>
 
@@ -161,14 +171,29 @@
         </Actions>
       </Changed>
 
-      <!--Binding Source="[Item.HaveWatched]" Target="[TickIndicator.Visible]"/-->
     </Rules>
 
     <Content>
       <Panel>
         <Children>
+          
+          
 
-          <Graphic Name="MainArt" MaximumSize="0,100" Scale="1,1,1" ColorFilter="100,100,100" MaintainAspectRatio="true" Margins="0,10,0,0">
+          <Panel  Scale="1,1,1" Padding="0,0,0,0" Layout="Center" Name="TickIndicatorPanel" Visible="[Application.Config.ShowWatchTickInPosterView]" MaximumSize="30,30" CenterPointOffset="0.5,0.5,0.5"  >
+            <LayoutInput>
+              <AnchorLayoutInput Horizontal="Near" Vertical="Near"/>
+            </LayoutInput>
+            <Children>
+              <Panel Name="TickPanel" Layout="Center" Margins="2,10,0,0">
+                <Children>
+                  <Graphic Content="image://i:Watched"  MaximumSize="30,30" MaintainAspectRatio="true"  />
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+
+          
+          <Graphic Name="MainArt" MaximumSize="0,180" Scale="1,1,1" ColorFilter="100,100,100" MaintainAspectRatio="true" Margins="0,10,0,0">
             <Animations>
               <Animation Loop="0" CenterPointPercent="0.5,0.5,1.0" Type="Scale">
                 <Keyframes>
@@ -179,21 +204,7 @@
             </Animations>
           </Graphic>
 
-          <!--<Panel  Scale="1,1,1" Padding="0,0,0,0" Layout="Center" Alpha="0.8" Name="TickIndicator" Visible="[Item.HaveWatched]" MaximumSize="32,32"  >
-            <LayoutInput>
-              <AnchorLayoutInput Horizontal="Near" Vertical="Near" />
-            </LayoutInput>
-            <Children>
-              <Panel Name="TickPanel" Layout="Center">
-                <Children>
-                  <Graphic Content="image://i:TickPoster"  MaximumSize="30,30"  />
-                  <Graphic Content="image://i:TickPosterBase" ColorFilter="color://xs:XC_WatchedBG" MaximumSize="30,30" Visible="global://s:ShowWatchedMarkerBackgrounds"  />
-                </Children>
-              </Panel>
-              </Children>
-          </Panel>-->
-
-          <Panel Name="TitlePanel" Layout="VerticalFlow" Margins="20,-30,0,0" MaximumSize="280,0">
+          <Panel Name="TitlePanel" Layout="VerticalFlow" Margins="5,-30,0,0" MaximumSize="150,0">
             <LayoutInput>
               <AnchorLayoutInput Left="Parent,0" Top="Parent,0" />
             </LayoutInput>
@@ -201,12 +212,7 @@
               <Text Name="Title" Content="[Item.Name]" Color="color://xs:XC_RALItemTitle" Font="font://xs:XF_RALItemTitle" Visible="false" />
             </Children>
           </Panel>
-        
-          <!-->Clip Name="imgButton" Orientation="Horizontal" MaximumSize="0,55" Margins="-10,-7,-10,-15">
-            <Children>
-              <Graphic Name="Frame" Content="image://me:Frame" SizingPolicy="SizeToConstraint" ColorFilter="color://s:FontColorLight" Alpha="0"/>
-            </Children>
-          </Clip>-->
+          
         </Children>
       </Panel>
 

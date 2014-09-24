@@ -2,13 +2,15 @@
       xmlns:cor="assembly://MSCorLib/System"
       xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
       xmlns:sd="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:pb="resx://MediaBrowser/MediaBrowser.Resources/PersonButton"
       xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
       xmlns:a="assembly://MediaBrowser/MediaBrowser"
       xmlns:xs="file://Xenon_Styles.mcml"
       xmlns:xh="assembly://Xenon/Xenon"
       xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
       xmlns:cls="resx://Xenon/Xenon.Resources/CollectionScroller"
-      >
+      xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
+      xmlns:me="Me" >
 
   <UI Name="ActorPopup">
 
@@ -23,11 +25,49 @@
 
     <Locals>
       <ClickHandler Name="Clicker" />
-      <ArrayListDataSet Name="ActorCredits" />
+      <Timer Name="CollectionShowTimer" AutoRepeat="false" Interval="250" Enabled="false" />
+      <Timer Name="FocusViewTimer" AutoRepeat="false" Interval="500" Enabled="false" />
+      <Command Name="NavigateToActorCollection"/>
+
     </Locals>
 
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true" />
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.NavigatingForward]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[CollectionShowTimer.Start]" />
+        </Actions>
+      </Rule>
+      <Changed Source="[CollectionShowTimer.Tick]">
+        <Conditions>
+          <Equality Source="[Application.NavigatingForward]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ThemeHelper.NavigateToActorCollection]" item="[Person.ActorItem]" />
+          <Invoke Target="[CollectionScroller.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[Application.NavigatingForward]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[FocusViewTimer.Start]" />
+        </Actions>
+      </Rule>
+      <Changed Source="[FocusViewTimer.Tick]">
+        <Conditions>
+          <Equality Source="[Application.NavigatingForward]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[CollectionScroller.NavigateInto]" />
+        </Actions>
+      </Changed>
 
       <!-- Play Sound When Clicked -->
       <Rule>
@@ -41,7 +81,7 @@
 
       <Binding Target="[Poster.Content]"  Source="[Item.PrimaryImage]" />
 
-      
+
       <Binding Source="[Person.Age]" Target="[Age.Content]" />
 
       <Binding   Source="[Person.Born]" Target="[Birthdate.Content]" />
@@ -61,17 +101,20 @@
 
       <Binding   Source="[Person.Bio]" Target="[Biography.Text]"/>
 
-      <!--<Changed Source="[Person.HasLoaded]" >
-        <Actions>
-          <Invoke Target="[ThemeHelper.GetActorLocalCredits]" item="[ActorItems]" ResultTarget="[ActorCredits]" />
-        </Actions>
-      </Changed>-->
-
     </Rules>
 
     <Content>
-      <Panel>
+      <Panel Layout="Form">
         <Children>
+
+          <Panel Name="ActorCollection" Layout="Anchor" Navigation="RememberFocus">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0,125" Right="Parent,1,-125" Bottom="Parent,1,-15" />
+            </LayoutInput>
+            <Children>
+              <cls:CollectionScroller Name="CollectionScroller" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="true" />
+            </Children>
+          </Panel>
 
 
           <Graphic Name="ActorPosition" Padding="10,10,10,10" SizingPolicy="SizeToChildren"   >
@@ -82,7 +125,7 @@
                   <Clip Layout="Form" CenterPointPercent="0.5,0.5,0.5">
                     <Children>
                       <!-- Poster Image -->
-                      <Panel Name="PosterPanel" Layout="Dock" MaximumSize="350,0">
+                      <Panel Name="PosterPanel" Layout="Dock" MaximumSize="300,0">
                         <LayoutInput>
                           <FormLayoutInput Left="Parent,0,50" Top="Parent,0,50" Bottom="Parent,1,-50"/>
                         </LayoutInput>
@@ -94,15 +137,6 @@
                           </Graphic>
                         </Children>
                       </Panel>
-
-                      <!--<Panel Name="InfoPanel" Layout="Center">
-                    <LayoutInput>
-                      <FormLayoutInput Left="PosterPanel,1,20" Top="Parent,0,50" Bottom="Parent,1,-80" Right="Parent,1,-50"/>
-                    </LayoutInput>
-                    <Children>
-                      <Text Content="Getting Actor Info......" Color="color://xs:ActorPopupNameColor" Font="font://xs:ActorPopupNameFont" WordWrap="true"/>
-                    </Children>
-                  </Panel>-->
 
                       <Panel Name="ActorInfoPanel" Margins="0,15,0,0">
                         <LayoutInput>
@@ -159,15 +193,9 @@
               </Panel>
             </Children>
           </Graphic>
-          
-          <cls:CollectionScroller Name="CollectionScroller" Application="[Application]" ThemeHelper="[ThemeHelper]" >
-            <LayoutInput>
-              <AnchorLayoutInput Left="Parent,0.1" Top="Parent,0.7" Bottom="Parent,1,-20" Right="Parent,0.9" />
-            </LayoutInput>
-          </cls:CollectionScroller>
 
           <Graphic Name="Backdrop" Content="resx://Xenon/Xenon.Resources/ActorBackdrop" HorizontalAlignment="Fill" VerticalAlignment="Fill" Visible="true" />
-          
+
         </Children>
       </Panel>
     </Content>

@@ -120,7 +120,7 @@
     <Content>
       <Panel Layout="HorizontalFlow" >
         <Children>
-          <pb:PersonButton Name="Test" PersonItem="[aiw]" Index="[Index]" CurrentIndex="[SelectedIndex]" Application="[Application]" />
+          <pb:PersonButton Name="Test" aiw="[aiw]" Index="[Index]" CurrentIndex="[SelectedIndex]" Application="[Application]" />
         </Children>
       </Panel>
     </Content>

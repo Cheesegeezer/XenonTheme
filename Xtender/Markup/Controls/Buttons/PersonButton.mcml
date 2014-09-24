@@ -16,7 +16,7 @@
     <Properties>
       <a:Application Name="Application" Application="$Required"/>
       <cor:Boolean Name="IsNavigatingCommand" Boolean="false" />
-      <lib:ActorItemWrapper Name="PersonItem" ActorItemWrapper="$Required" />
+      <lib:ActorItemWrapper Name="aiw" ActorItemWrapper="$Required" />
       <xh:XenonHelper Name="ThemeHelper" />
       <xh:ActorInfo Name="Person" />
       <Index Name="Index" Index="$Required"/>
@@ -44,14 +44,15 @@
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true" />
 
-      <Binding Source="[PersonItem.Actor.DisplayName]" Target="[PName.Content]" />
-      <Binding Source="[PersonItem.Actor.DisplayRole]" Target="[PRole.Content]" />
-      <Binding Source="[PersonItem.Item.PrimaryImage]" Target="[PImage.Content]" />
+      <Binding Source="[aiw.Actor.DisplayName]" Target="[PName.Content]" />
+      <Binding Source="[aiw.Actor.DisplayRole]" Target="[PRole.Content]" />
+      <Binding Source="[aiw.Item.PrimaryImage]" Target="[PImage.Content]" />
 
 
       <Changed Source="[Clicker.Invoked]">
         <Actions>
-          <Invoke Target="[ThemeHelper.OpenActorPage]" item="[PersonItem.Item]" />
+          <Set Target="[Person.ActorItem]" Value="[aiw.Item]" />
+          <Invoke Target="[ThemeHelper.OpenActorPage]" item="[aiw.Item]" />
         </Actions>
       </Changed>
 

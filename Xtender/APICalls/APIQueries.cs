@@ -9,7 +9,7 @@ using MediaBrowser.Model.Querying;
 
 namespace Xenon.APICalls
 {
-    class APIQueries : BaseApiClient
+    class APIQueries : BaseApiClient 
     {
         //Required for BaseApiClient - No requirement for any methods
         protected override void SetAuthorizationHeader(string header)

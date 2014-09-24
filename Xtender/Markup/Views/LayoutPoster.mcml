@@ -10,7 +10,7 @@
     xmlns:xs="file://Xenon_Styles.mcml"
     xmlns:xh="assembly://Xenon/Xenon"
     xmlns:it="resx://Xenon/Xenon.Resources/Images"
-    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText" 
+    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
     xmlns:mqt="resx://Xenon/Xenon.Resources/MarqueeText"
     xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
     xmlns:mip="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel"
@@ -54,7 +54,7 @@
 
       <Binding Target="[ThemeHelper.CurrentItem]" Source="[Folder.SelectedChild]" />
       <Binding Target="[Application.CurrentItem]" Source="[Folder.SelectedChild]" />
-      
+
 
       <!--Force focus to scroller-->
       <Changed Source="[InfoTimer.Tick]" ConditionLogicalOp="And">
@@ -104,7 +104,7 @@
         </Conditions>
       </Binding>
       <Binding Target ="[Overlay.Alpha]" Source="[ThemeHelper.Config.FolderBackdropOverlayAlpha]" />
-      
+
       <Binding Target="[Summary.Text]" Source="[Folder.SelectedChild.Overview]" />
       <Binding Target="[Summary.Visible]" Source="[ThemeHelper.ShowOverview]" />
 
@@ -136,7 +136,7 @@
           <Set Target="[ProgressBar.Visible]" Value="false" />
         </Actions>
       </Changed-->
-      
+
       <!--ITEM INFORMATION-->
       <Binding Source="[Folder.SelectedChild.TagLine]" Target="[TagLine.Content]">
         <Transformer>
@@ -148,7 +148,7 @@
           <FormatTransformer ToUpper="true"/>
         </Transformer>
       </Binding>
-      
+
       <!--Use Production Year-->
       <Binding Target="[ProdYear.Value]"     Source="[Folder.SelectedChild.ProductionYearString]">
         <Conditions>
@@ -185,14 +185,14 @@
       </Rule>
       <Default Target="[LogoImage.Visible]" Value="false"/>
       <Default Target="[Title.Visible]" Value="true"/>
-      
+
       <!--MINI INFO PANEL-->
       <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.Value]" />
       <Binding Source="[Folder.SelectedChild.MpaaRating]" Target="[mpaa.Value]" />
       <Binding Source="[Folder.SelectedChild.Status]" Target="[TVStatus.Value]" />
       <Binding Source="[ThemeHelper.CurrentItem]" Target="[MediaInfoPanel.Item]" />
     </Rules>
-    
+
 
     <Content>
       <Panel Layout="Form" >
@@ -217,7 +217,7 @@
               <jil:JilSelector Name="JIL" Application="[Application]" Folder="[Folder]" LostFocus="[HideJil]" Margins="0,0,4,0"/>
             </Children>
           </Panel>
-          
+
           <Panel Name="TaglinePanel" >
             <LayoutInput>
               <FormLayoutInput Horizontal="Center" Bottom="Parent,1,-10" />
@@ -234,17 +234,17 @@
               <Text Name ="TagLineShadow" Font="font://xs:PosterShadowTagLineFont" Color="color://xs:PosterShadowTaglineColor" />
             </Children>
           </Panel>
-          
+
           <!--Post Scroller-->
-          <Panel Name="PosterScroller" FocusOrder="1" Rotation="-20deg;-0.4,1,0" > 
+          <Panel Name="PosterScroller" FocusOrder="1" Rotation="-20deg;-0.4,1,0" CenterPointPercent="0.5,0.5,0.5" >
             <LayoutInput>
-              <FormLayoutInput Left="Parent,0,-10" Top="Parent,0,-25" Right="Parent,1,-210" Bottom="Parent,1,100" />
+              <FormLayoutInput Left="Parent,0,-10" Right="Parent,1,-280" Vertical="Center"  />
             </LayoutInput>
             <Children>
               <me:PosterScroller Name="MyItems" Application="[Application]" Folder="[Folder]" TopLabelFont="font://xs:PosterSmallFont" LabelFont="font://xs:PosterSmallFont" UnwatchedCountFont="font://xs:UnwatchedCountFont"/>
             </Children>
           </Panel>
-          
+
           <Clip Name="ItemInfoPanel"  >
             <Layout>
               <FlowLayout Orientation="Vertical" />
@@ -262,7 +262,7 @@
                   <Graphic Name="LogoImage" Margins="0,5,5,15" MaintainAspectRatio="true" MaximumSize="0,75" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
                 </Children>
               </Panel>
-              
+
               <Panel Name="YearPanel" Layout="HorizontalFlow" >
                 <Children>
                   <lv:FinalLabelValue Name="ProdYear" Margins="0,0,0,0" />
@@ -278,7 +278,7 @@
                   <Graphic Name="DividerGlowLine" Content="image://it:GlowLine"/>
                 </Children>
               </Clip>
-              
+
               <st:ScrollableText Name="Summary" Font="font://xs:PosterOverviewFont" Color="color://xs:PosterOverviewTextColor">
                 <LayoutInput>
                   <AnchorLayoutInput Left="Parent,0" Top="Parent,0" Right="Parent,1" />
@@ -286,7 +286,7 @@
               </st:ScrollableText>
             </Children>
           </Clip>
-          
+
           <Panel Name="MiniInfoPanel" Layout="VerticalFlow">
             <LayoutInput>
               <AnchorLayoutInput Horizontal="Center" Left="ItemInfoPanel,0" Bottom="Parent,1,-25" />
@@ -319,7 +319,7 @@
 
             </Children>
           </Panel>
-          
+
           <ColorFill Name="Overlay" Layout="Fill" Visible="[ThemeHelper.Config.FolderShowBackdropOverlay]" Alpha="[ThemeHelper.Config.FolderBackdropOverlayAlpha]" Content="Black" />
           <bd:NowPlayingBackdrop Name="NowPlayingBackdrop" Application="[Application]"/>
           <bd:Backdrop4 Name="Backdrop"  Application="[Application]" LoadDelay="90" FadeTime="[ThemeHelper.Config.BackdropTransitionTime]" Visible="[ThemeHelper.Config.FolderShowBackdrop]" Image="[Folder.SelectedChild.BackdropImage]" Item="[Folder.SelectedChild]"/>
@@ -367,7 +367,7 @@
 
       <cor:Int32 Name="SpeedUpDelay" Int32="7"/>
       <!--The number of items to got across at normal speed before speeding up -->
-      <FormLayoutInput Name="HLayout" Horizontal="Fill" Top="Parent,0,10"/>
+      <FormLayoutInput Name="HLayout" Horizontal="Fill" Vertical="Center"/>
       <FormLayoutInput Name="VLayout" Horizontal="Center" Vertical="Fill"/>
     </Locals>
 
@@ -609,7 +609,7 @@
       <Condition Source="[ThemeHelper.Config.FolderMainArtList]" ConditionOp="NotEquals" SourceValue="Poster" Target="[BoxArt.Visible]" Value="false" />
       <Condition Source="[ThemeHelper.Config.FolderMainArtList]" ConditionOp="Equals" SourceValue="ThumbArt" Target="[ThumbArt.Visible]" Value="true" />
       <Condition Source="[ThemeHelper.Config.FolderMainArtList]" ConditionOp="NotEquals" SourceValue="ThumbArt" Target="[ThumbArt.Visible]" Value="false" />
-      
+
       <Changed Source="[ImageSize]" InitialEvaluate="true" >
         <Actions>
           <Set Target="[GlowSize.Height]" Value="[Item.PreferredImageSmallSize.Height]" >
@@ -758,7 +758,7 @@
         </Actions>
       </Condition>
       <!-- END MAIN IMAGE AS THUMBNAIL-->
-      
+
       <!-- IF MAIN IMAGE IS POSTER CHOICE-->
       <Condition Source="[InFocus.Value]" ConditionOp="Equals" SourceValue="true">
         <Conditions>
@@ -783,13 +783,13 @@
           <Set Target="[BoxArt.Content]" Value="[Item.PreferredImage]"/>
         </Actions>
       </Changed>
-      
+
       <Binding Target="[BoxArt.MaintainAspectRatio]" Source="[Item.SmallImageIsDistorted]">
         <Transformer>
           <BooleanTransformer Inverse="true"/>
         </Transformer>
       </Binding>
-      
+
       <Condition Source="[InFocus.Value]" SourceValue="false">
         <Actions>
           <Set Target="[BoxArt.Content]" Value="[Item.PreferredImageSmall]"/>
@@ -828,7 +828,7 @@
           <Set Target="[NavCount.Value]" Value="0" ExclusiveApply="false"/>
         </Actions>
       </Changed>
-      
+
       <Binding Source="[ImageSize.Value]" Target="[ConstraintPanel.MaximumSize]" />
       <Binding Source="[ImageSize.Value]" Target="[BelowLabelPanel.MaximumSize]" />
       <Binding Source="[ImageSize.Value]" Target="[ConstraintPanel.MinimumSize]" />

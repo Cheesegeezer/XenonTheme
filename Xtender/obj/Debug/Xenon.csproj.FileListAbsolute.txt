@@ -312,3 +312,6 @@ D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.Resources.
 D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache
 D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.dll
 D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Debug\Xenon.pdb
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Debug\Xenon.csprojResolveAssemblyReference.cache
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Debug\Xenon.Resources.resources
+D:\VS 2012 Projects\Xenon Theme\Xenon 1.0.0.9\XenonTheme-master\Xtender\obj\Debug\Xenon.csproj.GenerateResource.Cache

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using MediaBrowser.Library;
+using MediaBrowser.Library.Logging;
 using Microsoft.MediaCenter.UI;
 
 namespace Xenon
 {
-    public class ActorInfo
+    public class ActorInfo : ModelItem
     {
+        private static Item _actorItem;
         private string _id;
         private string _name;
         private string _born;
@@ -18,6 +20,19 @@ namespace Xenon
         private DateTime _diedDate;
         private bool _hasLoaded;
         public ArrayListDataSet _credits = new ArrayListDataSet();
+
+        public Item ActorItem
+        {
+            get
+            {
+                return _actorItem;
+            }
+            set
+            {
+                _actorItem = value;
+                FirePropertyChanged("ActorItem");
+            }
+        }
 
         public string Id
         {

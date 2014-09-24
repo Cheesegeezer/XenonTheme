@@ -122,6 +122,15 @@
         </Actions>
       </Binding>
 
+      <!-- Backdrop Overlay-->
+      <Binding Target="[Overlay.Visible]"   Source="[ThemeHelper.Config.FolderShowBackdropOverlay]">
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowBackdropOverlay]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
+
+      <Binding Target="[Overlay.Alpha]" Source="[ThemeHelper.Config.FolderBackdropOverlayAlpha]"/>
+
       <!-- WRAP EHS VF LIST LOGIC -->
       <Condition Source="[ThemeHelper.Config.FolderWrapEHSList]" ConditionOp="Equals" SourceValue="Always" Target="[HorizontalFlowLayout.Repeat]" Value="Always" />
       <Condition Source="[ThemeHelper.Config.FolderWrapEHSList]" ConditionOp="Equals" SourceValue="Never" Target="[HorizontalFlowLayout.Repeat]" Value="Never" />
@@ -530,7 +539,6 @@
           <Equality Source="[Application.Config.TreatWatchedAsInProgress]" ConditionOp="Equals" Value="true"/>
         </Conditions>
         <Actions>
-          <Invoke Target="[ThemeHelper.GetLastPlayedGames]" />
           <Set Target="[NextUpPopup.Visible]" Value="false" />
           <Set Target="[UpcomingTVPopup.Visible]" Value="false" />
           <Set Target="[RecentItemsPopup.Visible]" Value="true" />
@@ -867,10 +875,12 @@
                     </LayoutInput>
                   </Graphic>
                 </Children>
-              </Panel>    
+              </Panel>
               
+              <ColorFill Name="Overlay" Layout="Fill" Visible="[ThemeHelper.Config.FolderShowBackdropOverlay]" Alpha="[ThemeHelper.Config.FolderBackdropOverlayAlpha]" Content="Black" />
+              <bd:NowPlayingBackdrop Name="NowPlayingBackdrop" Application="[Application]"/>
               <bd:Backdrop4 Name="Backdrop" Application="[Application]" LoadDelay="100" FadeTime="0.3" Visible="false" Image="[Folder.BackdropImage]" Item="[Folder]"/>
-              
+
             </Children>
           </Clip>
         

@@ -52,6 +52,7 @@ namespace Xenon
         public string TvRalOption = "NextUp";
         public string NonTVRalOption = "New";
         public Single FolderBackdropOverlayAlpha = 0.3f;
+        public Single FolderDetailsThumbAlpha = 1.0f;
 
         #region Load / Save Data
         public static FolderConfigData FromFile(Guid folderId, string file)
