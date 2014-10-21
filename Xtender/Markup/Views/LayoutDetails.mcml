@@ -587,7 +587,7 @@
             </Children>
           </Panel>-->
 
-          <Panel Name="ListPanel">
+          <Panel Name="ListPanel"> 
             <LayoutInput>
               <FormLayoutInput Left="Parent,0" Top="Parent,0,80" Right="Parent,1" Bottom="Parent,1" />
             </LayoutInput>
