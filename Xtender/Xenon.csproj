@@ -113,6 +113,8 @@
     <Content Include="Images\Icons\AddIconSmall.png" />
     <Content Include="Images\Icons\cycle.png" />
     <Content Include="Images\Icons\Gear.png" />
+    <Content Include="Images\Icons\IMDB.png" />
+    <Content Include="Images\Icons\imdb2.png" />
     <Content Include="Images\Icons\NextItem.png" />
     <Content Include="Images\Icons\PrevItem.png" />
     <Content Include="Images\Icons\refresh.png" />

@@ -146,6 +146,16 @@ xmlns:me="Me">
         </Options>
       </Choice>
 
+      <Choice Name="FolderStarRatingStyle">
+        <Options>
+          <cor:String String="Off" />
+          <cor:String String="Star Graph" />
+          <cor:String String="Numeric" />
+          <cor:String String="Tomato"/>
+          <cor:String String="Numeric/Tomato" />
+        </Options>
+      </Choice>
+
 
       <!--<Choice Name="ExtraViewsList" >
         <Options>
@@ -486,6 +496,7 @@ xmlns:me="Me">
       <!--<Binding Source="[ExtraViewsList.Chosen!cor:String]" Target="[Config.ExtraViewsList]" />-->
       <Binding Source="[FolderShowBottomInfoBar.Value]" Target="[Config.FolderShowBottomInfoBar]" />
       <Binding Source="[FolderShowFullMPAAIcons.Value]" Target="[Config.FolderShowFullMPAAIcons]" />
+      <Binding Source="[FolderStarRatingStyle.Chosen!cor:String]" Target="[Config.FolderStarRatingStyle]" />
 
       <Binding Source="[BackdropAlpha.Value]" Target="[Config.FolderBackdropOverlayAlpha]" />
       <Binding Source="[DetailsThumbAlpha.Value]" Target="[Config.FolderDetailsThumbAlpha]" />
@@ -986,6 +997,7 @@ xmlns:me="Me">
                   <me:SimpleSpinner Name="BDAlpha" Model="[BackdropAlpha]" Label="[Application.LocalStrings.#BackdropAlphaLabel!cor:String]" Visible="true" />
                   <me:SimpleSpinner Name="ThumbAlpha" Model="[DetailsThumbAlpha]" Label="[Application.LocalStrings.#DetailsThumbAlphaLabel!cor:String]" Visible="true" />
                   <me:SpinnerText Name="WrapItemList" Model="[FolderWrapItemList]" Label="[Application.LocalStrings.#WrapItemListLabel!cor:String]" DefaultString="[Config.FolderWrapItemList]" Visible="true" />
+                  <me:SpinnerText Name="StarRatingStyle" Model="[FolderStarRatingStyle]" Label="[Application.LocalStrings.#StarRatingStyleLabel!cor:String]" DefaultString="[Config.FolderStarRatingStyle]" Visible="true" />
                   <!--<me:SpinnerText Name="BDAlpha" Model="[FolderInfoDisplay]" Label="[Application.LocalStrings.#FolderDisplayLabel!cor:String]" DefaultString="[Config.FolderInfoDisplay]" Visible="true" />-->
                   <me:SpinnerText Name="FanartDisplay" Model="[FolderClearLogosList]" Label="[Application.LocalStrings.#FanartItemListLabel!cor:String]" DefaultString="[Config.FolderClearLogosList]" Visible="true"/>
                   <!--<me:SpinnerText Name="MainArtDisplay" Model="[FolderMainArtList]" Label="[Application.LocalStrings.#MainArtItemListLabel!cor:String]" DefaultString="[Config.FolderMainArtList]" Visible="true"/>-->

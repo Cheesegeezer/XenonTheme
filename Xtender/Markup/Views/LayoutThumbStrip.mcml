@@ -126,6 +126,12 @@
       <Binding Source="[SelectedItem.Status]" Target="[TVStatus.Value]" />
       <Binding Target="[Summary.Text]" Source="[SelectedItem.Overview]"></Binding>
 
+      <!-- IMDB RATINGS VALUES -->
+      <Binding Source="[SelectedItem.ImdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[SelectedItem.ImdbRating]" Target="[StarRating.ImdbValue]"></Binding>
+      <Binding Source="[SelectedItem.CriticRating]" Target="[StarRating.RTValue]" />
+      <Binding Source="[SelectedItem.RottenTomatoImage]" Target="[StarRating.RTImage]" />
+
       <Default Value="Runs:" Target="[SideInfo1.Label]"></Default>
       
       <!--ITEM INFORMATION-->
@@ -357,6 +363,7 @@
               <lv:FinalLabelValue Name="SideInfo" Margins="0,0,10,0"></lv:FinalLabelValue>
               <lv:FinalLabelValue Name="SideInfo1" Margins="0,0,10,0"></lv:FinalLabelValue>
               <lv:FinalLabelValue Name="TVStatus"></lv:FinalLabelValue>
+              <sr:StarRating Name="StarRating" Margins="20,-10,0,0" MaximumSize="0,40" ThemeHelper="[ThemeHelper]" />
             </Children>
           </Panel>
 

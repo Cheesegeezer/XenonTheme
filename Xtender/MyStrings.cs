@@ -15,7 +15,7 @@ namespace Xenon
     [Serializable]
     public class MyStrings : LocalizedStringData
     {
-        const string VERSION = "1.019"; //this is used to see if we have changed and need to re-save
+        const string VERSION = "1.020"; //this is used to see if we have changed and need to re-save
 
         // MCML: [Application.LocalStrings.#StringName!cor:String] 
 
@@ -116,6 +116,7 @@ namespace Xenon
         public string ExtraViewLabel = "Extra View Styles";
         public string SortByLabel = "Sort By";
         public string GroupByLabel = "Group By";
+        public string StarRatingStyleLabel = "Rating Style";
 
         //View Options Strings
         //EHS OPTIONS

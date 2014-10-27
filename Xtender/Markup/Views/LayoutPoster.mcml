@@ -187,10 +187,15 @@
       <Default Target="[Title.Visible]" Value="true"/>
 
       <!--MINI INFO PANEL-->
-      <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.Value]" />
       <Binding Source="[Folder.SelectedChild.MpaaRating]" Target="[mpaa.Value]" />
       <Binding Source="[Folder.SelectedChild.Status]" Target="[TVStatus.Value]" />
       <Binding Source="[ThemeHelper.CurrentItem]" Target="[MediaInfoPanel.Item]" />
+
+      <!-- IMDB RATINGS VALUES -->
+      <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.ImdbValue]"></Binding>
+      <Binding Source="[Folder.SelectedChild.CriticRating]" Target="[StarRating.RTValue]" />
+      <Binding Source="[Folder.SelectedChild.RottenTomatoImage]" Target="[StarRating.RTImage]" />
     </Rules>
 
 
@@ -300,7 +305,7 @@
                   <FlowLayout StripAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <sr:StarRating MaximumSize="0,35" Name="StarRating" Margins="0,0,15,0" />
+                  <sr:StarRating MaximumSize="0,40" Name="StarRating" Margins="0,0,15,0"  ThemeHelper="[ThemeHelper]"/>
                   <mpaa:MPAARating MaximumSize="45,35" Name="mpaa" Visible="true" />
                 </Children>
               </Panel>

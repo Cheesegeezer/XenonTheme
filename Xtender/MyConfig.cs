@@ -577,6 +577,28 @@ namespace Xenon
             }
         }
 
+        public string FolderStarRatingStyle
+        {
+            get
+            {
+                string list = "Numeric";
+
+                if (folderData != null)
+                    list = folderData.FolderStarRatingStyle;
+
+                return list;
+            }
+            set
+            {
+                if ((folderData != null) && (folderData.FolderStarRatingStyle != value))
+                {
+                    folderData.FolderStarRatingStyle = value;
+                    SaveFolder();
+                    FirePropertyChanged("FolderStarRatingStyle");
+                }
+            }
+        }
+
         //Choice for selecting Logos/ClearArt & Thumbs
         public string FolderClearLogosList
         {

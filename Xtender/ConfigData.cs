@@ -51,6 +51,7 @@ namespace Xenon
         public bool ShowFullMPAAIcons = false;
         public string TvRalOption = "NextUp";
         public string NonTVRalOption = "New";
+        public string FolderStarRatingStyle = "Numeric";
         public Single FolderBackdropOverlayAlpha = 0.3f;
         public Single FolderDetailsThumbAlpha = 1.0f;
 

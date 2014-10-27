@@ -185,11 +185,15 @@
     <Rules>
       
       <Binding Target="[Summary.Text]" Source="[Item.Overview]"></Binding>
-      <Binding Source="[Item.ImdbRating]" Target="[StarRating.Value]"></Binding>
       <Binding Source="[Item.PrimaryImage]" Target="[ItemImage.Content]"></Binding>
       <Binding Source="[Item.RunningTimeString]" Target="[SideInfo.Value]"></Binding>
       <Binding Source="[Item.MpaaRating]" Target="[mpaa.Value]"></Binding>
 
+      <!-- IMDB RATINGS VALUES -->
+      <Binding Source="[Item.ImdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[Item.ImdbRating]" Target="[StarRating.ImdbValue]"></Binding>
+      <Binding Source="[Item.CriticRating]" Target="[StarRating.RTValue]" />
+      <Binding Source="[Item.RottenTomatoImage]" Target="[StarRating.RTImage]" />
       <!-- Watched Indicator -->
       <Rule>
         <Conditions>
@@ -407,7 +411,7 @@
                   <lv:FinalLabelValue Name="SideInfo1"></lv:FinalLabelValue>
                 </Children>
               </Panel>
-              <sr:StarRating Margins="0,4,0,0" MaximumSize="0,20" Name="StarRating" ></sr:StarRating>
+              <sr:StarRating Margins="0,4,0,0" MaximumSize="0,40" Name="StarRating" ThemeHelper="[ThemeHelper]"/>
             </Children>
           </Panel>
 
@@ -479,6 +483,22 @@
           <IsValid Source="[Item.PhysicalParent]"/>
         </Conditions>
       </Binding>
+      <Binding Source="[Item.PhysicalParent.ImdbRating]" Target="[StarRating.ImdbValue]">
+        <Conditions>
+          <IsValid Source="[Item.PhysicalParent]"/>
+        </Conditions>
+      </Binding>
+      <Binding Source="[Item.PhysicalParent.ImdbRating]" Target="[StarRating.RTValue]">
+        <Conditions>
+          <IsValid Source="[Item.PhysicalParent]"/>
+        </Conditions>
+      </Binding>
+      <Binding Source="[Item.PhysicalParent.RottenTomatoImage]" Target="[StarRating.RTImage]">
+        <Conditions>
+          <IsValid Source="[Item.PhysicalParent]"/>
+        </Conditions>
+      </Binding>
+      
       <Binding Source="[Item.PhysicalParent.RunningTimeString]" Target="[SideInfo.Value]">
         <Conditions>
           <IsValid Source="[Item.PhysicalParent]"/>

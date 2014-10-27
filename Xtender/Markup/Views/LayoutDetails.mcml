@@ -42,8 +42,9 @@
 
     <Rules>
      
-      <Binding Target="[ThemeHelper.CurrentItem]" Source="[SelectedItem]" />
-      <Binding Target="[Application.CurrentItem]" Source="[SelectedItem]" />
+      <Binding Target="[Application.CurrentItem]" Source="[Folder.SelectedChild]" />
+      <Binding Target="[ThemeHelper.CurrentItem]" Source="[Folder.SelectedChild]" />
+      
 
       <!-- JIL Command -->
       <Rule ConditionLogicalOp="Or">
@@ -97,7 +98,6 @@
 
       <Binding Target="[ThumbArt.Alpha]" Source="[ThemeHelper.Config.FolderDetailsThumbAlpha]"/>
 
-      
       <!-- Overview/List Items Visiblity/Content -->
       <!--<Binding Source="[SelectedItem.Overview]" Target="[Overview.Content]" />
 
@@ -197,10 +197,9 @@
 
       <Binding Source="[Folder.SelectedChild]" Target="[MediaInfoPanel.Item]" />
       <Binding Target="[Summary.Text]" Source="[Folder.SelectedChild.Overview]"></Binding>
-      <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.Value]"></Binding>
       <Binding Source="[Folder.SelectedChild.RunningTimeString]" Target="[SideInfo.Value]"></Binding>
       <Binding Source="[Folder.SelectedChild.MpaaRating]" Target="[mpaa.Value]"></Binding>
-
+      
       <Default Value="[Application.LocalStrings.#RunsStr!cor:String] " Target="[SideInfo.Label]"></Default>
 
       <Binding Source="[ThemeHelper.EndTime]" Target="[SideInfo1.Value]"></Binding>
@@ -236,7 +235,12 @@
           <Equality Source="[Folder.SelectedChild.ItemTypeString]" ConditionOp="NotEquals" Value="Episode" />
         </Conditions>
       </Binding>
-
+      
+      <!-- IMDB RATINGS VALUES -->
+      <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[Folder.SelectedChild.ImdbRating]" Target="[StarRating.ImdbValue]"></Binding>
+      <Binding Source="[Folder.SelectedChild.CriticRating]" Target="[StarRating.RTValue]" />
+      <Binding Source="[Folder.SelectedChild.RottenTomatoImage]" Target="[StarRating.RTImage]" />
 
       <!--LOGO'S LOGIC
       <Binding Target="[Title.Content]"       Source="[Folder.SelectedChild.Name]"/>
@@ -674,7 +678,7 @@
                           <lv:FinalLabelValue Name="SideInfo1"></lv:FinalLabelValue>
                         </Children>
                       </Panel>
-                      <sr:StarRating Margins="0,4,0,0" MaximumSize="0,20" Name="StarRating" ></sr:StarRating>
+                      <sr:StarRating Margins="0,4,0,0" MaximumSize="0,40" Name="StarRating" ThemeHelper="[ThemeHelper]" />
                       <mpaa:MPAARating Margins="0,7,0,0" MaximumSize="65,48" Name="mpaa" />
                     </Children>
                   </Panel>

@@ -33,6 +33,10 @@
       <FormLayoutInput Name="ScrollerTop" Bottom="Parent,0.85" Top="Parent, 0.2" Left="Parent,0,15" Right="Parent,1,-15" />
       <FormLayoutInput Name="ScrollerMiddle" Bottom="Parent,0.85" Top="Parent, 0.35" Left="Parent,0,15" Right="Parent,1,-15" />
       <FormLayoutInput Name="ScrollerBottom" Bottom="Parent,0.85" Top="Parent, 0.5" Left="Parent,0,15" Right="Parent,1,-15" />
+      
+      <AnchorLayoutInput Name="StarRatingAnchorLayout" Horizontal="Center" Bottom="Parent,1,-2" />
+      <AnchorLayoutInput Name="NumericRatingAnchorLayout" Right="Parent,1,-350" Bottom="Parent,1,-10" />
+      
 
       <ShortcutHandler Name="Blue" Shortcut="Blue" HandlerStage="Bubbled" Handle="true"/>
       <KeyHandler Name="JilKey" Key="J" Handle="true" Modifiers="Control" HandlerStage="Bubbled"/>
@@ -64,6 +68,11 @@
       </Binding>
       
       <Binding Target="[Overlay.Alpha]" Source="[ThemeHelper.Config.FolderBackdropOverlayAlpha]"/>
+
+      <Condition Source="[ThemeHelper.Config.FolderStarRatingStyle]" ConditionOp="Equals" SourceValue="Star Graph" Target="[RatingPanel.LayoutInput]" Value="[StarRatingAnchorLayout]" />
+      <Condition Source="[ThemeHelper.Config.FolderStarRatingStyle]" ConditionOp="Equals" SourceValue="Numeric" Target="[RatingPanel.LayoutInput]" Value="[NumericRatingAnchorLayout]" />
+      <Condition Source="[ThemeHelper.Config.FolderStarRatingStyle]" ConditionOp="Equals" SourceValue="Tomato" Target="[RatingPanel.LayoutInput]" Value="[NumericRatingAnchorLayout]" />
+      <Condition Source="[ThemeHelper.Config.FolderStarRatingStyle]" ConditionOp="Equals" SourceValue="Numeric/Tomato" Target="[RatingPanel.LayoutInput]" Value="[NumericRatingAnchorLayout]" />
 
       <!-- JIL Command -->
       <Rule ConditionLogicalOp="Or">
@@ -118,11 +127,16 @@
 
       <Binding Source="[ThemeHelper.Config.FolderShowBottomInfoBar]" Target="[BottomInfoBar.Visible]" />
       <Binding Source="[Application.CurrentItem]" Target="[MediaInfoPanel.Item]" />
-      <Binding Source="[SelectedItem.ImdbRating]" Target="[StarRating.Value]" />
       <Binding Source="[SelectedItem.MpaaRating]" Target="[mpaa.Value]" />
       <Binding Source="[SelectedItem.ProductionYearString]" Target="[ProdYear.Value]" />
       <Binding Source="[SelectedItem.RunningTimeString]" Target="[Runtime.Value]" />
       <Binding Source="[SelectedItem.Status]" Target="[TVStatus.Value]" />
+
+      <!-- IMDB RATINGS VALUES -->
+      <Binding Source="[SelectedItem.ImdbRating]" Target="[StarRating.Value]"></Binding>
+      <Binding Source="[SelectedItem.ImdbRating]" Target="[StarRating.ImdbValue]"></Binding>
+      <Binding Source="[SelectedItem.CriticRating]" Target="[StarRating.RTValue]" />
+      <Binding Source="[SelectedItem.RottenTomatoImage]" Target="[StarRating.RTImage]" />
 
       <!--LOGO'S LOGIC
       <Binding Target="[Title.Content]"       Source="[SelectedItem.Name]"/>
@@ -326,6 +340,7 @@
           <!--BOTTOM BAR LAYOUT-->
           <Panel Name="BottomInfoBar" Layout="Form">
             <Children>
+              
               <Panel Name="ItemPanel" Layout="VerticalFlow" Visible="true">
                 <LayoutInput>
                   <AnchorLayoutInput Horizontal="Center" Bottom="Parent,1,-20" />
@@ -335,7 +350,6 @@
                   <Graphic Name="LogoImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="0,100" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
                   <Graphic Name="ClearArtImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="350,100" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
                   <Graphic Name="ThumbnailImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="350,100" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
-
                 </Children>
               </Panel>
 
@@ -358,11 +372,12 @@
                 </Children>
               </Panel>
 
-              <sr:StarRating MaximumSize="0,55" Name="StarRating" Margins="0,0,0,0" >
-                <LayoutInput>
-                  <AnchorLayoutInput Horizontal="Center" Bottom="Parent,1,-2" />
-                </LayoutInput>
-              </sr:StarRating>
+              <Panel Name="RatingPanel"  >
+                <Children>
+                  <sr:StarRating MaximumSize="0,40" Name="StarRating" Margins="0,0,0,0" ThemeHelper="[ThemeHelper]" LayoutInput="[StarRatingAnchorLayout]"/>
+                </Children>
+              </Panel>
+                
 
               <Panel Name="MPAARatingPanel" >
                 <LayoutInput>
@@ -387,7 +402,7 @@
                   <FormLayoutInput Left="Parent,0" Right="Parent,1" Bottom="Parent,1,5" Horizontal="Fill" />
                 </LayoutInput>
                 <Children>
-                  <Graphic Name="BottomBar" Content="image://xi:BottomBar" MaximumSize="0,80" MaintainAspectRatio="true" />
+                  <Graphic Name="BottomBar" Content="image://xi:BottomBar" MaximumSize="0,100" MaintainAspectRatio="true" />
                 </Children>
               </Clip>
             </Children>
