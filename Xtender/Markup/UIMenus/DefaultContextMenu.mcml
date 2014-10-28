@@ -6,6 +6,7 @@
 	  xmlns:xs="file://Xenon_Styles.mcml"
 	  xmlns:ui="resx://Xenon/Xenon.Resources/UI"
 	  xmlns:cmd="resx://Xenon/Xenon.Resources/CommandButton"
+    xmlns:xh="assembly://Xenon/Xenon"
 	  xmlns:me="Me">
 
   <UI Name="ContextMenu">
@@ -16,6 +17,10 @@
     </Properties>
 
     <Locals>
+      <xh:MyShortlist Name="MyShortlist" />
+      <xh:XenonHelper Name="ThemeHelper" />
+      <Command Name ="AddToShortlistCommand" />
+      
       <Command Name="PlayAllCommand" />
       <Command Name="ShufflePlayCommand" />
       <Command Name="NullCommand" />
@@ -115,6 +120,21 @@
           <Invoke Target="[Application.Shuffle]" item="[Application.CurrentItem]" />
         </Actions>
       </Changed>
+      
+      <Binding Source="[MyShortlist.ShortlistOption]" Target="[AddToShortlistButton.Text]" />
+
+      <Changed Source="[Application.CurrentItem]" >
+        <Actions>
+          <Invoke Target="[MyShortlist.ShortlistOptionText]" />
+        </Actions>
+      </Changed>
+      
+      <Changed Source="[AddToShortlistCommand.Invoked]" >
+        <Actions>
+          <Invoke Target="[MyShortlist.AddItemToShortlist]" item="[Application.CurrentItem]" />
+          <Invoke Target="[CloseCommand.Invoke]" />
+        </Actions>
+      </Changed>
     </Rules>
 
 
@@ -154,6 +174,15 @@
                       <me:MenuItem Option="[RepeatedItem!lib:MenuItem]" CloseCommand="[CloseCommand]" Application="[Application]" />
                     </Content>
                   </Repeater>
+
+                  <cmd:CommandButton  Name="AddToShortlistButton"
+                                      Text="jkl;"
+                                      Command="[AddToShortlistCommand]"
+                                      Font="font://xs:XF_PopupMenuItem"
+                                      SelFont="font://xs:XF_PopupMenuItem"
+                                      Color="color://xs:XC_PopupMenuItem"
+                                      SelColor="color://xs:XC_PopupMenuItemSel"
+                                      Enabled="true" />
 
                   <cmd:CommandButton Name="NOP"
                                       Text="[Application.LocalStrings.#NoAvailOptions!cor:String]"

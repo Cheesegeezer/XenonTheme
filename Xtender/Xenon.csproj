@@ -95,6 +95,7 @@
     <Compile Include="Library\XenonHelper.cs" />
     <Compile Include="Library\DetailsItem.cs" />
     <Compile Include="MyConfig.cs" />
+    <Compile Include="MyShortlist.cs" />
     <Compile Include="MyStrings.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +112,8 @@
     <Content Include="Images\BottomInfoPane.png" />
     <Content Include="Images\Icons\AddIcon.png" />
     <Content Include="Images\Icons\AddIconSmall.png" />
+    <Content Include="Images\Icons\AddShortlistIcon.png" />
+    <Content Include="Images\Icons\AddShortlistIconSmall.png" />
     <Content Include="Images\Icons\cycle.png" />
     <Content Include="Images\Icons\Gear.png" />
     <Content Include="Images\Icons\IMDB.png" />
@@ -120,6 +123,8 @@
     <Content Include="Images\Icons\refresh.png" />
     <Content Include="Images\Icons\rottensplat.png" />
     <Content Include="Images\Icons\rottentomatoes.png" />
+    <Content Include="Images\Icons\ShortlistIcon.png" />
+    <Content Include="Images\Icons\ShortlistIconSmall.png" />
     <Content Include="Images\RootImages\Concrete.jpg" />
     <Content Include="Images\RootImages\PrevPanel.png" />
     <Content Include="Images\RootImages\NextPanel.png" />
@@ -206,6 +211,7 @@
     <None Include="Markup\Controls\Scrollers\Copy of CollectionScroller.mcml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Markup\Controls\Scrollers\ShortlistScroller.mcml" />
     <None Include="Markup\Controls\Scrollers\UpcomingTVLayoutScroller.mcml">
       <SubType>Designer</SubType>
     </None>
@@ -217,9 +223,6 @@
     <None Include="Markup\Controls\Scrollers\RALLayoutScroller.mcml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Markup\Views\LayoutDetailsOrig.mcml">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Markup\Controls\Scrollers\SeasonListScroller.mcml" />
     <None Include="Markup\Styles\Colors.mcml" />
     <None Include="Markup\Styles\Mint.mcml" />

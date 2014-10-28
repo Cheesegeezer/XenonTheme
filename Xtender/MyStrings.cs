@@ -15,7 +15,7 @@ namespace Xenon
     [Serializable]
     public class MyStrings : LocalizedStringData
     {
-        const string VERSION = "1.020"; //this is used to see if we have changed and need to re-save
+        const string VERSION = "1.021"; //this is used to see if we have changed and need to re-save
 
         // MCML: [Application.LocalStrings.#StringName!cor:String] 
 
@@ -36,6 +36,14 @@ namespace Xenon
         public string ResumeBtnStr = "RESUME";
         public string ResumeLabelStr = "RESUME";
         public string NoRecentItemsStr = "No Items Found";
+
+        //INFO STRINGS
+        public string ShortlistUIHeader = "<---------------------Shortlist LABELS--------------------->";
+        public string CloseBtnStr = "CLOSE";
+        public string ShortcutLabelStr = "SHORTLIST";
+        public string AddToShortlistOptionsLabel = "Add to Shortlist";
+        public string RemoveFromShortlistOptionsLabel = "Remove from Shortlist";
+        public string ClearBtnStr = "CLEAR";
 
         //INFO STRINGS
         public string ItemDetailsUIHeader = "<---------------------ITEM DETAILS LABELS--------------------->";

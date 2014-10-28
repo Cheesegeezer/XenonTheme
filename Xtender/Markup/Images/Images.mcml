@@ -40,6 +40,11 @@
   <Image Name="BackgroundDefault" Source="resx://MediaBrowser/MediaBrowser.Resources/BackgroundDefault" />
   <Image Name="AddIcon" Source="resx://Xenon/Xenon.Resources/AddIcon"/>
   <Image Name="AddIconSmall" Source="resx://Xenon/Xenon.Resources/AddIconSmall"/>
+  
+  <Image Name="AddShortlistIcon" Source="resx://Xenon/Xenon.Resources/AddShortlistIcon"/>
+  <Image Name="AddShortlistIconSmall" Source="resx://Xenon/Xenon.Resources/AddShortlistIconSmall"/>
+  <Image Name="ShortlistIcon" Source="resx://Xenon/Xenon.Resources/ShortlistIcon"/>
+  <Image Name="ShortlistIconSmall" Source="resx://Xenon/Xenon.Resources/ShortlistIconSmall"/>
 
   <Image Name="PrevBG"  Source="resx://Xenon/Xenon.Resources/PrevPanel" />
   <Image Name="NextBG" Source="resx://Xenon/Xenon.Resources/NextPanel" />

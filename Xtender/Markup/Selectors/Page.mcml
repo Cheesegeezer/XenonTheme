@@ -1,22 +1,23 @@
 <Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
-  xmlns:addin="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
-  xmlns:cor="assembly://MsCorLib/System"
-  xmlns:a="assembly://MediaBrowser/MediaBrowser"
-  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
-  xmlns:s="file://Styles_DoNotEdit.mcml"
-	xmlns:f="file://Fonts_DoNotEdit.mcml"
-  xmlns:xs="file://Xenon_Styles.mcml"
-  xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
-  xmlns:an="resx://MediaBrowser/MediaBrowser.Resources/Animations"
-  xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
-  xmlns:vi="resx://Xenon/Xenon.Resources/Images"
-  xmlns:pci="resx://Xenon/Xenon.Resources/PCIndicatorButton"
-  xmlns:pda="resx://Xenon/Xenon.Resources/PageDetailArea" 
-  xmlns:uic="resx://Xenon/Xenon.Resources/UIConfig"
-  xmlns:dcm="resx://Xenon/Xenon.Resources/DefaultContextMenu"
-  xmlns:cmb="resx://Xenon/Xenon.Resources/CommandButton"
-  xmlns:xh="assembly://Xenon/Xenon"
-  xmlns:me="Me">
+      xmlns:addin="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+      xmlns:cor="assembly://MsCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:an="resx://MediaBrowser/MediaBrowser.Resources/Animations"
+      xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
+      xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+      xmlns:pci="resx://Xenon/Xenon.Resources/PCIndicatorButton"
+      xmlns:pda="resx://Xenon/Xenon.Resources/PageDetailArea" 
+      xmlns:uic="resx://Xenon/Xenon.Resources/UIConfig"
+      xmlns:dcm="resx://Xenon/Xenon.Resources/DefaultContextMenu"
+      xmlns:cmb="resx://Xenon/Xenon.Resources/CommandButton"
+      xmlns:slp="resx://Xenon/Xenon.Resources/ShortlistScroller"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:me="Me">
 
   <UI Name="PageXenon">
     <Properties>
@@ -24,6 +25,7 @@
       <lib:FolderModel Name="Folder" FolderModel="$Required"/>
       <IntRangedValue Name="SortOrderIndex" MinValue ="0" MaxValue="999"/>
       <FormLayoutInput Name="FullScreen" Bottom="Parent,1" Left="Parent,0" Right="Parent,1" Top="Parent,0"/>
+      <xh:MyShortlist Name="MyShortlist" />
       <xh:XenonHelper Name="Helper" />
     </Properties>
 
@@ -39,6 +41,12 @@
       <Timer Name="HideFindAsYouType" Interval="3000" AutoRepeat="false"/>
       <addin:AddInHost Name="AddInHost" />
 
+      <BooleanChoice Name="ShortlistHasFocus" Value="false" />
+      <Command Name="AddToShortlistCommand"/>
+      <Command Name="GetShortlist"/>
+      <Command Name="ClearShortlist"/>
+      <Command Name="CloseShortlist"/>
+      
       <!--INTERACTION MENU COMMANDS-->
       <Command Name="Configure" />
       <Command Name="RefreshCommand" />
@@ -77,6 +85,9 @@
       <Command Name="UserFocusLost" />
       <Command Name="CloseUserMenuCommand" />
       <Command Name="SwitchUserCommand" />
+
+      <Command Name="ShortlistFocus" />
+      <Command Name="ShortlistFocusLost" />
       <!--END CONFIG PANEL COMMANDS-->
 
       <!-- Variable that uses the .NET Framework DateTime object -->
@@ -372,6 +383,89 @@
         </Actions>
       </Changed>
 
+      <!-- SHORTLIST-->
+
+      <Changed Source="[GetShortlist.Invoked]">
+        <Conditions>
+          <Equality Source="[MyShortlist.HasShortlistItems]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Helper.IsShortlistOpen]" Value="true" />
+          <Set Target="[ShortlistPanel.Visible]" Value="true" />
+          <Invoke Target="[ShortlistPanel.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[GetShortlist.Invoked]">
+        <Conditions>
+          <Equality Source="[MyShortlist.HasShortlistItems]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Helper.IsShortlistOpen]" Value ="false" />
+          <Invoke Target="[MyShortlist.NoShortlistMessage]" />
+        </Actions>
+      </Changed>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[MyShortlist.HasShortlistItems]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Helper.IsShortlistOpen]" Value ="false" />
+          <Set Target="[ShortlistPanel.Visible]" Value="false" />
+        </Actions>
+      </Rule>
+
+      <!--<Changed Source="[MyShortlist.AddItemToShortlist]">
+        <Conditions>
+          <Equality Source="[Helper.IsShortlistOpen]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ShortlistPanel.NavigateInto]" />
+        </Actions>
+      </Changed>-->
+
+      <Changed Source="[MyShortlist.HasShortlistItems]" >
+        <Conditions>
+          <Equality Source="[MyShortlist.Shortlist.Count]" ConditionOp="Equals" Value="0" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Helper.IsShortlistOpen]" Value ="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[MyShortlist.HasShortlistItems]" >
+        <Conditions>
+          <Equality Source="[MyShortlist.Shortlist.Count]" ConditionOp="GreaterThanOrEquals" Value="1" />
+          <Equality Source="[Helper.IsShortlistOpen]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ShortlistPanel.Visible]" Value="true" />
+          <Invoke Target="[Shortlist.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[CloseShortlist.Invoked]">
+        <Actions>
+          <Set Target="[Helper.IsShortlistOpen]" Value ="false" />
+          <Set Target="[ShortlistPanel.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ClearShortlist.Invoked]" >
+        <Actions>
+          <Invoke Target="[MyShortlist.ClearShortlist]" />
+          <Set Target="[Shortlist.Visible]" Value="false" />
+          <Set Target="[Helper.IsShortlistOpen]" Value ="false" />
+        </Actions>
+      </Changed>
+
+      <!--<Changed Source="[CurrentItem]" >
+        <Actions>
+          <Invoke Target="[PlayTrailer.Invoke]" />
+        </Actions>
+      </Changed>-->
+
       <!--CONFIG PANEL ICONS FOCUS/FOCUSLOST ACTIONS-->
       <Changed Source="[UserFocus.Invoked]">
         <Actions>
@@ -384,6 +478,20 @@
         <Actions>
           <Set Target="[UserKey.Alpha]" Value="0.5" />
           <Set Target="[UserKey.Scale]" Value="1,1,1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortlistFocus.Invoked]">
+        <Actions>
+          <Set Target="[ShortlistKey.Alpha]" Value="1" />
+          <Set Target="[ShortlistKey.Scale]" Value="1.1,1.1,1.1" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[ShortlistFocusLost.Invoked]">
+        <Actions>
+          <Set Target="[ShortlistKey.Alpha]" Value="0.5" />
+          <Set Target="[ShortlistKey.Scale]" Value="1,1,1" />
         </Actions>
       </Changed>
       
@@ -563,6 +671,25 @@
                 </Children>
               </Panel>
 
+              <Panel Name="ShortlistPanel" Layout="Anchor" Navigation="ContainAll" Visible="false">
+                <Children>
+                  <slp:ShortlistScroller Name="Shortlist"
+                                    GetShortlist="[GetShortlist]"
+                                    CloseShortlist="[CloseShortlist]"
+                                    ClearShortlist="[ClearShortlist]"
+                                    Application="[Application]"
+                                    ThemeHelper="[Helper]"
+                                    MyShortlist="[MyShortlist]"
+                                  />
+                </Children>
+              </Panel>
+
+              <ColorFill Name="DetailsOverlay" Layout="Fill" Visible="false" Alpha="0.8" Content="Black" >
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Top="Parent,0" Right="Parent,1" Bottom="Parent,1"/>
+                </LayoutInput>
+              </ColorFill>
+
               <!--Options buttons, Search, Settings and NPV button-->
               <Panel Name="ButtonPanel" Visible="false" Layout="HorizontalFlow" FocusOrder="100" Navigation="Row" >
                 <LayoutInput>
@@ -589,6 +716,14 @@
                       <Panel Name="UserKey" FocusOrder="10">
                         <Children>
                           <vsb:SimpleButton Name="UserMenuButton" Application="[Application]" OnFocus="[UserFocus]" OnLooseFocus="[UserFocusLost]" ImageNoFocus="[Application.CurrentUser.PrimaryImage]" Command="[SwitchUserCommand]" Size="30,30" Margins="0,0,0,0" />
+                        </Children>
+                      </Panel>
+
+                      <Panel Name="ShortlistKey" FocusOrder="20" Visible="true">
+                        <Children>
+                          <vsb:SimpleButton Name="ShortlistButton" Application="[Application]" OnFocus="[ShortlistFocus]" OnLooseFocus="[ShortlistFocusLost]" FocusImage="image://vi:ShortlistIcon" ImageNoFocus="image://vi:ShortlistIconSmall" Command="[GetShortlist]" Size="0,30" Margins="0,0,0,0" >
+
+                          </vsb:SimpleButton>
                         </Children>
                       </Panel>
                       

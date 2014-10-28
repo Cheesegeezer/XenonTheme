@@ -121,6 +121,26 @@ namespace Xenon {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddShortlistIcon {
+            get {
+                object obj = ResourceManager.GetObject("AddShortlistIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddShortlistIconSmall {
+            get {
+                object obj = ResourceManager.GetObject("AddShortlistIconSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] Animations {
@@ -1516,6 +1536,36 @@ namespace Xenon {
             get {
                 object obj = ResourceManager.GetObject("SevenSpeaker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShortlistIcon {
+            get {
+                object obj = ResourceManager.GetObject("ShortlistIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShortlistIconSmall {
+            get {
+                object obj = ResourceManager.GetObject("ShortlistIconSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ShortlistScroller {
+            get {
+                object obj = ResourceManager.GetObject("ShortlistScroller", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

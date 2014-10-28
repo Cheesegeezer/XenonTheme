@@ -217,6 +217,20 @@ namespace Xenon
             set { currentBackdrop = value; }
         }
 
+        private bool _isShortlistOpen;
+        public bool IsShortlistOpen
+        {
+            get
+            {
+                return _isShortlistOpen;
+            }
+            set
+            {
+                _isShortlistOpen = value;
+                FirePropertyChanged("ShortlistHasFocus");
+            }
+        }
+
         public bool IsMenuOpen
         {
             get { return isMenuOpen; }

@@ -1,0 +1,289 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+    xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+    xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+    xmlns:ib="resx://Xenon/Xenon.Resources/ItemButton"
+    xmlns:xs="file://Xenon_Styles.mcml"
+    xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"
+    xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+    xmlns:vi="resx://Xenon/Xenon.Resources/Images"
+	  xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
+    xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
+    xmlns:mip="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel"
+    xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
+    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
+    xmlns:sr="resx://Xenon/Xenon.Resources/StarRating"
+    xmlns:lv="resx://Xenon/Xenon.Resources/LabelValue"
+    xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
+    xmlns:dob="resx://Xenon/Xenon.Resources/DetailsOptionButton"
+    xmlns:xh="assembly://Xenon/Xenon"
+    xmlns:me="me" >
+
+  <UI Name="ShortlistScroller">
+    <Properties>
+        <lib:FolderModel Name="Folder"/>
+        <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+        <a:Application Name="Application" Application="$Required"/>
+        <Color Name="TitleColor" Color="color://xs:XC_PopupMenuTitle" />
+        <Font Name="Font" Font="font://xs:XF_PopupMenuTitle"/>
+        <Command Name="GetShortlist" Command="$Required"/>
+        <Command Name="CloseShortlist" Command="$Required" />
+        <Command Name="ClearShortlist" Command="$Required" />
+        <!--<Command Name="PlayTrailer" Command="$Required"/>-->
+        <xh:MyShortlist Name="MyShortlist" MyShortlist="$Required"/>
+       </Properties>
+      <Locals>
+        <ShortcutHandler Name="BackHandler" Handle="true" Shortcut="Back" HandlerStage="Bubbled" Command="[CloseShortlist]"/>
+        <cor:Int32 Name="Startup" />
+        <lib:Item Name="SelectedItem" Item="[Folder.SelectedChild]" />
+        <ScrollingHandler Name="ScrollingHandler"  HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" />
+        <ScrollingData Name="ScrollingData" BeginPadding="50" EndPadding="50" LockedPosition="0.15" LockedAlignment="0.15"/>
+        <FlowLayout Name="HorizontalFlowLayout" Orientation="Horizontal" AllowWrap="true" RepeatGap="50,0" Spacing="50,50" ItemAlignment="Center" />
+        
+    </Locals>
+    
+      <Rules>
+        
+        <!-- Default Values-->
+        <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]" />
+        <Default Target="[ScrollingData.Repeater]" Value="[Repeater]" />
+        
+        <!--<Binding Source="[Input.DeepKeyFocus]"  Target="[MyShortlist.ShortlistHasFocus]"/>-->
+
+        <!-- RECENT ITEMS MODEL-->
+        <Binding Source="[MyShortlist.Shortlist]" Target="[Repeater.Source]" />
+        <Default Target="[ShortlistTitle.Content]" Value="[Application.LocalStrings.#ShortcutLabelStr!cor:String]" />
+    </Rules>
+
+      <Content>
+
+        <Panel Layout="Anchor" Navigation="ContainAll, RememberFocus">
+          <Children>
+
+            <Clip FadeSize="150" Orientation="Horizontal" FadeAmount="1">
+              <Children>
+                <Scroller Orientation="Horizontal" Margins="25,60,-50,25" Name="Scroller" MinimumSize="0,250" MaximumSize="0,250" FadeSize="5" ScrollingData="[ScrollingData]" Navigation="RememberFocus" Visible="true">
+                  <LayoutInput>
+                    <AnchorLayoutInput Left="Parent, 0" Right="Parent,1"/>
+                  </LayoutInput>
+                  <Children>
+                    <Repeater Name="Repeater" Navigation="Row">
+                      <Layout>
+                        <FlowLayout Orientation="Horizontal" FillStrip="true" ItemAlignment="Center" Spacing="10,10"/>
+                      </Layout>
+                      <Content>
+                        <me:RecentItems Application="[Application]" Item="[RepeatedItem!lib:Item]" Index="[RepeatedItemIndex]" />
+                      </Content>
+                      <Animations>
+                        <Animation Type="Move">
+                          <Keyframes>
+                            <PositionKeyframe Time="0" RelativeTo="Current" Interpolation="EaseIn, 1.0, 0.25"/>
+                            <PositionKeyframe Time="0.35" RelativeTo="Final"/>
+                          </Keyframes>
+                        </Animation>
+                      </Animations>
+                    </Repeater>
+                  </Children>
+                </Scroller>
+              </Children>
+            </Clip>
+
+            <Panel Layout="VerticalFlow" >
+              <LayoutInput>
+                <AnchorLayoutInput Left="Parent,0,20" Top="Parent,0.26" />
+              </LayoutInput>
+              <Children>
+                <Text Name="ShortlistTitle" Color="color://xs:XC_RALPopupItem" Font="font://xs:XF_RALPopupItem" Content="" Margins="0,0,0,0"/>
+                
+                <Text Name="NoRecent" Content="No Next Up Episodes Available." Color="color://xs:XC_PopupMenuTitle" Font="font://xs:XF_PopupMenuTitle" Visible="false" Margins="150,20,0,0"  />
+              </Children>
+            </Panel>
+            
+            <dob:OptionButton Name="CloseShortlistButton" Label="[Application.LocalStrings.#CloseBtnStr!cor:String]" Command="[CloseShortlist]" >
+              <LayoutInput>
+                <AnchorLayoutInput Left="Parent,1,-200" Top="Parent,0.7"/>
+              </LayoutInput>
+            </dob:OptionButton>
+            
+            <dob:OptionButton Name="ClearShortlistButton" Label="[Application.LocalStrings.#ClearBtnStr!cor:String]" Command="[ClearShortlist]" >
+              <LayoutInput>
+                <AnchorLayoutInput Left="Parent,1,-100" Top="Parent,0.7"/>
+              </LayoutInput>
+            </dob:OptionButton>
+
+            <Graphic Content="image://vi:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" MinimumSize="0,250" MaximumSize="0,500" Alpha="1">
+              <LayoutInput>
+                <AnchorLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0.2" Bottom="Parent,0.8"  />
+              </LayoutInput>
+            </Graphic>
+
+            <!--<bd:Backdrop4 Name="Backdrop"  Application="[Application]" Image="[SelectedItem.BackdropImage]" Item="[SelectedItem]"/>-->
+          </Children>
+        </Panel>
+
+      </Content>
+    </UI>
+
+  <UI Name="RecentItems">
+    <Properties>
+      <a:Application Name="Application" Application="$Required" />
+      <xh:XenonHelper Name="ThemeHelper"  />
+      <lib:Item Name="Item" Item="$Required" />
+      <!--<Command Name="PlayTrailer" Command="$Required"/>-->
+      <Index Name="Index" Index="$Required"/>
+      <Color Name="TitleColor" Color="color://xs:XC_PopupMenuItem" />
+      <Color Name="FocusColor" Color="color://xs:XC_PopupMenuTitle" />
+      <Font Name="Font" Font="font://xs:XF_PopupMenuTitle"/>
+    </Properties>
+
+    <Locals>
+      <ClickHandler Name="Clicker"/>
+      <Timer Name="TrailerDelay" Interval="3000" AutoRepeat="false" Enabled="false"/>
+    </Locals>
+
+
+    <Rules>
+
+      <!--Binding Source="[Item.PhysicalParent.PreferredImage]" Target="[ItemPoster.Content]" ConditionLogicalOp="And">
+          <Conditions>
+            <IsValid Source="[Item.PhysicalParent]"/>
+            <Equality Source="[ThemeHelper.Config.UseSeasonPosterInEHS]" ConditionOp="Equals" Value="true" />
+            <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="Episode" />
+          </Conditions>
+        </Binding-->
+      <!--Title-->
+      
+      <!--<Rule>
+        <Conditions>
+          <Equality Source="[Item.ContainsTrailers]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+          <Actions>
+            <Invoke Target="[Item.PlayTrailers]"/>
+          </Actions>
+        </Rule>-->
+      
+      <!--<Changed Source="[Item]">
+        <Conditions>
+          <Equality Source="[Item.ContainsTrailers]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+          <Actions>
+            <Invoke Target="[Item.PlayTrailers]" />
+          </Actions>
+        </Changed>-->
+      
+            <Binding Target="[Title.Content]"     Source="[Item.Name]"/>
+      <Binding Target="[SeasonNo.Content]"  Source="[Item.SeasonNumber]" />
+
+      <!--ITEM INFORMATION-->
+      <!--Use Production Year-->
+      <Binding Target="[ProdYear.Content]"     Source="[Item.ProductionYearString]">
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="NotEquals" Value="Episode"/>
+        </Conditions>
+      </Binding>
+      <!--Use First Air-->
+      <Binding Target="[ProdYear.Content]"     Source="[Item.FirstAired]">
+        <Conditions>
+          <Equality Source="[Item.ItemTypeString]" ConditionOp="Equals" Value="Episode"/>
+        </Conditions>
+      </Binding>
+
+      <!--PREFER THUMBS then BACKDROPS and fall back to POSTERS-->
+      <!--USE THUMB IMAGE-->
+      <Binding Source="[Item.ThumbnailImage]" Target="[ItemThumb.Content]" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.IsMusicFolder]" ConditionOp="Equals" Value="false" />
+          <Equality Source="[Item.HasBackdropImage]" ConditionOp ="Equals" Value="true"/>
+          <Equality Source="[Item.HasThumbnailImage]" ConditionOp ="Equals" Value="true"/>
+        </Conditions>
+      </Binding>
+
+      
+      <!--USE BD IMAGE-->
+      <Binding Source="[Item.BackdropImage]" Target="[ItemThumb.Content]"  >
+        <Conditions>
+          <Equality Source="[ThemeHelper.IsMusicFolder]" ConditionOp="Equals" Value="false" />
+          <Equality Source="[Item.HasBackdropImage]" ConditionOp ="Equals" Value="true"/>
+          <Equality Source="[Item.HasThumbnailImage]" ConditionOp ="Equals" Value="false"/>
+        </Conditions>
+      </Binding>
+
+      <!--SHOW ONLY POSTERS ON MUSIC ITEMS-->
+      <Binding Source="[Item.PrimaryImage]" Target="[ItemThumb.Content]" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.IsMusicFolder]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
+
+      <!--FALL BACK TO POSTERS IF ABOVE LOGIC IS NOT MET-->
+      <Binding Target="[ItemThumb.Content]" Source="[Item.PrimaryImage]" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.IsMusicFolder]" ConditionOp="Equals" Value="false" />
+          <Equality Source="[Item.HasBackdropImage]" ConditionOp ="Equals" Value="false"/>
+          <Equality Source="[Item.HasThumbnailImage]" ConditionOp ="Equals" Value="false"/>
+        </Conditions>
+      </Binding>
+
+      <Changed Source="[Input.KeyFocus]" > 
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[Application.CurrentItem]" Value="[Item]" />
+          <Set Target="[ItemThumb.Scale]" Value="1.1,1.1,1.1" />
+          <Set Target="[Title.Visible]" Value="true" />
+          <Set Target="[SeasonNo.Visible]" Value="true" />
+          <Set Target="[ProdYear.Visible]" Value="true" />
+          <Set Target="[ItemThumb.ColorFilter]" Value="White" />
+          
+        </Actions>
+      </Changed>
+      <Changed Source="[Clicker.Invoked]">
+        <Actions>
+          <!--PlaySound Sound="sound://sounds:Miniselect" /-->
+          <Invoke Target="[Application.Navigate]" item="[Item]"/>
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Name="Bg" Margins="0,20,0,0" Navigation="RememberFocus">
+        <Children>
+          <Graphic Name="ItemThumb" MaximumSize="0,175" Scale="1,1,1" ColorFilter="100,100,100" MaintainAspectRatio="true" Margins="0,10,0,0">
+            <Animations>
+              <Animation Loop="0" CenterPointPercent="0.5,0.5,1.0" Type="Scale">
+                <Keyframes>
+                  <ScaleKeyframe Time="0.00" RelativeTo="Current" Interpolation="Log" />
+                  <ScaleKeyframe Time="0.4" RelativeTo="Final"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Graphic>
+
+
+          <Panel Name="RecentItemPanel" Layout="VerticalFlow" Margins="20,-30,0,0" MaximumSize="280,0">
+            <LayoutInput>
+              <AnchorLayoutInput Left="Parent,0" Top="Parent,0" />
+            </LayoutInput>
+            <Children>
+              <Panel>
+                <Layout>
+                  <FlowLayout Orientation="Horizontal"/>
+                </Layout>
+                <Children>
+                  <Text Name="SeasonNo" Color="color://xs:XC_RALItemTitle" Font="font://xs:XF_RALItemTitle" Visible="false" Margins="0,0,5,0" />
+                  <!--<Text Name="EpisodeNo" Color="color://xs:XC_RALItemTitle" Font="font://xs:XF_RALItemTitle" Visible="true" />-->
+                  <Text Name="Title" Color="color://xs:XC_RALItemTitle" Font="font://xs:XF_RALItemTitle" Visible="false" />
+                </Children>
+              </Panel>
+              <Text Name="ProdYear" Content="" Color="color://xs:XC_RALItemTitle" Font="font://xs:XF_RALItemTitle" Visible="false" Margins="0,195,0,0" />
+            
+            </Children>
+          </Panel>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

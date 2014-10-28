@@ -8,6 +8,7 @@
 	  xmlns:f="file://Fonts_DoNotEdit.mcml"
     xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
     xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+    xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
     xmlns:xi="resx://Xenon/Xenon.Resources/Images"
 	  xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
     xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
@@ -19,6 +20,7 @@
     xmlns:dls="resx://Xenon/Xenon.Resources/LayoutDetailsQuickList"
     xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
     xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
+    xmlns:slp="resx://Xenon/Xenon.Resources/ShortlistScroller"
     xmlns:xh="assembly://Xenon/Xenon"
     xmlns:me="me" >
 
@@ -27,6 +29,7 @@
       <a:Application Name="Application" Application="$Required"/>
       <lib:FolderModel Name="Folder" FolderModel="$Required"/>
       <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required"/>
+      <xh:MyShortlist Name="MyShortlist" />
     </Properties>
 
     <Locals>
@@ -38,6 +41,15 @@
       <ShortcutHandler Name="Blue" Shortcut="Blue" HandlerStage="Bubbled" Handle="true"/>
       <KeyHandler Name="JilKey" Key="J" Handle="true" Modifiers="Control" HandlerStage="Bubbled"/>
       <Command Name="HideJil"/>
+
+      <BooleanChoice Name="ShortlistHasFocus" Value="false" />
+      <Command Name="AddToShortlistCommand"/>
+      <Command Name="GetShortlist"/>
+      <Command Name="ClearShortlist"/>
+      <Command Name="CloseShortlist"/>
+
+      <Command Name="ShortlistFocus" />
+      <Command Name="ShortlistFocusLost" />
     </Locals>
 
     <Rules>
@@ -486,6 +498,33 @@
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[ThumbnailPanel.Visible]" />
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[InfoPanel.Visible]" />
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[MediaInfoPanel.Visible]" />
+
+      
+      <!-- SHORTLIST ICON LOGIC -->
+      <Binding Source="[MyShortlist.IsItemInShortlist]" Target="[ShortlistIcon.Visible]" />
+      <Condition Source="[MyShortlist.IsItemInShortlist]" ConditionOp="Equals" SourceValue="true" Target="[ShortlistIcon.Visible]" Value="true" />
+      <Condition Source="[MyShortlist.IsItemInShortlist]" ConditionOp="Equals" SourceValue="false" Target="[ShortlistIcon.Visible]" Value="false" />
+
+      <Changed Source="[Folder.SelectedChild]" >
+        <Actions>
+          <Invoke Target="[MyShortlist.ItemInShortlist]" />
+        </Actions>
+      </Changed>
+
+      <Rule>
+        <Conditions>
+          <Equality Source="[MyShortlist.IsItemInShortlist]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ShortlistIcon.Visible]" Value="true" />
+        </Actions>
+      </Rule>
+      
+      <Changed Source="[MyShortlist.IsItemInShortlist]" >
+        <Actions>
+          <Set Target="[ShortlistIcon.Visible]" Value="[MyShortlist.IsItemInShortlist]" />
+        </Actions>
+      </Changed>
       
     </Rules>
     <Content>
@@ -554,6 +593,19 @@
                   <Graphic Name="FutureImage" Content="image://i:FutureBanner" Margins="0,0,0,0" MaximumSize="100,100" MaintainAspectRatio="true">
                     <LayoutInput>
                       <AnchorLayoutInput Right="Parent,1" Top="Parent,0"/>
+                    </LayoutInput>
+                  </Graphic>
+                </Children>
+              </Panel>
+
+              <Panel  Scale="1,1,1" Margins="0,0,0,0" Padding="0,0,0,0" Layout="Anchor" Visible="false" Name="ShortlistIcon" Alpha="1.0" >
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Top="Parent,0"/>
+                </LayoutInput>
+                <Children>
+                  <Graphic Name="ShortlistImage" Content="image://xi:AddShortlistIcon" Margins="0,0,0,0" MaximumSize="100,100" MaintainAspectRatio="true">
+                    <LayoutInput>
+                      <AnchorLayoutInput Left="Parent,0" Top="Parent,0"/>
                     </LayoutInput>
                   </Graphic>
                 </Children>
