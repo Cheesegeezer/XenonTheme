@@ -1,28 +1,29 @@
 <Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
-    xmlns:cor="assembly://MSCorLib/System"
-    xmlns:a="assembly://MediaBrowser/MediaBrowser"
-    xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
-    xmlns:ib="resx://Xenon/Xenon.Resources/ItemButton"
-    xmlns:xs="file://Xenon_Styles.mcml"
-    xmlns:s="file://Styles_DoNotEdit.mcml"
-	  xmlns:f="file://Fonts_DoNotEdit.mcml"
-    xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
-    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
-    xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
-    xmlns:xi="resx://Xenon/Xenon.Resources/Images"
-	  xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
-    xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
-    xmlns:mip="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel"
-    xmlns:sr="resx://Xenon/Xenon.Resources/StarRating"
-    xmlns:lv="resx://Xenon/Xenon.Resources/LabelValue"
-    xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
-    xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
-    xmlns:dls="resx://Xenon/Xenon.Resources/LayoutDetailsQuickList"
-    xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
-    xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
-    xmlns:slp="resx://Xenon/Xenon.Resources/ShortlistScroller"
-    xmlns:xh="assembly://Xenon/Xenon"
-    xmlns:me="me" >
+      xmlns:cor="assembly://MSCorLib/System"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:ib="resx://Xenon/Xenon.Resources/ItemButton"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:in="resx://MediaBrowser/MediaBrowser.Resources/InfoMarquee"
+      xmlns:vsb="resx://Xenon/Xenon.Resources/SimpleButton"
+      xmlns:xi="resx://Xenon/Xenon.Resources/Images"
+	    xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
+      xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
+      xmlns:mip="resx://MediaBrowser/MediaBrowser.Resources/MediaInfoPanel"
+      xmlns:sr="resx://Xenon/Xenon.Resources/StarRating"
+      xmlns:lv="resx://Xenon/Xenon.Resources/LabelValue"
+      xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
+      xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
+      xmlns:dls="resx://Xenon/Xenon.Resources/LayoutDetailsQuickList"
+      xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
+      xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
+      xmlns:slp="resx://Xenon/Xenon.Resources/ShortlistScroller"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:me="me" >
 
   <UI Name="XenonLayoutDetails">
     <Properties>
@@ -280,6 +281,7 @@
         </Conditions>
         <Actions>
           <Set Target="[ThumbArt.Content]" Value="[Folder.SelectedChild.ThumbnailImage]" />
+          <Set Target="[Logo.Visible]" Value="false" />
         </Actions>
       </Binding>
 
@@ -290,16 +292,25 @@
         </Conditions>
         <Actions>
           <Set Target="[ThumbArt.Content]" Value="[Folder.SelectedChild.PrimaryImage]" />
+          <Set Target="[Logo.Visible]" Value="false" />
         </Actions>
       </Binding>
       
-      <Binding Source="[Folder.SelectedChild.BackdropImage]" Target="[ThumbArt.Content]">
+      <Binding Source="[Folder.SelectedChild.PrimaryBackdropImage]" Target="[ThumbArt.Content]">
         <Conditions>
           <Equality Source="[Folder.SelectedChild.HasThumbnailImage]" ConditionOp ="Equals" Value="false"/>
         </Conditions>
         <Actions>
-          <Set Target="[ThumbArt.Content]" Value="[Folder.SelectedChild.BackdropImage]" />
+          <Set Target="[ThumbArt.Content]" Value="[Folder.SelectedChild.PrimaryBackdropImage]" />
+          <Set Target="[Logo.Visible]" Value="true" />
         </Actions>
+      </Binding>
+
+      <Binding Source="[Folder.SelectedChild.LogoImage]" Target="[Logo.Content]" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.IsMusicFolder]" ConditionOp="Equals" Value="false" />
+          <Equality Source="[Folder.SelectedChild.HasBackdropImage]" ConditionOp ="Equals" Value="true"/>
+        </Conditions>
       </Binding>
 
       <!-- Conditions for Title or Fanart views-->
@@ -499,6 +510,13 @@
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[InfoPanel.Visible]" />
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[MediaInfoPanel.Visible]" />
 
+      <Binding Source="[Folder.SelectedChild.IsMissing]" Target="[MissingIndicator.Visible]" />
+      <Binding Source="[Folder.SelectedChild.IsFuture]" Target="[FutureIndicator.Visible]" />
+      <Binding Source="[Folder.SelectedChild.IsRemoteContent]" Target="[RemoteContentImage.Visible]" ConditionLogicalOp="And">
+        <Conditions>
+          <Equality Source="[Application.Config.ShowRemoteIndicatorOnPosters]" Value="true" />
+        </Conditions>
+      </Binding>
       
       <!-- SHORTLIST ICON LOGIC -->
       <Binding Source="[MyShortlist.IsItemInShortlist]" Target="[ShortlistIcon.Visible]" />
@@ -629,7 +647,8 @@
                   <AnchorLayoutInput Horizontal="Far" Vertical="Far"/>
                 </LayoutInput>
               </Graphic>
-              
+
+              <Graphic Name="Logo" MaximumSize="200,60" Margins="20,120,0,0" ColorFilter="255,255,255" />
               <Graphic Name="ThumbArt" Alpha="[ThemeHelper.Config.FolderDetailsThumbAlpha]" MaximumSize="0,200" SizingPolicy="SizeToConstraint" MaintainAspectRatio="true" Content="[Folder.SelectedChild.ThumbnailImage]" />
             </Children>
           </Panel>
@@ -750,6 +769,19 @@
               <FormLayoutInput Bottom="Parent,1,-20" Horizontal="Center" />
             </LayoutInput>
           </mip:MediaInfoPanel>
+          
+          <!-- Welcome to MB & Update Info Panel-->
+          <Panel Name="MBInfo" Alpha="0.7" >
+            <Layout>
+              <FlowLayout ItemAlignment="Near"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0.95" Left="Parent,0,-20" />
+            </LayoutInput>
+            <Children>
+              <in:InfoMarquee Application="[Application]" />
+            </Children>
+          </Panel>
           
           
           
@@ -976,7 +1008,6 @@
           <Set Target="[Title.Font]" Value="font://xs:XF_DQLSelected" />
           <Set Target="[Title.Color]" Value="color://xs:XC_DQLHighlighted"/>
           <Set Target="[Title.MaximumSize]" Value="800,0" />
-          <Set Target="[MissingIndicator.Margins]" Value="-500,0,0,0" />
           <Set Target="[TickPanel.Margins]" Value="2,15,0,-5" />
           <Set Target="[UnwatchedIndicator.Margins]" Value="2,10,0,-5" />
           <Set Target="[ParentItem.SelectedChildIndex]" Value="[Index.SourceValue]"/> 
@@ -998,7 +1029,6 @@
         <Actions>
           <Set Target="[Title.Color]" Value="color://xs:XC_DQLUnselected"/>
           <Set Target="[Title.MaximumSize]" Value="360,0" />
-          <Set Target="[MissingIndicator.Margins]" Value="-980,0,0,0" />
         </Actions>
       </Condition>
       
@@ -1028,9 +1058,7 @@
           <Set Target="[TickIndicatorPanel.Visible]" Value="[Application.Config.ShowWatchTickInPosterView]" />
         </Actions>
       </Changed>
-      <Binding Source="[Item.IsMissing]" Target="[MissingIndicator.Visible]" />
-      <Binding Source="[Item.IsFuture]" Target="[FutureIndicator.Visible]" />
-
+      
       <Changed Source="[Clicker.Invoked]">
         <Actions>
           <!--PlaySound Sound="sound://sounds:Miniselect" /-->
@@ -1089,47 +1117,7 @@
                 </LayoutInput>
               </Text>
 
-              <Panel  Scale="1,1,1" Margins="0,5,0,0" Padding="0,0,0,0" Layout="Anchor" Visible="false" Name="MissingIndicator">
-                <LayoutInput>
-                  <AnchorLayoutInput Horizontal="Far" Vertical="Near"/>
-                </LayoutInput>
-                <Children>
-                  <Graphic Name="MissingImage" Content="image://i:MissingBanner" Margins="0,0,0,0" MaximumSize="45,45" MaintainAspectRatio="true">
-                    <LayoutInput>
-                      <AnchorLayoutInput Horizontal="Near" Vertical="Near"/>
-                    </LayoutInput>
-                  </Graphic>
-                </Children>
-              </Panel>
-              <Panel  Scale="1,1,1" Margins="0,5,0,0" Padding="0,0,0,0" Layout="Anchor" Visible="false" Name="FutureIndicator">
-                <LayoutInput>
-                  <AnchorLayoutInput Horizontal="Far" Vertical="Near"/>
-                </LayoutInput>
-                <Children>
-                  <Graphic Name="FutureImage" Content="image://i:FutureBanner" Margins="0,0,0,0" MaximumSize="45,45" MaintainAspectRatio="true">
-                    <LayoutInput>
-                      <AnchorLayoutInput Horizontal="Near" Vertical="Near"/>
-                    </LayoutInput>
-                  </Graphic>
-                </Children>
-              </Panel>
-              <Panel  Scale="1,1,1" Padding="0,0,0,0" Layout="Anchor" Visible="false" Name="PCLock">
-                <LayoutInput>
-                  <AnchorLayoutInput Horizontal="Near" Vertical="Far"/>
-                </LayoutInput>
-                <Children>
-                  <Graphic Name="PCLockImage" Content="image://i:Lock" Margins="0,0,5,5" MaximumSize="30,30" MaintainAspectRatio="true">
-                    <LayoutInput>
-                      <AnchorLayoutInput Horizontal="Near" Vertical="Near"/>
-                    </LayoutInput>
-                  </Graphic>
-                </Children>
-              </Panel>
-              <Graphic Name="RemoteContentImage" Content="resx://MediaBrowser/MediaBrowser.Resources/IconRemote" Margins="0,0,5,5" Alpha=".75" MaximumSize="30,30" MaintainAspectRatio="true" Visible="false">
-                <LayoutInput>
-                  <AnchorLayoutInput Horizontal="Far" Vertical="Far"/>
-                </LayoutInput>
-              </Graphic>
+              
             </Children>
           </Clip>
           

@@ -129,6 +129,7 @@ namespace Xenon
         //View Options Strings
         //EHS OPTIONS
         public string EHSUserUIHeader = "<---------------------EHS USER UI CONFIG LABELS--------------------->";
+        public string ShowNewsScrollerLabel = "Show MB News Scroller";
         public string ShowEHSBackdropLabel = "Show Backdrop";
         public string WrapEHSListLabel = "Wrap EHS List";
         public string ShowFullRALLabel = "Expand RAL to Full Width";

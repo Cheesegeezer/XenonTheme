@@ -145,9 +145,9 @@
               <me:ConsoleInfoPanel Name="ConsoleInfoPanel" Item="[Item]" Application="[Application]" ThemeHelper="[ThemeHelper]" Visible="false"></me:ConsoleInfoPanel>
             </Children>
           </Panel>
-          <Panel Name="Actors">
+          <Panel Name="Actors" Navigation="RememberFocus">
             <Children>
-              <als:ActorList Margins="-20,0,-20,0" Name="ActorScroller" Item="[Item]" Application="[Application]" CurrentIndex="[SelectedActorIndex]" />
+              <me:ActorList Margins="-20,0,-20,0" Name="ActorScroller" Item="[Item]" Application="[Application]" CurrentIndex="[SelectedActorIndex]" />
             </Children>
           </Panel>
           <Panel Name="Reviews">
@@ -669,36 +669,38 @@
     
   </UI>
 
-
-  <!--<UI Name="ActorList">
+  <UI Name="ActorList">
     <Properties>
-      <xh:ActorInfo Name="ActorInfo" />
       <a:Application Name="Application" Application="$Required"/>
       <lib:Item Name="Item" Item="$Required"/>
+      <IntRangedValue Name="CurrentIndex" IntRangedValue="$Required"/>
+
     </Properties>
     <Locals>
       <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandlePageKeys="true" HandlePageCommands="true"/>
-      <ScrollingData Name="ScrollingData" BeginPadding="70" EndPadding="70" />
-      <xh:XenonHelper Name="ThemeHelper" />
+      <ScrollingData Name="ScrollingData"/>
     </Locals>
+
     <Rules>
+      <Default Target="[Input.CreateInterestOnFocus]" Value="true"/>
+
       <Binding Source="[Item.Actors]" Target="[ListRepeater.Source]" />
       <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
     </Rules>
-    
+
     <Content>
+      <!-- Cast (Actors) -->
       <Panel Name="MovieActors" Layout="Form" Padding="15,15,15,15">
         <LayoutInput>
           <FormLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,1"/>
         </LayoutInput>
         <Children>
-          
-          <Scroller Name="ActorScroller" Orientation="Horizontal" FadeSize="5" ScrollingData="[ScrollingData]">
+
+          <Scroller Name="ActorScroller" Orientation="Horizontal" FadeSize="-1" ScrollingData="[ScrollingData]" Navigation="RememberFocus">
             <LayoutInput>
               <FormLayoutInput Left="Parent,0" Right="Parent,1" Vertical="Center"/>
             </LayoutInput>
             <Children>
-
               <Repeater Name="ListRepeater" Source="[Item.Actors]" Layout="HorizontalFlow" >
                 <Animations>
                   <Animation Type="Move">
@@ -708,9 +710,8 @@
                     </Keyframes>
                   </Animation>
                 </Animations>
-
                 <Content>
-                  <me:Actor PersonItem="[RepeatedItem!lib:ActorItemWrapper]" Font="font://xs:OverviewFont" Application="[Application]" ActorInfo="[ActorInfo]" ThemeHelper="[ThemeHelper]" />
+                  <me:Actor2 Name="Test" aiw="[RepeatedItem!lib:ActorItemWrapper]" Index="[RepeatedItemIndex]" SelectedIndex="[CurrentIndex]" Font="font://xs:OverviewFont" Application="[Application]" />
                 </Content>
               </Repeater>
             </Children>
@@ -725,72 +726,27 @@
     </Content>
   </UI>
 
-
-  <UI Name="Actor">
+  <UI Name="Actor2">
     <Properties>
-      <xh:ActorInfo Name="ActorInfo" ActorInfo="$Required" />
       <a:Application Name="Application" Application="$Required"/>
-      <lib:ActorItemWrapper Name="PersonItem" ActorItemWrapper="$Required" />
-      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <lib:ActorItemWrapper Name="aiw" ActorItemWrapper="$Required" />
+      <Index           Name="Index" Index="$Required"/>
+      <IntRangedValue Name="SelectedIndex" IntRangedValue="$Required"/>
       <Font Name="Font" Font="$Required"/>
-      <lib:Item Name="Item" />
     </Properties>
 
-    <Locals>
-      <Command Name="NavigateToActorsPopup"/>
-    </Locals>
-
     <Rules>
-      <Changed Source="[NavigateToActorsPopup.Invoked]" ConditionLogicalOp="And">
-        <Actions>
-          <Invoke Target="[PersonButton.NavigateInto]" />
-        </Actions>
-      </Changed>
-      
+      <Binding Source="[SelectedIndex]" Target="[Test.CurrentIndex]"/>
     </Rules>
 
     <Content>
       <Panel Layout="HorizontalFlow" >
         <Children>
-          
-          <pb:PersonButton Name="PersonButton" PersonItem="[PersonItem]" Size="280,160" Command="[NavigateToActorsPopup]" />
-
-          <Clip Layout="Form" Padding="[Application.Config.OverScanPadding]" Scale="[Application.Config.OverScanScaling]" CenterPointPercent="0.5,0.5,0.5">
-            <Animations>
-              <Animation Animation="animation://an:PageHide" />
-            </Animations>
-            <Children>
-              <Graphic Name="ActorsPopup" MinimumSize="1024,650" Visible="false" >
-                <LayoutInput>
-                  <AnchorLayoutInput Horizontal="Center" Top="Parent,0,-650"></AnchorLayoutInput>
-                </LayoutInput>
-                <Animations>
-                  <Animation Type="Show">
-                    <Keyframes>
-                      <PositionKeyframe Time="0" Value="0,0,0" Interpolation="Log,5"/>
-                      <PositionKeyframe Time="1" Value="0,650,0"/>
-                    </Keyframes>
-                  </Animation>
-                  <Animation Type="Hide">
-                    <Keyframes>
-                      <PositionKeyframe Time="0" Value="0,650,0" Interpolation="Log,2"/>
-                      <PositionKeyframe Time="1" Value="0,0,0"/>
-                    </Keyframes>
-                  </Animation>
-                </Animations>
-                <Children>
-                  <actp:ActorPopup Margins="116,101,0,0" Name="ActorPopup" PopupSize="720,480" Application="[Application]" Person="[ActorInfo]" Item="[Item]" Command="[NavigateToActorsPopup]" />
-
-                </Children>
-              </Graphic>
-            </Children>
-          </Clip>
+          <pb:PersonButton Name="Test" aiw="[aiw]" Index="[Index]" CurrentIndex="[SelectedIndex]" Application="[Application]" />
         </Children>
       </Panel>
-
-      
     </Content>
-  </UI>-->
+  </UI>
 
   <UI Name="ChapterList">
     <Properties>

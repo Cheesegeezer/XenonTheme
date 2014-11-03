@@ -86,6 +86,7 @@
     <Compile Include="Actors\ActorCreditItem.cs" />
     <Compile Include="Actors\ActorHelper.cs" />
     <Compile Include="Actors\ActorInfo.cs" />
+    <Compile Include="APICalls\XNewsItem.cs" />
     <Compile Include="ConfigData.cs" />
     <Compile Include="CustomStyles.cs" />
     <Compile Include="Fonts\FontManager.cs" />
@@ -208,7 +209,7 @@
     <None Include="Markup\Controls\Scrollers\ActorScroller.mcml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Markup\Controls\Scrollers\Copy of CollectionScroller.mcml">
+    <None Include="Markup\Controls\Scrollers\NewsScroller.mcml">
       <SubType>Designer</SubType>
     </None>
     <None Include="Markup\Controls\Scrollers\ShortlistScroller.mcml" />

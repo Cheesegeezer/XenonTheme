@@ -1,0 +1,106 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+      xmlns:cor="assembly://MSCorLib/System"
+      xmlns:col="assembly://MSCorLib/System.Collections"
+      xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+      xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:xs="file://Xenon_Styles.mcml"
+      xmlns:s="file://Styles_DoNotEdit.mcml"
+	    xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:xh="assembly://Xenon/Xenon"
+      xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
+      xmlns:me="Me"
+      >
+
+  
+  <UI Name="NewsScroller">
+
+    <Properties>
+      <a:Application Name="Application" Application="$Required" />
+      <xh:XenonHelper Name="ThemeHelper" XenonHelper="$Required" />
+      <xh:XNewsItem Name="Item" XNewsItem="$Required"/>
+    </Properties>
+
+    <Locals>
+      
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="false" />
+      <ScrollingData Name="ScrollingData" ScrollStep="25"/>
+      <Timer Name="ScrollText" Interval="500" AutoRepeat="true" Enabled="true" />
+    </Locals>
+
+    <Rules>
+      <Binding Source="[ThemeHelper.GetNewsItems]" Target="[Repeater.Source]" />
+
+      <Changed Source="[ScrollText.Tick]">
+        <Conditions>
+          <Equality Source="[ScrollingData.CanScrollDown]" ConditionOp="Equals" Value="true"></Equality>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ScrollingData.ScrollDown]" ></Invoke>
+        </Actions>
+      </Changed>
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+    </Rules>
+    <Content>
+      <Panel>
+        <Children>
+          <Scroller Name="AutoText" Orientation="Horizontal"  ScrollingData="[ScrollingData]" >
+            <LayoutInput>
+              <FormLayoutInput Vertical="Far" />
+            </LayoutInput>
+            <Children>
+              <Repeater Name="Repeater" Visible="true" DiscardOffscreenVisuals="false" >
+                <Layout>
+                  <FlowLayout Orientation="Horizontal" ItemAlignment="Center" Repeat="Always" RepeatGap="150,0"  Spacing="50,50"/>
+                </Layout>
+                <Divider>
+                  <Text Margins="2,-2,2,0" Content="●" Font="font://xs:XF_RALOption" Color="White"/>
+                </Divider>
+                <Animations>
+                  <Animation Type="Move">
+                    <Keyframes>
+                      <PositionKeyframe RelativeTo="Current" Time="0"/>
+                      <PositionKeyframe RelativeTo="Final" Time="0.5"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+                <Content>
+                  <me:NewsItem XNewsItem="[RepeatedItem!xh:XNewsItem]" Index="[RepeatedItemIndex]" />
+                </Content>
+              </Repeater>
+            </Children>
+          </Scroller>
+        </Children>
+      </Panel>
+
+
+    </Content>
+  </UI>
+
+  <UI Name="NewsItem">
+    <Properties>
+      <xh:XNewsItem Name="XNewsItem" XNewsItem="$Required" />
+      <Index Name="Index" Index="$Required"/>
+    </Properties>
+
+    <Rules>
+      <Binding Source="[XNewsItem.Title]" Target="[Title.Content]"/>
+      
+    </Rules>
+
+    <Content>
+      <Panel MaximumSize="2000,0">
+        <Layout>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Far"/>
+        </Layout>
+        <Children>
+          <Text Name="Date" Content="[XNewsItem.DateString]" Color="color://xs:XC_RALOption"  Font="font://xs:XF_RALOption"/>
+          <Text Name="Divider" Content=": " Color="color://xs:XC_RALOption"  Font="font://xs:XF_RALOption"/>
+          <Text Name="Title"  Color="color://xs:XC_RALOption"  Font="font://xs:XF_RALOption"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

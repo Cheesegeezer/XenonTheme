@@ -9,6 +9,8 @@ using MediaBrowser.Model.Querying;
 
 namespace Xenon.APICalls
 {
+    using MediaBrowser.Model.News;
+
     class APIQueries : BaseApiClient 
     {
         //Required for BaseApiClient - No requirement for any methods
@@ -37,5 +39,7 @@ namespace Xenon.APICalls
             string queryUrl = string.Format("{0}Shows/Upcoming?UserId={1}{2}", APIUrl(), guid, query); //Query Format taken from Swagger
             return Kernel.ApiClient.GenericApiQuery(queryUrl);//Interrogate the API based on the query string.
         }
+
+        
     }
 }

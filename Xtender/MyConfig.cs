@@ -732,6 +732,28 @@ namespace Xenon
             }
         }
 
+        public bool FolderShowNewsScroller
+        {
+            get
+            {
+                bool show = true;
+
+                if (folderData != null)
+                    show = folderData.FolderShowNewsScroller;
+
+                return show;
+            }
+            set
+            {
+                if ((folderData != null) && (folderData.FolderShowNewsScroller != value))
+                {
+                    folderData.FolderShowNewsScroller = value;
+                    SaveFolder();
+                    FirePropertyChanged("FolderShowNewsScroller");
+                }
+            }
+        }
+
         public bool FolderShowBackdropOverlay
         {
             get

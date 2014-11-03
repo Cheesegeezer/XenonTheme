@@ -37,6 +37,7 @@ namespace Xenon
         public bool ShowBanners = false;
         public bool ShowBackdrop = true;
         public bool ShowBackdropOverlay = false;
+        public bool FolderShowNewsScroller = true;
         public bool ShowDetailsQuickList = false;
         public bool ShowFlatCoverflow = false;
         public bool ShowFullRAL = true;

@@ -5,6 +5,7 @@
     xmlns:xs="file://Xenon_Styles.mcml"    
     xmlns:vi="resx://Xenon/Xenon.Resources/Images"
     xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
+      xmlns:in="resx://MediaBrowser/MediaBrowser.Resources/InfoMarquee"
     xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
     xmlns:mqt="resx://Xenon/Xenon.Resources/MarqueeText"
     xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
@@ -136,6 +137,16 @@
             <Children>
               <Text Name="List_Counter" Content="0" Color="color://xs:counterColor" Font="font://xs:counterFont" />
               <Text Name="List_Total" Content="0" Color="color://xs:totalCounterColor" Font="font://xs:totalCounterFont"/>
+            </Children>
+          </Panel>
+
+          <!-- Welcome to MB & Update Info Panel-->
+          <Panel Name="MBInfo" Alpha="0.7" >
+            <LayoutInput>
+              <AnchorLayoutInput Top="Parent,0.58" Left="Parent,0,-20" />
+            </LayoutInput>
+            <Children>
+              <in:InfoMarquee Application="[Application]" />
             </Children>
           </Panel>
 

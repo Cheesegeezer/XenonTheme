@@ -8,6 +8,7 @@
 	  xmlns:f="file://Fonts_DoNotEdit.mcml"
     xmlns:sounds="resx://MediaBrowser/MediaBrowser.Resources/Sounds"
     xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:in="resx://MediaBrowser/MediaBrowser.Resources/InfoMarquee"
     xmlns:xi="resx://Xenon/Xenon.Resources/Images"
 	  xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
     xmlns:mpaa="resx://MediaBrowser/MediaBrowser.Resources/MPAARating"
@@ -426,6 +427,19 @@
             </LayoutInput>
             <Children>
               <Text Name ="TagLineShadow" Font="font://xs:ThumbStripShadowTagLineFont" Color="color://xs:ThumbStripShadowTaglineColor" />
+            </Children>
+          </Panel>
+          
+          <!-- Welcome to MB & Update Info Panel-->
+          <Panel Name="MBInfo" Alpha="0.7" >
+            <Layout>
+              <FlowLayout ItemAlignment="Near"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0.95" Left="Parent,0,-20" />
+            </LayoutInput>
+            <Children>
+              <in:InfoMarquee Application="[Application]" />
             </Children>
           </Panel>
 

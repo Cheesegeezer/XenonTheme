@@ -19,6 +19,7 @@
       <a:Application Name="Application" Application="$Required"/>
       <lib:Item Name="Item" Item="$Required"/>
       <IntRangedValue Name="CurrentIndex" IntRangedValue="$Required"/>
+      
     </Properties>
     <Locals>
       <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandlePageKeys="true" HandlePageCommands="true"/>
@@ -40,7 +41,7 @@
         </LayoutInput>
         <Children>
           
-          <Scroller Name="ActorScroller" Orientation="Horizontal" FadeSize="-1" ScrollingData="[ScrollingData]" Navigation="PreferFocusOrder,RememberFocus">
+          <Scroller Name="ActorScroller" Orientation="Horizontal" FadeSize="-1" ScrollingData="[ScrollingData]" Navigation="RememberFocus">
             <LayoutInput>
               <FormLayoutInput Left="Parent,0" Right="Parent,1" Vertical="Center"/>
             </LayoutInput>

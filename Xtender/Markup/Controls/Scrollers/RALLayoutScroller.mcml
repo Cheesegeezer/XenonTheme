@@ -51,7 +51,7 @@
             <Equality Source="[Folder]" ConditionOp="NotEquals" Value="null" />
           </Conditions>
           <Actions>
-            <Invoke Target="[ScrollingData.Home]" />
+            <!--<Invoke Target="[ScrollingData.Home]" />-->
             <Set Target="[Repeater.Source]" Value="[Folder.QuickListItems]" />
           </Actions>
         </Changed>

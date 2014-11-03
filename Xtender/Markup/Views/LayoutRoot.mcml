@@ -14,6 +14,7 @@
     xmlns:utv="resx://Xenon/Xenon.Resources/UpcomingTVLayoutScroller"
     xmlns:rip="resx://Xenon/Xenon.Resources/RALLayoutScroller"
     xmlns:rob="resx://Xenon/Xenon.Resources/RALOptionButton"
+    xmlns:ns="resx://Xenon/Xenon.Resources/NewsScroller"
     xmlns:me="Me">
 
 
@@ -25,6 +26,7 @@
     </Properties>
 
     <Locals>
+      <xh:XNewsItem Name="NewsItems" />
       <ScrollingHandler Name="ScrollingHandler"  HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true" HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" />
       <ScrollingData Name="ScrollingData" LockedAlignment="0.5" LockedPosition="0.5" />
 
@@ -37,6 +39,7 @@
       <IntRangedValue Name="SelectedIndex" Value="0"/>
 
       <Timer Name="FocusViewTimer" AutoRepeat="false" Interval="500" Enabled="false" />
+      <Timer Name="ShowNewsTickerTimer" AutoRepeat="false" Interval="2000" Enabled="false" />
 
       <Command Name="Configure"/>
       <Command Name="CycleRecentCommand" />
@@ -131,6 +134,19 @@
 
       <Binding Target="[Overlay.Alpha]" Source="[ThemeHelper.Config.FolderBackdropOverlayAlpha]"/>
 
+      <!-- News Scroller-->
+      <Binding Target="[NewsPanel.Visible]"   Source="[ThemeHelper.Config.FolderShowNewsScroller]">
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowNewsScroller]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
+      
+      <Binding Target="[NewsBGPanel.Visible]"   Source="[ThemeHelper.Config.FolderShowNewsScroller]">
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowNewsScroller]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+      </Binding>
+        
       <!-- WRAP EHS VF LIST LOGIC -->
       <Condition Source="[ThemeHelper.Config.FolderWrapEHSList]" ConditionOp="Equals" SourceValue="Always" Target="[HorizontalFlowLayout.Repeat]" Value="Always" />
       <Condition Source="[ThemeHelper.Config.FolderWrapEHSList]" ConditionOp="Equals" SourceValue="Never" Target="[HorizontalFlowLayout.Repeat]" Value="Never" />
@@ -207,6 +223,7 @@
         </Conditions>
         <Actions>
           <Invoke Target="[RootScroller.NavigateInto]" />
+          <Invoke Target="[ThemeHelper.GetNewsItems]" />
         </Actions>
       </Changed>
 
@@ -862,6 +879,28 @@
                     <in:InfoMarquee Application="[Application]" />
                   </Children>  
                 </Panel>
+              
+              <!-- MB News Ticker -->
+              <Panel Name="NewsPanel" Alpha="0.9" Visible="false"  >
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0.1" Top="Parent,0,5" Right="Parent,0.9" />
+                </LayoutInput>
+                  <Children>
+                    <ns:NewsScroller Name="NewsScroller" Application="[Application]" ThemeHelper="[ThemeHelper]" Item="[NewsItems]" />
+                  
+                  </Children>  
+                </Panel>
+
+              <Panel Name="NewsBGPanel" Visible="false">
+                <LayoutInput>
+                  <AnchorLayoutInput Left="Parent,0" Right="Parent,1" Top="Parent,0" Bottom="Parent,0,35"  />
+                </LayoutInput>
+                <Children> 
+                  <Graphic Name="NewsScrollerBG" Content="image://vi:RALBG" ColorFilter="color://xs:XC_RALPanelFilterColor" Alpha="0.6" />
+                </Children>
+              </Panel>
+              
+                
 
               <!--Security Indicator-->
               <Panel  Scale="1,1,1" Padding="0,0,0,0" Layout="Anchor" Visible="false" Name="PCLock">

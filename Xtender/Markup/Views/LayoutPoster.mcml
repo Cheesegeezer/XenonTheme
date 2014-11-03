@@ -3,6 +3,7 @@
 	  xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
     xmlns:fs="resx://MediaBrowser/MediaBrowser.Resources/FocusSelector"
     xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+      xmlns:in="resx://MediaBrowser/MediaBrowser.Resources/InfoMarquee"
 	  xmlns:cor="assembly://MSCorLib/System"
     xmlns:ps="resx://Xenon/Xenon.Resources/PosterScroller"
     xmlns:bd="resx://Xenon/Xenon.Resources/Backdrop"
@@ -322,6 +323,19 @@
             </Children>
           </Clip>-->
 
+            </Children>
+          </Panel>
+
+          <!-- Welcome to MB & Update Info Panel-->
+          <Panel Name="MBInfo" Alpha="0.7" >
+            <Layout>
+              <FlowLayout ItemAlignment="Near"/>
+            </Layout>
+            <LayoutInput>
+              <FormLayoutInput Top="Parent,0.95" Left="Parent,0,-20" />
+            </LayoutInput>
+            <Children>
+              <in:InfoMarquee Application="[Application]" />
             </Children>
           </Panel>
 

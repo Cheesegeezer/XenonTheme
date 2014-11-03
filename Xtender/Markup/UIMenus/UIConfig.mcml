@@ -72,6 +72,7 @@ xmlns:me="Me">
 
 
       <BooleanChoice Name="FolderShowBackdrop" Value="[Config.FolderShowBackdrop]" />
+      <BooleanChoice Name="FolderShowNewsScroller" Value="[Config.FolderShowNewsScroller]" />
       <BooleanChoice Name="FolderShowBackdropOverlay" Value="[Config.FolderShowBackdropOverlay]" />
       <BooleanChoice Name="FolderShowFullRAL" Value="[Config.FolderShowFullRAL]" />
       <BooleanChoice Name="FolderShowRALAlways" Value="[Config.FolderShowRALAlways]" />
@@ -478,6 +479,7 @@ xmlns:me="Me">
             -->
 
       <Binding Source="[FolderShowBackdrop.Value]" Target="[Config.FolderShowBackdrop]" />
+      <Binding Source="[FolderShowNewsScroller.Value]" Target="[Config.FolderShowNewsScroller]" />
       <Binding Source="[FolderShowBackdropOverlay.Value]" Target="[Config.FolderShowBackdropOverlay]" />
       <Binding Source="[FolderShowDetailsQuickList.Value]" Target="[Config.FolderShowDetailsQuickList]" />
       <Binding Source="[FolderShowFlatCoverflow.Value]" Target="[Config.FolderShowFlatCoverflow]" />
@@ -1070,6 +1072,7 @@ xmlns:me="Me">
                 </LayoutInput>
                 <Children>
                   <!--<me:SpinnerText Name="EHSOrientation" Model="[FolderOrientation]" Label="[Application.LocalStrings.#OrientationStr!cor:String]" DefaultString="[Config.FolderOrientation]" Visible="true" /> -->
+                  <me:CheckBox Name="ShowNewsScroller" Label="[Application.LocalStrings.#ShowNewsScrollerLabel!cor:String]" Checked="[FolderShowNewsScroller]" Visible="true" Enabled="true" />
                   <me:CheckBox Name="EHSShowBackdrop" Label="[Application.LocalStrings.#ShowEHSBackdropLabel!cor:String]" Checked="[FolderShowBackdrop]" Visible="true" Enabled="true" />
                   <me:CheckBox Name="EHSShowBackdropOverlay" Label="[Application.LocalStrings.#ShowBackdropOverlayLabel!cor:String]" Checked="[FolderShowBackdropOverlay]" Visible="true" Enabled="true" />
                   <me:SimpleSpinner Name="EHSBDAlpha" Model="[BackdropAlpha]" Label="[Application.LocalStrings.#BackdropAlphaLabel!cor:String]" Visible="true" />

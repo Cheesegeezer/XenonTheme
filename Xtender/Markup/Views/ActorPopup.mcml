@@ -21,10 +21,12 @@
       <lib:ActorItemWrapper Name="ActorItems" />
       <xh:XenonHelper Name="ThemeHelper" />
       <Size Name="PopupSize" Size="600,400"/>
+      <Command Name="BackShortcut" />
     </Properties>
 
     <Locals>
       <ClickHandler Name="Clicker" />
+      <!--<ShortcutHandler Name="BackHandler" Handle="true" Shortcut="Back" HandlerStage="Bubbled" Command="[BackShortcut]"/>-->
       <Timer Name="CollectionShowTimer" AutoRepeat="false" Interval="250" Enabled="false" />
       <Timer Name="FocusViewTimer" AutoRepeat="false" Interval="500" Enabled="false" />
       <Command Name="NavigateToActorCollection"/>
@@ -34,6 +36,12 @@
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true" />
 
+      <!--<Changed Source="[BackHandler.Invoked]" >
+        <Actions>
+          <Navigate Source="@resx://Xenon/Xenon.Resources/ActorScroller#ActorList" />
+        </Actions>
+      </Changed>-->
+      
       <Rule>
         <Conditions>
           <Equality Source="[Application.NavigatingForward]" Value="true"/>

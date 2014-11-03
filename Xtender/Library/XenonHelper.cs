@@ -19,6 +19,10 @@ using Application = MediaBrowser.Application;
 
 namespace Xenon
 {
+    using System.Collections;
+
+    using MediaBrowser.Model.News;
+
     public class XenonHelper : ModelItem
     {
 
@@ -932,12 +936,30 @@ namespace Xenon
             return GetAPIItems.GetNextUpSet();
         }
 
+        public ArrayListDataSet GetNewsItems()
+        {
+            return GetAPIItems.NewsItemsList();
+        }
+
         public ArrayListDataSet GetUpcomingTV()
         {
             return GetAPIItems.GetUpcomingItemsSet();
         }
 
         #endregion
+
+        public string PluginUpdatesString()
+        {
+            string pluginUpdateString = string.Empty;
+            if (Application.CurrentInstance.PluginUpdatesAvailable)
+            {
+                pluginUpdateString = "Restart to Update Plugins";
+            }
+            if(!Application.CurrentInstance.PluginUpdatesAvailable){
+                pluginUpdateString = "";
+            }
+            return pluginUpdateString;
+        }
 
         #region Actor Bio Page and Collection Scroller
 
