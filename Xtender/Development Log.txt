@@ -38,7 +38,7 @@ BAS RECOMMENDATIONS
 
 1.0.0.17
 --------
-++ Added option to turn off MBNews Scroller
+++ Added option to turn off MBNews Scroller 
 ++ Fixed image overlay on Details page again for missing future and remote content.
 ++ Removed the RAL scroller moving to First Item on EHS, causing wierd nav issues at the moment.
 ++ Fixed Details Thumb image not rotating backdrop when no thumb is available & added logo to the backdrop image now.

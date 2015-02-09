@@ -81,7 +81,7 @@ namespace Xenon
 
         public void CheckActiveStyle()
         {
-            Logger.ReportInfo("Xenon - Checking active style: " + StyleFilePath);
+            //Logger.ReportInfo("Xenon - Checking active style: " + StyleFilePath);
 
             // Force Xenon_Styles.mcml to be updated with active style
             string activeStyle = ThemeStyle;

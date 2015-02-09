@@ -29,3 +29,11 @@ D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\obj\Release\Xenon.pdb
 D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\bin\Release\Xenon.dll
 D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\bin\Release\Xenon.pdb
 D:\VS 2012 Projects\GitRepositries\XenonTheme\Xtender\bin\Release\MediaBrowser.Model.dll
+D:\Git Repositories\XenonTheme\Xtender\obj\Release\Xenon.csprojResolveAssemblyReference.cache
+D:\Git Repositories\XenonTheme\Xtender\obj\Release\Xenon.Resources.resources
+D:\Git Repositories\XenonTheme\Xtender\obj\Release\Xenon.csproj.GenerateResource.Cache
+D:\Git Repositories\XenonTheme\Xtender\obj\Release\Xenon.dll
+D:\Git Repositories\XenonTheme\Xtender\obj\Release\Xenon.pdb
+D:\Git Repositories\XenonTheme\Xtender\bin\Release\Xenon.dll
+D:\Git Repositories\XenonTheme\Xtender\bin\Release\Xenon.pdb
+D:\Git Repositories\XenonTheme\Xtender\bin\Release\MediaBrowser.Model.dll

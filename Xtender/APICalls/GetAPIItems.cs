@@ -121,7 +121,7 @@ namespace Xenon
             {
                 Id = personDto.Id, //string
                 Name = personDto.Name, //string
-                Born = personDto.PremiereDate.HasValue ? personDto.PremiereDate.Value.ToString("D") : null,
+                Born = personDto.PremiereDate.HasValue ? personDto.PremiereDate.Value.ToString("D").Normalize() : null,
                 Died = personDto.EndDate.HasValue ? personDto.EndDate.Value.ToString("d MMM yyyy") : null,
                 Bio = personDto.Overview, //string
                 BirthPlaceLocations = personDto.ProductionLocations, //List<string>
@@ -175,36 +175,10 @@ namespace Xenon
                 Date = nItem.Date,
                 
             };
-            Logger.ReportInfo("++++++++++++++++++++MBNews: ", newsItem.Title);
+            //Logger.ReportInfo("++++++++++++++++++++MBNews: ", newsItem.Title);
 
             
             return newsItem;
         }
-
-        
-        public static bool IsMBIntrosInstalled()
-        {
-            Logger.ReportInfo("XENON - Getting List of Plugins installed");
-            //Use the standard API Prefix
-            string apiUrl = Kernel.ApiClient.DashboardUrl.Split(new[] { "dashboard" }, StringSplitOptions.None)[0];
-            //Query Format taken from Swagger
-            string queryUrl = string.Format("{0}Plugins", apiUrl);
-            //get the Json Stream
-            using (Stream stream = Kernel.ApiClient.GetSerializedStream(queryUrl))
-            {
-                if (stream == null)
-                {
-                    Logger.ReportInfo("****** Xenon ****** Plugin Retreival Failed");
-                }
-                //Deserialize the Json stream and put in local variable
-                string MBIntros = "MBIntros.dll";
-                PluginInfo info = Kernel.ApiClient.DeserializeFromStream<PluginInfo>(stream);
-                if (info == null)
-                    Logger.ReportInfo("******* XENON ******* Plugin list installed is {0}", info);
-
-            }
-            return false;
-        }
-
     }
 }

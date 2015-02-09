@@ -67,9 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\MediaBrowser\3.0.207.0__59fc04479785fd64\MediaBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="MediaBrowser.Model, Version=3.0.5405.41992, Culture=neutral, PublicKeyToken=6cde51960597a7f9, processorArchitecture=MSIL">
+    <Reference Include="MediaBrowser.Model, Version=3.0.5491.401, Culture=neutral, PublicKeyToken=6cde51960597a7f9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MediaBrowser.Common.3.0.497\lib\net35\MediaBrowser.Model.dll</HintPath>
+      <HintPath>..\packages\MediaBrowser.Common.3.0.541\lib\net35\MediaBrowser.Model.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MediaCenter" />
     <Reference Include="Microsoft.MediaCenter.UI" />
@@ -106,7 +106,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Development Log.txt" />
     <Content Include="Images\ActorBackdrop.jpg" />
@@ -239,6 +241,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Markup\Views\LayoutDetails.mcml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Markup\Views\ExtraViews\LayoutDetailsBannerList.mcml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="Markup\Views\LayoutRoot.mcml">
@@ -382,7 +387,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Markup\Controls\Scrollers\--WaveScroller.mcml" />
-    <None Include="Markup\Controls\Backdrop.mcml" />
+    <None Include="Markup\Controls\Backdrop.mcml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Markup\Controls\LabelValue.mcml">
       <SubType>Designer</SubType>
     </None>
@@ -404,7 +411,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "C:\ProgramData\MediaBrowser-Classic\Plugins" /y
-xcopy "$(TargetPath)" "D:\Users\bryced\Dropbox\MBC DEV" /y</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

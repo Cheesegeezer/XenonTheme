@@ -104,7 +104,7 @@
 
       <Changed Source="[Application.ShowNowPlaying]" InitialEvaluate="true">
         <Conditions>
-          <Equality Source="[ThemeHelper.VideoBackdropApplicable]" Value="true" />
+          <Equality Source="[ThemeHelper.Config.EnableVideoBackdrop]" Value="true" />
           <Equality Source="[Application.ShowNowPlaying]" Value="true" />
         </Conditions>
         <Actions>

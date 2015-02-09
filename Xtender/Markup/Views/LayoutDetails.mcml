@@ -19,6 +19,7 @@
       xmlns:st="resx://Xenon/Xenon.Resources/AutoScrollableText"
       xmlns:anim="resx://Xenon/Xenon.Resources/Animations"
       xmlns:dls="resx://Xenon/Xenon.Resources/LayoutDetailsQuickList"
+	  xmlns:dbs="resx://Xenon/Xenon.Resources/LayoutDetailsBannerList"
       xmlns:jil="resx://MediaBrowser/MediaBrowser.Resources/JilSelector"
       xmlns:gl="resx://MediaBrowser/MediaBrowser.Resources/GenreList"
       xmlns:slp="resx://Xenon/Xenon.Resources/ShortlistScroller"
@@ -100,6 +101,8 @@
           <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="true" />
         </Conditions>
       </Binding>-->
+		
+		
       
       <!-- Backdrop Overlay-->
       <Binding Target="[Overlay.Visible]"   Source="[ThemeHelper.Config.FolderShowBackdropOverlay]">
@@ -479,36 +482,116 @@
       </Rule>
       <Default Target="[Title.Visible]" Value="true" />
 
-      <!-- DETAILS QUICKLIST LOGIC-->
-      <Condition Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" SourceValue="true" Target="[QuickListPanel.Visible]" Value="true" />
-      <Condition Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" SourceValue="false" Target="[QuickListPanel.Visible]" Value="false" />
-      <Condition Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" SourceValue="true" Target="[ListPanel.Visible]" Value="false" />
-      <Condition Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" SourceValue="false" Target="[ListPanel.Visible]" Value="true" />
-
+        <!-- WHICH LIST TO SHOW DEPENDANT ON OPTIONS-->
+		<Changed Source="[Folder.DisplayPrefs.UseBanner.Value]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="true" />
+		  <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ListPanel.Visible]" Value= "false"/>
+		  <Set Target="[BannerListPanel.Visible]" Value="false"/>
+		  <Set Target="[QuickListPanel.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+		
+		<Changed Source="[Folder.DisplayPrefs.UseBanner.Value]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="false" />
+		  <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="true" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ListPanel.Visible]" Value= "false"/>
+		  <Set Target="[BannerListPanel.Visible]" Value="false"/>
+		<Set Target="[QuickListPanel.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+		
+	  <Changed Source="[Folder.DisplayPrefs.UseBanner.Value]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="true" />
+		  <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ListPanel.Visible]" Value= "false"/>
+		  <Set Target="[BannerListPanel.Visible]" Value="true"/>
+		<Set Target="[QuickListPanel.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+		
+		<Changed Source="[Folder.DisplayPrefs.UseBanner.Value]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="false" />
+		<Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ListPanel.Visible]" Value= "true"/>
+		<Set Target="[BannerListPanel.Visible]" Value="false"/>
+		<Set Target="[QuickListPanel.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+		
       <Changed Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" InitialEvaluate="true" >
         <Conditions>
           <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="true" />
+		<Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="true" />
         </Conditions>
         <Actions>
           <Set Target="[ThumbnailPanel.Visible]" Value="false" />
           <Set Target="[InfoPanel.Visible]" Value="false" />
           <Set Target="[MediaInfoPanel.Visible]" Value="false" />
+		  <Set Target="[BannerListPanel.Visible]" Value="false" />
+		  <Set Target="[ListPanel.Visible]" Value="false" />
+		<Set Target="[QuickListPanel.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+		<Changed Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="true" />
+		<Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ThumbnailPanel.Visible]" Value="false" />
+          <Set Target="[InfoPanel.Visible]" Value="false" />
+          <Set Target="[MediaInfoPanel.Visible]" Value="false" />
+		  <Set Target="[BannerListPanel.Visible]" Value="false" />
+		  <Set Target="[ListPanel.Visible]" Value="false" />
+		<Set Target="[QuickListPanel.Visible]" Value="true" />
         </Actions>
       </Changed>
 
       <Changed Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" InitialEvaluate="true" >
         <Conditions>
           <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="false" />
+		  <Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="true" />
         </Conditions>
         <Actions>
           <Set Target="[ThumbnailPanel.Visible]" Value="true" />
           <Set Target="[InfoPanel.Visible]" Value="true" />
           <Set Target="[MediaInfoPanel.Visible]" Value="true" />
+		<Set Target="[BannerListPanel.Visible]" Value="true" />
+		  <Set Target="[ListPanel.Visible]" Value="false" />
+		<Set Target="[QuickListPanel.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+	  <Changed Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" ConditionOp="Equals" Value="false" />
+		<Equality Source="[Folder.DisplayPrefs.UseBanner.Value]" ConditionOp="Equals" Value="false" />
+        </Conditions>
+        <Actions>
+          <Set Target="[ThumbnailPanel.Visible]" Value="true" />
+          <Set Target="[InfoPanel.Visible]" Value="true" />
+          <Set Target="[MediaInfoPanel.Visible]" Value="true" />
+		<Set Target="[BannerListPanel.Visible]" Value="false" />
+		  <Set Target="[ListPanel.Visible]" Value="true" />
+		<Set Target="[QuickListPanel.Visible]" Value="false" />
         </Actions>
       </Changed>
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[ThumbnailPanel.Visible]" />
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[InfoPanel.Visible]" />
       <Binding Source="[ThemeHelper.Config.FolderShowDetailsQuickList]" Target="[MediaInfoPanel.Visible]" />
+	  <Binding Source="[Folder.DisplayPrefs.UseBanner.Value]" Target="[BannerListPanel.Visible]" />
 
       <Binding Source="[Folder.SelectedChild.IsMissing]" Target="[MissingIndicator.Visible]" />
       <Binding Source="[Folder.SelectedChild.IsFuture]" Target="[FutureIndicator.Visible]" />
@@ -670,6 +753,15 @@
               <me:DetailListScroller Name="ListItems" Application="[Application]" Folder="[Folder]" ThemeHelper="[ThemeHelper]" UnwatchedCountFont="font://xs:UnwatchedCountFont" />
             </Children>
           </Panel>
+			
+		  <Panel Name="BannerListPanel"> 
+            <LayoutInput>
+              <FormLayoutInput Left="Parent,0" Top="Parent,0,80" Right="Parent,1" Bottom="Parent,1" />
+            </LayoutInput>
+            <Children>
+              <dbs:DetailsBannerScroller Name="BannerItems" Application="[Application]" Folder="[Folder]" ThemeHelper="[ThemeHelper]" UnwatchedCountFont="font://xs:UnwatchedCountFont" />
+            </Children>
+          </Panel>
 
           <Panel Name="QuickListPanel">
             <LayoutInput>
@@ -713,7 +805,7 @@
                           <FormLayoutInput Top="Parent,0,200" />
                         </LayoutInput>
                         <Children>
-                          <Text Name="Title" Font="font://xs:FinalDetailsTitle" Color="color://xs:FinalDetailsTitleColor" Visible="false"/>
+                          <Text Name="Title" Font="font://xs:BottomBarTitleFont" Color="color://xs:BottomBarTitleColor" Visible="false"/>
                           <Graphic Name="LogoImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="400,60" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
                           <Graphic Name="ClearArtImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="250,0" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
                           <Graphic Name="ThumbnailImage" Margins="0,0,0,5" MaintainAspectRatio="true" MaximumSize="250,0" Visible="false" CenterPointPercent="0.5,0.5,0.5"/>
@@ -825,6 +917,8 @@
 
     <Rules>
 
+		
+		
       <!-- Set the UI to be mouse and keyboard interactive. -->
       <Default Target="[Input.KeyInteractive]" Value="true"/>
 
@@ -908,13 +1002,14 @@
                   <FlowLayout Orientation="Vertical"  Spacing="10,5" />
                 </Layout>
                 <Content>
-                  <me:ListItems Application="[Application]"
+                  <me:TextListItems Application="[Application]"
                                 ParentItem="[Folder]"
                                 Item="[RepeatedItem!lib:Item]"
                                 Index="[RepeatedItemIndex]"
                                 InfoTimer="[InfoTimer]" NavCount="[NavCount]"
                                 UnwatchedCountFont="[UnwatchedCountFont]"
                                 SelectRepeaterIndex="[SelectRepeaterIndex]" />
+								
                         
                 </Content>
                 <Animations>
@@ -936,7 +1031,7 @@
 
   
 
-  <UI Name="ListItems">
+  <UI Name="TextListItems">
     <Properties>
       <a:Application Name="Application" Application="$Required" />
       <xh:XenonHelper Name="ThemeHelper" />
